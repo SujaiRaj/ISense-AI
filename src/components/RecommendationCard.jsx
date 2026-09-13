@@ -1,13 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Layers, ChevronRight, Bookmark, ShieldCheck, FileCheck, TestTube } from 'lucide-react';
+import { ChevronRight, ChevronDown, ChevronUp, FileText, ExternalLink } from 'lucide-react';
 import ConfidenceScore from './ConfidenceScore';
-import StatusBadge from './StatusBadge';
-import ComplianceBadge from './ComplianceBadge';
-import AIExplanation from './AIExplanation';
 
 export default function RecommendationCard({ recommendation }) {
   const navigate = useNavigate();
+  const [showDetails, setShowDetails] = useState(false);
+
   const {
     id,
     isNumber,
@@ -17,110 +16,147 @@ export default function RecommendationCard({ recommendation }) {
     explanation,
     matchedFactors = [],
     category,
-    productCategory,
     certification = {},
     relatedStandards = [],
-    source = {},
-    requirements = [],
-    clauses = ["Clause 4.1 - Technical Specs", "Clause 6.2 - Safety Protocols", "Clause 8.1 - Test Methods"],
-    testMethods = ["High Voltage Test", "Thermal Endurance Test", "IP66 Ingress Test"]
+    scope,
+    source_url,
+    sourceUrl
   } = recommendation;
+
+  const bisUrl = source_url || sourceUrl;
 
   const handleViewDetails = () => {
     navigate(`/standards/${id}`);
   };
 
   return (
-    <div className="bg-white rounded-[4px] border border-[#E3E8ED] p-5 hover:border-[#28536F] transition-all shadow-2xs">
-      {/* Header Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 pb-3 border-b border-[#E3E8ED]">
-        <div>
-          <div className="flex items-center gap-2 flex-wrap mb-1.5">
-            <span className="font-mono font-bold text-sm bg-[#12304A] text-white px-2.5 py-0.5 rounded-[3px] border border-[#28536F]">
+    <div className="bg-white rounded-lg border border-[#E2E8F0] p-6 space-y-4 font-sans hover:border-[#0B1F33] transition-colors">
+      {/* Top Header Bar */}
+      <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 pb-3 border-b border-[#E2E8F0]">
+        <div className="space-y-1.5">
+          <div className="flex items-center gap-2 flex-wrap text-xs">
+            <span className="font-mono font-bold text-sm text-[#0B1F33] bg-[#F1F5F9] px-2.5 py-0.5 rounded border border-[#E2E8F0]">
               {isNumber}
             </span>
-            <StatusBadge status={status} />
-            <span className="text-[11px] font-mono font-semibold px-2 py-0.5 rounded-[3px] bg-[#F4F6F8] text-[#12304A] border border-[#E3E8ED]">
-              {category}
+            <span className="px-2 py-0.5 rounded text-[11px] font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200">
+              {status}
             </span>
+            {certification?.statusText && (
+              <span className="px-2 py-0.5 rounded text-[11px] font-semibold bg-slate-100 text-slate-700">
+                {certification.statusText}
+              </span>
+            )}
           </div>
+          
           <h3 
             onClick={handleViewDetails}
-            className="text-base font-semibold text-[#0B1F33] hover:text-[#28536F] transition-colors cursor-pointer leading-snug"
+            className="text-base sm:text-lg font-bold text-[#0B1F33] hover:text-[#1E3A8A] transition-colors cursor-pointer leading-snug"
           >
             {title}
           </h3>
         </div>
 
-        {/* Relevance Score Indicator */}
-        <div className="shrink-0">
+        {/* Subtle Relevance Score */}
+        <div className="shrink-0 self-start sm:self-auto">
           <ConfidenceScore score={relevanceScore} />
         </div>
       </div>
 
-      {/* Rationale & Technical Match Analysis */}
-      <AIExplanation 
-        explanation={explanation} 
-        matchedFactors={matchedFactors} 
-      />
+      {/* Matching Reasoning & Explanation */}
+      <div className="bg-[#F8FAFC] p-4 rounded border border-[#E2E8F0] space-y-2 text-xs">
+        <span className="font-bold text-[#0B1F33] uppercase tracking-wider block text-[11px]">
+          Matching Rationale:
+        </span>
+        <p className="text-[#334155] leading-relaxed">
+          {explanation || scope || "Applies directly to the specified product category and technical scope governed by BIS specifications."}
+        </p>
 
-      {/* Evidence Breakdown Grid: Requirements, Clauses, Test Methods, Allied Standards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mt-3 pt-3 border-t border-[#E3E8ED] text-xs font-mono">
-        <div className="bg-[#F4F6F8] p-2.5 rounded-[3px] border border-[#E3E8ED]">
-          <div className="text-[10px] font-bold uppercase tracking-wider text-[#61707D] mb-1 flex items-center gap-1">
-            <FileCheck className="w-3 h-3 text-[#28536F]" />
-            Applicable Clauses & Scope
-          </div>
-          <ul className="space-y-1 text-[11px] text-[#17212B]">
-            {clauses.map((c, i) => (
-              <li key={i} className="truncate">• {c}</li>
+        {matchedFactors.length > 0 && (
+          <div className="pt-2 border-t border-[#E2E8F0] flex flex-wrap gap-2 text-[11px] text-[#475569]">
+            {matchedFactors.map((factor, idx) => (
+              <span key={idx} className="bg-white px-2 py-0.5 rounded border border-[#E2E8F0]">
+                • {factor}
+              </span>
             ))}
-          </ul>
-        </div>
-
-        <div className="bg-[#F4F6F8] p-2.5 rounded-[3px] border border-[#E3E8ED]">
-          <div className="text-[10px] font-bold uppercase tracking-wider text-[#61707D] mb-1 flex items-center gap-1">
-            <TestTube className="w-3 h-3 text-[#2F6F73]" />
-            Mandatory Test Methods
           </div>
-          <ul className="space-y-1 text-[11px] text-[#17212B]">
-            {testMethods.map((t, i) => (
-              <li key={i} className="truncate">• {t}</li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="bg-[#F4F6F8] p-2.5 rounded-[3px] border border-[#E3E8ED]">
-          <div className="text-[10px] font-bold uppercase tracking-wider text-[#61707D] mb-1 flex items-center gap-1">
-            <ShieldCheck className="w-3 h-3 text-teal-700" />
-            Compliance & Gazette Order
-          </div>
-          <div className="mt-1 space-y-1">
-            <ComplianceBadge 
-              type={certification.isMandatory ? "REQUIRED" : "RECOMMENDED"} 
-              label={certification.statusText || "BIS Certification Mandatory"} 
-            />
-            {relatedStandards.length > 0 && (
-              <div className="text-[10px] text-[#61707D] pt-1">
-                {relatedStandards.length} Allied Normative References
-              </div>
-            )}
-          </div>
-        </div>
+        )}
       </div>
 
-      {/* Footer Actions & Metadata */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mt-4 pt-3 border-t border-[#E3E8ED] text-xs">
-        <div className="text-[11px] text-[#61707D] font-mono">
-          Source Repository: <strong className="text-[#0B1F33]">{source.portal || "BIS Technical Standards Index"}</strong>
+      {/* Expandable Technical Details Button */}
+      <div className="pt-1">
+        <button
+          onClick={() => setShowDetails(!showDetails)}
+          className="text-xs font-semibold text-[#0B1F33] hover:underline inline-flex items-center gap-1 focus:outline-none"
+        >
+          {showDetails ? (
+            <>
+              <ChevronUp className="w-3.5 h-3.5" />
+              <span>Hide Scope Details</span>
+            </>
+          ) : (
+            <>
+              <ChevronDown className="w-3.5 h-3.5" />
+              <span>View Technical Scope & Allied Standards</span>
+            </>
+          )}
+        </button>
+      </div>
+
+      {/* Expandable Technical Scope */}
+      {showDetails && (
+        <div className="p-4 bg-[#F8FAFC] rounded border border-[#E2E8F0] space-y-3 text-xs">
+          <div className="space-y-1">
+            <span className="font-bold text-[#0B1F33] block">Scope & Benchmark Standards:</span>
+            <p className="text-[#475569] leading-relaxed">{scope || "Technical requirements governed under BIS Compulsory Registration Framework."}</p>
+          </div>
+
+          {relatedStandards.length > 0 && (
+            <div className="pt-2 border-t border-[#E2E8F0] space-y-1">
+              <span className="font-bold text-[#0B1F33] block">Referred Indian Standards:</span>
+              <ul className="space-y-1 text-[#475569]">
+                {relatedStandards.map((rel, idx) => (
+                  <li key={idx}>
+                    • <strong>{rel.is_number || rel.isNumber}</strong>: {rel.title || rel.relationship}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Footer Actions */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-3 border-t border-[#E2E8F0] text-xs">
+        <div className="flex items-center gap-3">
+          <span className="text-[#64748B]">
+            Category: <strong className="text-[#0B1F33]">{category || 'Lighting / Engineering'}</strong>
+          </span>
+          {bisUrl && (
+            <a
+              href={bisUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-blue-700 hover:text-blue-900 underline inline-flex items-center gap-1"
+            >
+              <span>Official BIS Source</span>
+              <ExternalLink className="w-3 h-3" />
+            </a>
+          )}
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 self-end sm:self-auto">
+          <button
+            onClick={() => navigate(`/compliance?id=${id || ''}&is=${encodeURIComponent(isNumber || '')}`)}
+            className="px-3 py-1.5 bg-[#F1F5F9] hover:bg-[#E2E8F0] text-[#0B1F33] rounded text-xs font-semibold border border-[#E2E8F0] transition-colors"
+          >
+            Check Compliance
+          </button>
+
           <button
             onClick={handleViewDetails}
-            className="inst-btn-primary py-1 px-3 text-xs"
+            className="px-3 py-1.5 bg-[#0B1F33] hover:bg-[#1E3A8A] text-white rounded text-xs font-semibold transition-colors inline-flex items-center gap-1"
           >
-            <span>View Full Technical Sheet</span>
+            <span>View Details</span>
             <ChevronRight className="w-3.5 h-3.5" />
           </button>
         </div>

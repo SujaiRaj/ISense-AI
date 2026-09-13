@@ -1,99 +1,78 @@
 import React from 'react';
-import { Search, X, ArrowRight, FileText } from 'lucide-react';
-import { DEMO_QUERIES } from '../data/mockRecommendations';
 
 export default function SearchInput({ 
   value = "", 
   onChange, 
   onSearch, 
   onSelectPreset,
-  loading = false 
+  loading = false,
+  placeholder = "Describe your product, service or procurement requirement details..."
 }) {
-  const charCount = value.length;
   const maxChars = 800;
 
-  const handleClear = () => {
-    onChange("");
-  };
+  const sampleQueries = [
+    { label: "street light", query: "street light" },
+    { label: "helmet", query: "helmet" },
+    { label: "cement", query: "cement" },
+    { label: "electrical cable", query: "electrical cable" }
+  ];
 
   return (
-    <div className="bg-white rounded-[4px] border border-[#E3E8ED] p-5 space-y-4 shadow-2xs">
-      {/* Sample Specification Buttons */}
-      <div className="border-b border-[#E3E8ED] pb-3">
-        <div className="text-xs font-mono font-bold text-[#0B1F33] mb-2 uppercase tracking-wider">
-          Pre-defined Procurement Specification Profiles:
-        </div>
-        <div className="flex flex-wrap gap-2">
-          {DEMO_QUERIES.map((item) => (
-            <button
-              key={item.id}
-              type="button"
-              onClick={() => onSelectPreset(item.query)}
-              className="px-3 py-1 rounded-[3px] text-xs font-mono bg-[#F4F6F8] hover:bg-[#E3E8ED] text-[#12304A] border border-[#E3E8ED] transition-colors flex items-center gap-1.5"
-            >
-              <FileText className="w-3 h-3 text-[#28536F]" />
-              <span>{item.label}</span>
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Main Textarea Container */}
-      <div className="space-y-2.5">
-        <label className="block text-xs font-mono font-bold text-[#0B1F33] uppercase tracking-wider">
-          Product Technical Specification Input:
+    <div className="space-y-4 font-sans">
+      <div className="space-y-2">
+        <label className="block text-xs font-semibold text-[#0F172A]">
+          Procurement Specification / Requirement Details
         </label>
+        
         <textarea
           rows={5}
           maxLength={maxChars}
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          placeholder="Enter product description, technical parameters, or procurement clause (e.g. 90W outdoor LED street light for municipal roads with IP66 protection, 120 lm/W efficiency, surge protection)..."
-          className="w-full p-3.5 text-xs sm:text-sm text-[#17212B] placeholder-[#61707D] bg-[#F4F6F8] rounded-[3px] border border-[#E3E8ED] focus:border-[#12304A] focus:bg-white focus:ring-1 focus:ring-[#12304A] outline-none transition-all resize-y font-mono"
+          placeholder={placeholder}
+          className="w-full p-4 text-sm text-[#0F172A] placeholder-[#94A3B8] bg-white rounded border border-[#E2E8F0] focus:border-[#0F172A] outline-none transition-all resize-y leading-relaxed"
         />
 
         {/* Action Bar */}
-        <div className="flex items-center justify-between pt-1">
-          <div className="flex items-center gap-3">
-            <span className={`text-xs font-mono ${charCount > 700 ? 'text-amber-600 font-bold' : 'text-[#61707D]'}`}>
-              {charCount} / {maxChars} Characters
-            </span>
-            {value && (
-              <button
-                type="button"
-                onClick={handleClear}
-                className="inline-flex items-center gap-1 text-xs text-[#61707D] hover:text-[#0B1F33] font-mono font-semibold transition-colors"
-              >
-                <X className="w-3.5 h-3.5" />
-                Clear Text
-              </button>
-            )}
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 pt-1">
+          <div className="text-xs text-[#64748B]">
+            {value.length} / {maxChars} characters
           </div>
 
+          {/* Clean loading state button - normal text hidden completely while loading */}
           <button
             type="button"
             disabled={!value.trim() || loading}
             onClick={() => onSearch(value)}
-            className="inst-btn-primary py-2 px-5 font-mono text-xs disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-52 h-10 bg-[#0F172A] hover:bg-[#1E3A8A] text-white rounded font-semibold text-xs transition-colors disabled:opacity-50 disabled:cursor-not-allowed shrink-0 flex items-center justify-center"
           >
             {loading ? (
-              <>
-                <div className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                <span>Running Standards Analysis...</span>
-              </>
+              <span className="inline-flex items-center gap-2">
+                <span className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                <span>Analysing requirement...</span>
+              </span>
             ) : (
-              <>
-                <Search className="w-3.5 h-3.5" />
-                <span>Analyze Specification</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </>
+              <span>Start Analysis</span>
             )}
           </button>
         </div>
       </div>
 
-      <div className="text-[11px] text-[#61707D] font-mono pt-2 border-t border-[#E3E8ED]">
-        Note: Analysis cross-references active Bureau of Indian Standards (BIS) technical codes and Quality Control Orders (QCO).
+      {/* Example Queries as Clean Text Links (no pill boxes) */}
+      <div className="pt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs">
+        <span className="text-[#64748B]">Example queries:</span>
+        {sampleQueries.map((item, idx) => (
+          <React.Fragment key={idx}>
+            <button
+              type="button"
+              onClick={() => onSelectPreset ? onSelectPreset(item.query) : onSearch(item.query)}
+              className="text-[#0F172A] hover:text-[#1D4ED8] hover:underline font-medium transition-colors"
+            >
+              {item.label}
+            </button>
+            {idx < sampleQueries.length - 1 && <span className="text-[#CBD5E1]">•</span>}
+          </React.Fragment>
+        ))}
       </div>
     </div>
   );

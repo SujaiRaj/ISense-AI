@@ -1,148 +1,252 @@
 import React, { useState, useEffect } from 'react';
-import { AlertTriangle, Search, CheckCircle2, ShieldCheck, FileCheck } from 'lucide-react';
-import StatusBadge from '../components/StatusBadge';
-import ComplianceBadge from '../components/ComplianceBadge';
-import { checkProductCompliance } from '../services/complianceService';
+import { useSearchParams } from 'react-router-dom';
+import { Search } from 'lucide-react';
+import { getStandardsList } from '../services/standardsService';
 
 export default function CompliancePage() {
-  const [selectedProduct, setSelectedProduct] = useState("LED Street Light");
-  const [complianceData, setComplianceData] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [searchParams] = useSearchParams();
+  const queryStdId = searchParams.get('id');
+  const queryIsNum = searchParams.get('is') || searchParams.get('search');
 
-  const productOptions = [
-    "LED Street Light",
-    "Safety Helmet",
-    "Portland Cement",
-    "PVC Cable",
-    "Safety Shoes"
-  ];
+  const [standards, setStandards] = useState([]);
+  const [selectedStandardId, setSelectedStandardId] = useState('');
+  const [selectedStandard, setSelectedStandard] = useState(null);
+  const [filterText, setFilterText] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [checking, setChecking] = useState(false);
 
   useEffect(() => {
-    async function loadData() {
+    async function loadStandardsData() {
       setLoading(true);
       try {
-        const res = await checkProductCompliance(selectedProduct);
-        if (res && res.success) {
-          setComplianceData(res);
+        const res = await getStandardsList();
+        if (res && res.data) {
+          setStandards(res.data);
+          
+          let target = null;
+          if (queryStdId) {
+            target = res.data.find(s => s.id?.toLowerCase() === queryStdId.toLowerCase());
+          }
+          if (!target && queryIsNum) {
+            const cleanQuery = queryIsNum.toLowerCase().replace(/[^a-z0-9]/g, '');
+            target = res.data.find(s => {
+              const cleanIs = (s.is_number || s.isNumber || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+              return cleanIs.includes(cleanQuery) || cleanQuery.includes(cleanIs);
+            });
+          }
+
+          if (target) {
+            setSelectedStandardId(target.id);
+            setSelectedStandard(target);
+          } else if (res.data.length > 0) {
+            setSelectedStandardId(res.data[0].id);
+            setSelectedStandard(res.data[0]);
+          }
         }
       } catch (err) {
-        console.error(err);
+        console.error("Failed to load standards for compliance check:", err);
       } finally {
         setLoading(false);
       }
     }
-    loadData();
-  }, [selectedProduct]);
+    loadStandardsData();
+  }, [queryStdId, queryIsNum]);
+
+  const handleCheckCompliance = (stdId) => {
+    const targetId = stdId || selectedStandardId;
+    setChecking(true);
+    setTimeout(() => {
+      const std = standards.find(s => s.id === targetId);
+      if (std) {
+        setSelectedStandardId(std.id);
+        setSelectedStandard(std);
+      }
+      setChecking(false);
+    }, 300);
+  };
+
+  const filteredOptions = standards.filter(s => {
+    if (!filterText.trim()) return true;
+    const q = filterText.toLowerCase();
+    const isNum = (s.is_number || s.isNumber || '').toLowerCase();
+    const title = (s.title || '').toLowerCase();
+    const product = (s.product || s.productCategory || '').toLowerCase();
+    return isNum.includes(q) || title.includes(q) || product.includes(q);
+  });
+
+  const certText = typeof selectedStandard?.certification === 'string'
+    ? selectedStandard.certification
+    : selectedStandard?.certificationRaw || selectedStandard?.certification?.statusText || '';
+  
+  const isMandatory = certText.toLowerCase().includes('compulsory') || 
+                      certText.toLowerCase().includes('mandatory') || 
+                      certText.toLowerCase().includes('qco') || 
+                      certText.toLowerCase().includes('scheme-i') ||
+                      certText.toLowerCase().includes('quality control');
+
+  const isNotVerified = !certText || certText.toLowerCase().includes('not specified') || certText.toLowerCase().includes('none');
 
   return (
-    <div className="space-y-5 max-w-5xl mx-auto font-sans">
+    <div className="space-y-8 font-sans text-[#0F172A]">
       {/* Header */}
-      <div className="bg-white rounded-[4px] p-5 border border-[#E3E8ED] shadow-2xs">
-        <div className="flex items-center gap-2 text-xs font-mono text-[#28536F] font-bold uppercase tracking-wider mb-1">
-          <ShieldCheck className="w-4 h-4 text-teal-700" />
-          <span>Quality Control Orders (QCO) Gazette Registry</span>
-        </div>
-        <h2 className="text-lg font-bold text-[#0B1F33] leading-tight mb-1">
-          Quality Control Orders & Mandatory Certification Tracker
-        </h2>
-        <p className="text-xs text-[#61707D]">
-          Verify Quality Control Orders (QCOs), mandatory certification schemes, and active BIS amendments for public procurement compliance.
+      <div className="border-b border-[#E2E8F0] pb-4 space-y-1">
+        <h1 className="text-2xl font-bold text-[#0F172A]">
+          Mandatory Compliance Check
+        </h1>
+        <p className="text-xs text-[#64748B]">
+          Check applicable QCOs and mandatory BIS certification requirements for recommended standards.
         </p>
       </div>
 
-      {/* Information Strip */}
-      <div className="bg-[#F4F6F8] text-[#0B1F33] px-4 py-2.5 rounded-[4px] border border-[#E3E8ED] text-xs font-mono flex items-center gap-2">
-        <AlertTriangle className="w-4 h-4 text-amber-700 shrink-0" />
-        <span>Gazette Notification Rule: All products covered under mandatory QCOs must carry the Standard Mark (ISI Mark) under a valid BIS license.</span>
-      </div>
+      {/* Select Standard Controls */}
+      <div className="space-y-4">
+        <div className="grid grid-cols-1 sm:grid-cols-12 gap-3 text-xs">
+          <div className="sm:col-span-4 relative">
+            <Search className="w-3.5 h-3.5 text-[#94A3B8] absolute left-3 top-1/2 -translate-y-1/2" />
+            <input
+              type="text"
+              placeholder="Filter standard by IS number or product..."
+              value={filterText}
+              onChange={(e) => setFilterText(e.target.value)}
+              className="w-full pl-8 pr-3 py-2 bg-white border border-[#E2E8F0] rounded focus:border-[#0F172A] outline-none text-[#0F172A]"
+            />
+          </div>
 
-      {/* Category Filter Bar */}
-      <div className="bg-white p-4 rounded-[4px] border border-[#E3E8ED] flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs font-mono shadow-2xs">
-        <div className="flex items-center gap-2 font-bold text-[#0B1F33]">
-          <Search className="w-3.5 h-3.5 text-[#28536F]" />
-          <span>PRODUCT CATEGORY REGISTRY:</span>
-        </div>
-
-        <div className="flex flex-wrap gap-1.5">
-          {productOptions.map((prod) => (
-            <button
-              key={prod}
-              onClick={() => setSelectedProduct(prod)}
-              className={`px-3 py-1 rounded-[3px] text-xs font-bold transition-colors ${
-                selectedProduct === prod
-                  ? 'bg-[#12304A] text-white'
-                  : 'bg-[#F4F6F8] text-[#12304A] hover:bg-[#E3E8ED] border border-[#E3E8ED]'
-              }`}
+          <div className="sm:col-span-5">
+            <select
+              value={selectedStandardId}
+              onChange={(e) => {
+                setSelectedStandardId(e.target.value);
+                handleCheckCompliance(e.target.value);
+              }}
+              className="w-full py-2 px-3 bg-white border border-[#E2E8F0] rounded focus:border-[#0F172A] outline-none text-[#0F172A] font-mono"
             >
-              {prod}
+              {filteredOptions.map(std => (
+                <option key={std.id} value={std.id}>
+                  {std.is_number || std.isNumber} — {std.product || std.productCategory}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="sm:col-span-3">
+            <button
+              onClick={() => handleCheckCompliance()}
+              disabled={checking}
+              className="w-full h-9 bg-[#0F172A] hover:bg-[#1E3A8A] text-white rounded text-xs font-semibold transition-colors flex items-center justify-center disabled:opacity-50"
+            >
+              {checking ? (
+                <span className="inline-flex items-center gap-2">
+                  <span className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  <span>Checking...</span>
+                </span>
+              ) : (
+                <span>Check Compliance</span>
+              )}
             </button>
-          ))}
+          </div>
         </div>
       </div>
 
-      {/* Compliance Data Table */}
+      {/* Compliance Results */}
       {loading ? (
-        <div className="flex items-center justify-center min-h-[200px] bg-white rounded-[4px] border border-[#E3E8ED]">
-          <div className="flex items-center gap-2 text-xs font-mono text-[#61707D] font-semibold">
-            <div className="w-4 h-4 border-2 border-[#12304A] border-t-transparent rounded-full animate-spin" />
-            <span>Loading QCO Gazette Compliance Records...</span>
-          </div>
+        <div className="py-12 text-center text-xs text-[#64748B]">
+          Loading compliance data...
         </div>
-      ) : complianceData && (
-        <div className="bg-white rounded-[4px] border border-[#E3E8ED] overflow-hidden shadow-2xs">
-          <div className="p-4 border-b border-[#E3E8ED] flex items-center justify-between font-mono bg-[#F4F6F8]">
-            <h3 className="text-xs font-bold text-[#0B1F33] uppercase tracking-wider">
-              Enforced Gazette Standards for "{selectedProduct}"
-            </h3>
-            <span className="text-[10px] font-bold px-2 py-0.5 rounded-[3px] bg-emerald-50 text-emerald-950 border border-emerald-300">
-              {complianceData.standardsFoundCount} Active QCO Mandates
-            </span>
-          </div>
-
-          <div className="divide-y divide-[#E3E8ED]">
-            {complianceData.standards.map((item) => (
-              <div key={item.id} className="p-4 space-y-3 hover:bg-[#F4F6F8]/50 transition-colors">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <span className="font-mono font-bold text-xs text-white bg-[#12304A] px-2.5 py-0.5 rounded-[3px] border border-[#28536F]">
-                      {item.isNumber}
-                    </span>
-                    <StatusBadge status={item.statusBadge} />
-                    <ComplianceBadge type={item.certificationBadge} />
-                  </div>
-
-                  <div className="text-[11px] font-mono text-[#61707D]">
-                    Gazette Amendments: <strong className="text-[#0B1F33] font-bold">{item.amendmentsCount} Active</strong>
-                  </div>
-                </div>
-
-                <div>
-                  <h4 className="font-bold text-[#0B1F33] text-sm font-mono">
-                    {item.title}
-                  </h4>
-                  <p className="text-xs font-mono text-[#61707D] mt-0.5">
-                    Governing QCO Gazette: <strong className="text-[#0B1F33] font-bold">{item.qcoName}</strong> ({item.certificationScheme})
-                  </p>
-                </div>
-
-                <div className="bg-[#F4F6F8] p-3 rounded-[3px] border border-[#E3E8ED] space-y-1.5">
-                  <div className="text-[10px] font-mono font-bold text-[#61707D] uppercase">
-                    Mandatory Quality & Testing Specifications:
-                  </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-mono">
-                    {item.requirementsSummary.map((req, idx) => (
-                      <div key={idx} className="flex items-center gap-1.5 text-[#17212B] bg-white p-2 rounded-[3px] border border-[#E3E8ED] text-[11px]">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-700 shrink-0" />
-                        <span className="truncate">{req}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+      ) : selectedStandard ? (
+        <div className="space-y-6 pt-2">
+          
+          <div className="border border-[#E2E8F0] bg-white rounded p-6 space-y-6 text-xs">
+            
+            {/* Overview */}
+            <div className="border-b border-[#E2E8F0] pb-4 space-y-2">
+              <div className="flex items-center gap-3">
+                <span className="font-mono font-bold text-sm text-[#0F172A]">
+                  {selectedStandard.is_number || selectedStandard.isNumber}
+                </span>
+                <span className="text-xs text-[#64748B]">
+                  Status: <strong>{selectedStandard.status || "Current"}</strong>
+                </span>
               </div>
-            ))}
+
+              <h2 className="text-base font-bold text-[#0F172A]">
+                {selectedStandard.title}
+              </h2>
+              <p className="text-[#64748B]">
+                Product: <strong className="text-[#0F172A]">{selectedStandard.product || selectedStandard.productCategory}</strong>
+              </p>
+            </div>
+
+            {/* Compliance Status Details */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 leading-relaxed">
+              <div className="space-y-1">
+                <span className="font-bold text-[#0F172A] block uppercase tracking-wider text-[11px]">
+                  Compliance Status
+                </span>
+                <p className="text-[#334155]">
+                  {isNotVerified 
+                    ? "Not verified in the current MVP dataset" 
+                    : isMandatory 
+                    ? "Mandatory Certification Required (Quality Control Order Enforced)" 
+                    : "Certified under Bureau of Indian Standards Scheme"}
+                </p>
+              </div>
+
+              <div className="space-y-1">
+                <span className="font-bold text-[#0F172A] block uppercase tracking-wider text-[11px]">
+                  Certification & QCO Framework
+                </span>
+                <p className="text-[#334155]">
+                  {!isNotVerified ? certText : "Compliance details not specified in current dataset."}
+                </p>
+              </div>
+
+              <div className="space-y-1">
+                <span className="font-bold text-[#0F172A] block uppercase tracking-wider text-[11px]">
+                  Government Order / Source
+                </span>
+                <p className="text-[#334155]">
+                  {selectedStandard.source_notes || selectedStandard.source || "Bureau of Indian Standards"}
+                </p>
+              </div>
+
+              <div className="space-y-1">
+                <span className="font-bold text-[#0F172A] block uppercase tracking-wider text-[11px]">
+                  Effective Edition / Version
+                </span>
+                <p className="text-[#334155]">
+                  {selectedStandard.latest_version || selectedStandard.publicationYear || "2024"} Edition
+                </p>
+              </div>
+            </div>
+
+            {/* Action URL */}
+            {selectedStandard.source_url && (
+              <div className="pt-4 border-t border-[#E2E8F0] flex justify-end">
+                <a
+                  href={selectedStandard.source_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-4 py-2 bg-[#0F172A] hover:bg-[#1E3A8A] text-white font-semibold rounded text-xs transition-colors inline-flex items-center gap-1.5"
+                >
+                  <span>View Official Source</span>
+                  <span>↗</span>
+                </a>
+              </div>
+            )}
           </div>
+
+          {/* Empty / Not Verified Footnote Notice */}
+          {isNotVerified && (
+            <div className="p-4 bg-[#F8FAFC] rounded border border-[#E2E8F0] text-xs text-[#64748B] space-y-1">
+              <p className="font-semibold text-[#0F172A]">Notice:</p>
+              <p>Compliance information is not available for this standard in the current MVP knowledge base.</p>
+              <p className="italic">Future versions will expand coverage across additional standards and government orders.</p>
+            </div>
+          )}
+
         </div>
-      )}
+      ) : null}
     </div>
   );
 }

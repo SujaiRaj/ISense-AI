@@ -1,163 +1,154 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Search, Filter, ChevronRight, BookOpen, Database } from 'lucide-react';
+import { useNavigate, useSearchParams, Link } from 'react-router-dom';
+import { Search } from 'lucide-react';
 import StatusBadge from '../components/StatusBadge';
-import ComplianceBadge from '../components/ComplianceBadge';
 import { getStandardsList } from '../services/standardsService';
 
 export default function StandardsLibraryPage() {
+  const [searchParams] = useSearchParams();
+  const initialSearch = searchParams.get('search') || '';
+
+  const [search, setSearch] = useState(initialSearch);
+  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [selectedStatus, setSelectedStatus] = useState('All');
   const [standards, setStandards] = useState([]);
-  const [search, setSearch] = useState("");
-  const [category, setCategory] = useState("All");
-  const [status, setStatus] = useState("All");
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  const categories = ["All", "Electrical", "Construction", "Safety", "Electronics", "Mechanical"];
-  const statuses = ["All", "CURRENT", "SUPERSEDED"];
+  const categories = [
+    'All',
+    'Lighting',
+    'Safety/PPE',
+    'Cement/Construction',
+    'Electrical Cables'
+  ];
 
   useEffect(() => {
     async function loadData() {
       setLoading(true);
       try {
-        const res = await getStandardsList({ search, category, status });
+        const res = await getStandardsList({
+          search,
+          category: selectedCategory,
+          status: selectedStatus
+        });
         if (res && res.data) {
           setStandards(res.data);
         }
       } catch (err) {
-        console.error(err);
+        console.error("Failed to load standards catalogue:", err);
       } finally {
         setLoading(false);
       }
     }
     loadData();
-  }, [search, category, status]);
+  }, [search, selectedCategory, selectedStatus]);
 
   return (
-    <div className="space-y-5 max-w-6xl mx-auto">
-      {/* Header */}
-      <div className="bg-white rounded-[4px] p-5 border border-[#E3E8ED] shadow-2xs">
-        <div className="flex items-center gap-2 text-xs font-mono text-[#28536F] font-bold uppercase tracking-wider mb-1">
-          <BookOpen className="w-4 h-4 text-[#12304A]" />
-          <span>Bureau of Indian Standards Catalogue Index</span>
-        </div>
-        <h2 className="text-lg font-bold text-[#0B1F33] leading-tight mb-1">
-          Technical Standards Library Repository
-        </h2>
-        <p className="text-xs text-[#61707D]">
-          Browse, filter, and inspect Bureau of Indian Standards indexed for procurement specification matching and mandatory compliance.
+    <div className="space-y-8 font-sans text-[#0F172A]">
+      {/* Page Header */}
+      <div className="border-b border-[#E2E8F0] pb-4 space-y-1">
+        <h1 className="text-2xl font-bold text-[#0F172A]">
+          Indian Standards Catalogue
+        </h1>
+        <p className="text-xs text-[#64748B]">
+          Search and browse official Bureau of Indian Standards (BIS) specifications.
         </p>
       </div>
 
-      {/* Filter and Search Controls Bar */}
-      <div className="bg-white p-4 rounded-[4px] border border-[#E3E8ED] flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-2xs">
-        {/* Search input */}
-        <div className="relative flex-1">
-          <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+      {/* Search & Filter Controls */}
+      <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 text-xs">
+        <div className="sm:col-span-6 relative">
+          <Search className="w-3.5 h-3.5 text-[#94A3B8] absolute left-3 top-1/2 -translate-y-1/2" />
           <input
             type="text"
+            placeholder="Search IS number, title or product keyword..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search IS number, title, or product keyword (e.g. IS 10322)..."
-            className="w-full pl-8 pr-3 py-1.5 text-xs text-[#17212B] bg-[#F4F6F8] rounded-[3px] border border-[#E3E8ED] focus:bg-white focus:border-[#12304A] focus:ring-1 focus:ring-[#12304A] outline-none font-mono"
+            className="w-full pl-8 pr-3 py-2 bg-white border border-[#E2E8F0] rounded focus:border-[#0F172A] outline-none text-[#0F172A]"
           />
         </div>
 
-        {/* Dropdown Filters */}
-        <div className="flex flex-wrap items-center gap-3 font-mono text-xs">
-          <div className="flex items-center gap-1.5 text-[#61707D] font-semibold">
-            <Filter className="w-3.5 h-3.5 text-[#28536F]" />
-            <span>CATEGORY:</span>
-            <select
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-              className="bg-[#F4F6F8] border border-[#E3E8ED] rounded-[3px] px-2 py-1 text-xs font-bold text-[#0B1F33] outline-none"
-            >
-              {categories.map((c) => (
-                <option key={c} value={c}>{c}</option>
-              ))}
-            </select>
-          </div>
+        <div className="sm:col-span-3">
+          <select
+            value={selectedCategory}
+            onChange={(e) => setSelectedCategory(e.target.value)}
+            className="w-full py-2 px-3 bg-white border border-[#E2E8F0] rounded focus:border-[#0F172A] outline-none text-[#0F172A]"
+          >
+            <option value="All">All Categories</option>
+            {categories.filter(c => c !== 'All').map(cat => (
+              <option key={cat} value={cat}>{cat}</option>
+            ))}
+          </select>
+        </div>
 
-          <div className="flex items-center gap-1.5 text-[#61707D] font-semibold">
-            <span>STATUS:</span>
-            <select
-              value={status}
-              onChange={(e) => setStatus(e.target.value)}
-              className="bg-[#F4F6F8] border border-[#E3E8ED] rounded-[3px] px-2 py-1 text-xs font-bold text-[#0B1F33] outline-none"
-            >
-              {statuses.map((s) => (
-                <option key={s} value={s}>{s}</option>
-              ))}
-            </select>
-          </div>
+        <div className="sm:col-span-3">
+          <select
+            value={selectedStatus}
+            onChange={(e) => setSelectedStatus(e.target.value)}
+            className="w-full py-2 px-3 bg-white border border-[#E2E8F0] rounded focus:border-[#0F172A] outline-none text-[#0F172A]"
+          >
+            <option value="All">All Statuses</option>
+            <option value="Current">Current / Active</option>
+            <option value="Superseded">Superseded</option>
+          </select>
         </div>
       </div>
 
-      {/* Standards Table Catalog */}
-      <div className="bg-white rounded-[4px] border border-[#E3E8ED] overflow-hidden shadow-2xs">
+      {/* Clean Full-Width Data Table (no text truncation!) */}
+      <div className="border border-[#E2E8F0] rounded bg-white overflow-hidden text-xs">
         {loading ? (
-          <div className="p-8 text-center text-xs font-mono font-bold text-[#61707D]">
-            Loading Standards Catalogue Repository...
+          <div className="p-10 text-center text-[#64748B]">
+            Loading standards catalogue...
           </div>
         ) : (
           <div className="overflow-x-auto">
-            <table className="inst-table">
+            <table className="w-full text-left border-collapse">
               <thead>
-                <tr>
-                  <th>IS Code Number</th>
-                  <th>Standard Title</th>
-                  <th>Domain Category</th>
-                  <th>Edition Year</th>
-                  <th>Status</th>
-                  <th>Certification</th>
-                  <th className="text-right">Action</th>
+                <tr className="bg-[#F8FAFC] border-b border-[#E2E8F0] text-[#64748B] font-semibold uppercase tracking-wider">
+                  <th className="py-3 px-4 w-[22%]">IS Number</th>
+                  <th className="py-3 px-4 w-[42%]">Standard Title</th>
+                  <th className="py-3 px-4 w-[16%]">Category</th>
+                  <th className="py-3 px-4 w-[10%]">Year</th>
+                  <th className="py-3 px-4 w-[10%] text-right">Action</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody className="divide-y divide-[#E2E8F0]">
                 {standards.map((std) => (
-                  <tr key={std.id}>
-                    <td className="font-mono font-bold text-[#0B1F33] whitespace-nowrap">
-                      {std.isNumber}
+                  <tr key={std.id} className="hover:bg-[#F8FAFC] transition-colors">
+                    <td className="py-3.5 px-4 font-mono font-bold text-[#0F172A] align-top whitespace-normal break-words">
+                      {std.is_number || std.isNumber}
                     </td>
-                    <td className="font-semibold text-[#17212B] max-w-[280px]">
+                    <td className="py-3.5 px-4 font-medium text-[#0F172A] align-top leading-normal whitespace-normal break-words">
                       {std.title}
                     </td>
-                    <td className="whitespace-nowrap font-mono text-xs text-[#61707D]">
+                    <td className="py-3.5 px-4 text-[#475569] align-top whitespace-normal">
                       {std.category}
                     </td>
-                    <td className="whitespace-nowrap font-mono text-xs text-[#0B1F33]">
-                      {std.publicationYear}
+                    <td className="py-3.5 px-4 text-[#475569] align-top whitespace-nowrap">
+                      {std.latest_version || std.publicationYear || '2024'}
                     </td>
-                    <td className="whitespace-nowrap">
-                      <StatusBadge status={std.status} />
-                    </td>
-                    <td className="whitespace-nowrap">
-                      <ComplianceBadge 
-                        type={std.certification?.isMandatory ? "REQUIRED" : "RECOMMENDED"} 
-                        label={std.certification?.isMandatory ? "Mandatory QCO" : "Applicable"}
-                      />
-                    </td>
-                    <td className="text-right whitespace-nowrap">
-                      <button
-                        onClick={() => navigate(`/standards/${std.id}`)}
-                        className="inline-flex items-center gap-1 text-xs font-mono font-semibold text-[#12304A] hover:text-[#0B1F33]"
+                    <td className="py-3.5 px-4 text-right align-top whitespace-nowrap">
+                      <Link
+                        to={`/standards/${std.id}`}
+                        className="font-semibold text-[#0F172A] hover:underline"
                       >
-                        <span>Inspect</span>
-                        <ChevronRight className="w-3.5 h-3.5" />
-                      </button>
+                        Details →
+                      </Link>
                     </td>
                   </tr>
                 ))}
+                {standards.length === 0 && (
+                  <tr>
+                    <td colSpan={5} className="py-8 px-4 text-center text-[#64748B]">
+                      No standards found matching your filter criteria.
+                    </td>
+                  </tr>
+                )}
               </tbody>
             </table>
           </div>
         )}
-
-        <div className="p-3 bg-[#F4F6F8] border-t border-[#E3E8ED] flex items-center justify-between text-xs font-mono text-[#61707D]">
-          <span>Standards Records Displayed: {standards.length}</span>
-          <span>BIS Index Status: Active (14,290 Records)</span>
-        </div>
       </div>
     </div>
   );
