@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { Search } from 'lucide-react';
+import { Search, ShieldCheck, Database, Layers } from 'lucide-react';
 import SearchInput from '../components/SearchInput';
 import { getRecommendations } from '../services/recommendationService';
 
@@ -45,12 +45,16 @@ export default function SearchPage({ setGlobalResults, setToast }) {
   return (
     <div className="max-w-4xl mx-auto space-y-5">
       {/* Search Workspace Header */}
-      <div className="bg-white rounded-md p-5 sm:p-6 border border-slate-200">
-        <h2 className="text-lg sm:text-xl font-semibold text-slate-900 leading-tight mb-1">
-          Standards Search
+      <div className="bg-white rounded-[4px] p-5 border border-[#E3E8ED] shadow-2xs">
+        <div className="flex items-center gap-2 text-xs font-mono text-[#28536F] font-bold uppercase tracking-wider mb-1">
+          <Database className="w-4 h-4 text-[#12304A]" />
+          <span>Technical Specification Analysis Engine</span>
+        </div>
+        <h2 className="text-lg font-bold text-[#0B1F33] leading-tight mb-1">
+          Indian Standards Recommendation Workspace
         </h2>
-        <p className="text-xs sm:text-sm text-slate-500 leading-relaxed font-normal">
-          Search by product, service, technical specification or procurement requirement to identify applicable Indian Standards.
+        <p className="text-xs text-[#61707D] leading-relaxed">
+          Input product descriptions or technical parameters to run automated evidence-based mapping against the official Bureau of Indian Standards catalogue.
         </p>
       </div>
 
@@ -64,15 +68,14 @@ export default function SearchPage({ setGlobalResults, setToast }) {
       />
 
       {/* System Technical Metadata Footer */}
-      <div className="bg-slate-50 p-3.5 rounded-md border border-slate-200 text-xs text-slate-500 flex flex-col sm:flex-row sm:items-center justify-between gap-2 font-normal">
-        <div>
-          <span className="font-medium text-slate-700">Search method:</span> Semantic requirement matching
+      <div className="bg-[#F4F6F8] p-3.5 rounded-[4px] border border-[#E3E8ED] text-xs font-mono text-[#61707D] flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+        <div className="flex items-center gap-1.5">
+          <span className="font-semibold text-[#0B1F33]">ANALYSIS METHOD:</span> Semantic Requirement & Parameter Mapping
         </div>
-        <div>
-          <span className="font-medium text-slate-700">Indexed source:</span> Indian Standards repository (BIS Catalogue)
+        <div className="flex items-center gap-1.5">
+          <span className="font-semibold text-[#0B1F33]">REPOSITORY:</span> BIS Manakonline Catalog (14,290 Records)
         </div>
       </div>
     </div>
   );
 }
-

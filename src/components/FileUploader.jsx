@@ -42,18 +42,19 @@ export default function FileUploader({ onFileSelected, onUseDemoTender, isAnalyz
   };
 
   return (
-    <div className="bg-white rounded-md border border-slate-200 p-5 mb-5 space-y-4">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-        <h3 className="text-xs font-semibold text-slate-800 uppercase tracking-wide flex items-center gap-1.5">
-          <UploadCloud className="w-4 h-4 text-slate-600" />
-          Upload Specification Document
+    <div className="bg-white rounded-[4px] border border-[#E3E8ED] p-5 mb-5 space-y-4 shadow-2xs">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#E3E8ED] pb-3">
+        <h3 className="text-xs font-mono font-bold text-[#0B1F33] uppercase tracking-wider flex items-center gap-2">
+          <UploadCloud className="w-4 h-4 text-[#28536F]" />
+          Document Intelligence Upload
         </h3>
         <button
           type="button"
           onClick={handleDemoClick}
-          className="text-xs font-medium px-2.5 py-1 rounded bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 transition-colors self-start"
+          className="text-xs font-medium px-3 py-1 rounded-[3px] bg-[#F4F6F8] hover:bg-[#E3E8ED] text-[#12304A] border border-[#E3E8ED] transition-colors self-start flex items-center gap-1.5"
         >
-          📄 Load Sample Tender Specification
+          <FileText className="w-3.5 h-3.5 text-[#28536F]" />
+          <span>Load Sample Tender Specification</span>
         </button>
       </div>
 
@@ -63,10 +64,10 @@ export default function FileUploader({ onFileSelected, onUseDemoTender, isAnalyz
         onDragLeave={handleDrag}
         onDragOver={handleDrag}
         onDrop={handleDrop}
-        className={`border border-dashed rounded-md p-6 text-center transition-colors ${
+        className={`border border-dashed rounded-[4px] p-6 text-center transition-colors ${
           dragActive 
-            ? 'border-blue-700 bg-blue-50/50' 
-            : 'border-slate-300 hover:border-slate-400 bg-slate-50/50'
+            ? 'border-[#12304A] bg-[#12304A]/5' 
+            : 'border-[#E3E8ED] hover:border-[#28536F] bg-[#F4F6F8]'
         }`}
       >
         <input
@@ -78,31 +79,31 @@ export default function FileUploader({ onFileSelected, onUseDemoTender, isAnalyz
         />
 
         <div className="flex flex-col items-center justify-center">
-          <div className="w-10 h-10 bg-slate-200/70 text-slate-700 rounded-md flex items-center justify-center mb-2">
-            <FileText className="w-5 h-5" />
+          <div className="w-10 h-10 bg-[#12304A]/10 text-[#12304A] rounded-[4px] flex items-center justify-center mb-2 border border-[#12304A]/20">
+            <FileText className="w-5 h-5 text-[#12304A]" />
           </div>
 
           {selectedFile ? (
             <div className="text-center">
-              <div className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-emerald-50 text-emerald-900 rounded text-xs font-medium border border-emerald-200 mb-1">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-50 text-emerald-950 rounded-[3px] text-xs font-mono font-semibold border border-emerald-300 mb-1">
                 <CheckCircle2 className="w-3.5 h-3.5 text-emerald-700" />
-                <span>Selected: {selectedFile.name}</span>
+                <span>Document Selected: {selectedFile.name}</span>
               </div>
-              <p className="text-[11px] text-slate-500 font-normal">Ready for specification review</p>
+              <p className="text-[11px] text-[#61707D] font-mono">Ready for Indian Standards technical extraction</p>
             </div>
           ) : (
             <>
-              <p className="text-xs font-medium text-slate-800 mb-0.5">
-                Drag & drop procurement tender document here
+              <p className="text-xs font-semibold text-[#0B1F33] mb-0.5">
+                Drag and drop procurement tender or specification document
               </p>
-              <p className="text-[11px] text-slate-500 mb-3 font-normal">
-                Supported formats: PDF, DOCX (Max 25 MB)
+              <p className="text-[11px] text-[#61707D] mb-3 font-mono">
+                Supported formats: PDF, DOCX (Up to 25 MB document size)
               </p>
               <label
                 htmlFor="tender-pdf-upload"
-                className="cursor-pointer inline-flex items-center gap-1.5 px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-white rounded font-medium text-xs transition-colors"
+                className="cursor-pointer inline-flex items-center gap-1.5 px-4 py-1.5 bg-[#0B1F33] hover:bg-[#12304A] text-white rounded-[3px] font-semibold text-xs transition-colors border border-[#12304A]"
               >
-                Browse Files
+                Upload Document
               </label>
             </>
           )}
@@ -111,4 +112,3 @@ export default function FileUploader({ onFileSelected, onUseDemoTender, isAnalyz
     </div>
   );
 }
-

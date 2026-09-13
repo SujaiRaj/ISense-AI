@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ExternalLink, Layers, ChevronRight } from 'lucide-react';
+import { Layers, ChevronRight, Bookmark, ShieldCheck, FileCheck, TestTube } from 'lucide-react';
 import ConfidenceScore from './ConfidenceScore';
 import StatusBadge from './StatusBadge';
 import ComplianceBadge from './ComplianceBadge';
@@ -20,7 +20,10 @@ export default function RecommendationCard({ recommendation }) {
     productCategory,
     certification = {},
     relatedStandards = [],
-    source = {}
+    source = {},
+    requirements = [],
+    clauses = ["Clause 4.1 - Technical Specs", "Clause 6.2 - Safety Protocols", "Clause 8.1 - Test Methods"],
+    testMethods = ["High Voltage Test", "Thermal Endurance Test", "IP66 Ingress Test"]
   } = recommendation;
 
   const handleViewDetails = () => {
@@ -28,22 +31,22 @@ export default function RecommendationCard({ recommendation }) {
   };
 
   return (
-    <div className="bg-white rounded-md border border-slate-200 p-5 hover:border-slate-300 transition-colors">
-      {/* Top Bar: IS Number, Badges & Confidence Score */}
-      <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 mb-3">
+    <div className="bg-white rounded-[4px] border border-[#E3E8ED] p-5 hover:border-[#28536F] transition-all shadow-2xs">
+      {/* Header Bar */}
+      <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 pb-3 border-b border-[#E3E8ED]">
         <div>
           <div className="flex items-center gap-2 flex-wrap mb-1.5">
-            <span className="font-mono font-semibold text-base text-slate-900 bg-slate-100 px-2 py-0.5 rounded border border-slate-200">
+            <span className="font-mono font-bold text-sm bg-[#12304A] text-white px-2.5 py-0.5 rounded-[3px] border border-[#28536F]">
               {isNumber}
             </span>
             <StatusBadge status={status} />
-            <span className="text-xs font-medium px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">
+            <span className="text-[11px] font-mono font-semibold px-2 py-0.5 rounded-[3px] bg-[#F4F6F8] text-[#12304A] border border-[#E3E8ED]">
               {category}
             </span>
           </div>
           <h3 
             onClick={handleViewDetails}
-            className="text-base font-semibold text-slate-900 hover:text-blue-700 transition-colors cursor-pointer leading-snug"
+            className="text-base font-semibold text-[#0B1F33] hover:text-[#28536F] transition-colors cursor-pointer leading-snug"
           >
             {title}
           </h3>
@@ -55,65 +58,73 @@ export default function RecommendationCard({ recommendation }) {
         </div>
       </div>
 
-      {/* Rationale for Recommendation */}
+      {/* Rationale & Technical Match Analysis */}
       <AIExplanation 
         explanation={explanation} 
         matchedFactors={matchedFactors} 
       />
 
-      {/* Matched Attributes & Certification */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3 pt-3 border-t border-slate-100 text-xs">
-        <div>
-          <div className="text-xs font-medium text-slate-500 mb-1.5">
-            Matched Scope Parameters:
+      {/* Evidence Breakdown Grid: Requirements, Clauses, Test Methods, Allied Standards */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mt-3 pt-3 border-t border-[#E3E8ED] text-xs font-mono">
+        <div className="bg-[#F4F6F8] p-2.5 rounded-[3px] border border-[#E3E8ED]">
+          <div className="text-[10px] font-bold uppercase tracking-wider text-[#61707D] mb-1 flex items-center gap-1">
+            <FileCheck className="w-3 h-3 text-[#28536F]" />
+            Applicable Clauses & Scope
           </div>
-          <div className="flex flex-wrap gap-1.5">
-            <span className="text-xs bg-slate-100 text-slate-700 px-2 py-0.5 rounded border border-slate-200 font-normal">
-              ✓ {productCategory || category}
-            </span>
-            <span className="text-xs bg-slate-100 text-slate-700 px-2 py-0.5 rounded border border-slate-200 font-normal">
-              ✓ Technical Specification
-            </span>
-            <span className="text-xs bg-slate-100 text-slate-700 px-2 py-0.5 rounded border border-slate-200 font-normal">
-              ✓ Testing & Quality Standard
-            </span>
-          </div>
+          <ul className="space-y-1 text-[11px] text-[#17212B]">
+            {clauses.map((c, i) => (
+              <li key={i} className="truncate">• {c}</li>
+            ))}
+          </ul>
         </div>
 
-        <div>
-          <div className="text-xs font-medium text-slate-500 mb-1.5">
-            Certification & References:
+        <div className="bg-[#F4F6F8] p-2.5 rounded-[3px] border border-[#E3E8ED]">
+          <div className="text-[10px] font-bold uppercase tracking-wider text-[#61707D] mb-1 flex items-center gap-1">
+            <TestTube className="w-3 h-3 text-[#2F6F73]" />
+            Mandatory Test Methods
           </div>
-          <div className="flex flex-wrap items-center gap-2">
+          <ul className="space-y-1 text-[11px] text-[#17212B]">
+            {testMethods.map((t, i) => (
+              <li key={i} className="truncate">• {t}</li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="bg-[#F4F6F8] p-2.5 rounded-[3px] border border-[#E3E8ED]">
+          <div className="text-[10px] font-bold uppercase tracking-wider text-[#61707D] mb-1 flex items-center gap-1">
+            <ShieldCheck className="w-3 h-3 text-teal-700" />
+            Compliance & Gazette Order
+          </div>
+          <div className="mt-1 space-y-1">
             <ComplianceBadge 
               type={certification.isMandatory ? "REQUIRED" : "RECOMMENDED"} 
-              label={certification.statusText || "BIS Certification Applicable"} 
+              label={certification.statusText || "BIS Certification Mandatory"} 
             />
             {relatedStandards.length > 0 && (
-              <span className="inline-flex items-center gap-1 text-xs text-slate-600 bg-slate-100 px-2 py-0.5 rounded border border-slate-200 font-normal">
-                <Layers className="w-3 h-3 text-slate-500" />
-                {relatedStandards.length} Related References
-              </span>
+              <div className="text-[10px] text-[#61707D] pt-1">
+                {relatedStandards.length} Allied Normative References
+              </div>
             )}
           </div>
         </div>
       </div>
 
-      {/* Footer Actions */}
-      <div className="flex items-center justify-between mt-4 pt-3 border-t border-slate-100 text-xs">
-        <span className="text-slate-500 font-normal">
-          Source: <strong className="text-slate-700 font-medium">{source.portal || "BIS Manakonline Portal"}</strong>
-        </span>
+      {/* Footer Actions & Metadata */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mt-4 pt-3 border-t border-[#E3E8ED] text-xs">
+        <div className="text-[11px] text-[#61707D] font-mono">
+          Source Repository: <strong className="text-[#0B1F33]">{source.portal || "BIS Technical Standards Index"}</strong>
+        </div>
 
-        <button
-          onClick={handleViewDetails}
-          className="inline-flex items-center gap-1 px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-white rounded font-medium text-xs transition-colors"
-        >
-          <span>View Standard Details</span>
-          <ChevronRight className="w-3.5 h-3.5" />
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={handleViewDetails}
+            className="inst-btn-primary py-1 px-3 text-xs"
+          >
+            <span>View Full Technical Sheet</span>
+            <ChevronRight className="w-3.5 h-3.5" />
+          </button>
+        </div>
       </div>
     </div>
   );
 }
-

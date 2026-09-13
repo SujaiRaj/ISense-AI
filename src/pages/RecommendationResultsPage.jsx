@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, FileCheck, ShieldCheck, Printer, Download } from 'lucide-react';
 import RecommendationCard from '../components/RecommendationCard';
 import EmptyState from '../components/EmptyState';
 import { MOCK_RECOMMENDATION_DATA } from '../data/mockRecommendations';
@@ -15,47 +15,64 @@ export default function RecommendationResultsPage({ globalResults }) {
 
   return (
     <div className="space-y-5 max-w-5xl mx-auto">
-      {/* Navigation & Header */}
+      {/* Navigation & Actions Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <button
           onClick={() => navigate('/search')}
-          className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-700 hover:text-blue-800 transition-colors bg-white px-3 py-1.5 rounded border border-slate-200 shadow-2xs self-start"
+          className="inst-btn-secondary py-1.5 px-3 text-xs font-mono self-start"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
-          <span>Back to Search</span>
+          <span>Return to Search Workspace</span>
         </button>
 
-        {categoryIdentified && (
-          <div className="flex items-center gap-2">
-            <span className="text-xs font-normal text-slate-500">Category Scope:</span>
-            <span className="text-xs font-medium px-2 py-0.5 rounded bg-slate-100 text-slate-800 border border-slate-200">
-              {categoryIdentified}
+        <div className="flex items-center gap-2">
+          {categoryIdentified && (
+            <span className="text-xs font-mono font-bold px-2.5 py-1 rounded-[3px] bg-[#F4F6F8] text-[#12304A] border border-[#E3E8ED]">
+              Category: {categoryIdentified}
             </span>
-          </div>
-        )}
+          )}
+          <button 
+            onClick={() => window.print()} 
+            className="inst-btn-secondary py-1.5 px-3 text-xs font-mono hidden sm:flex items-center gap-1.5"
+          >
+            <Printer className="w-3.5 h-3.5 text-[#28536F]" />
+            <span>Print Report</span>
+          </button>
+        </div>
       </div>
 
-      {/* Analyzed Procurement Requirement Technical Card */}
-      <div className="bg-white p-5 rounded-md border border-slate-200 space-y-3">
-        <div className="text-xs font-medium text-slate-500 tracking-wide">
-          Procurement Requirement
+      {/* Engineering Standards Report Summary Panel */}
+      <div className="bg-white p-5 rounded-[4px] border border-[#E3E8ED] space-y-4 shadow-2xs">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#E3E8ED] pb-3">
+          <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#28536F] uppercase tracking-wider">
+            <FileCheck className="w-4 h-4 text-[#12304A]" />
+            <span>Official Technical Standards Analysis Report</span>
+          </div>
+          <span className="text-[10px] font-mono text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-300 font-bold uppercase">
+            Analysis Verified
+          </span>
         </div>
 
-        <h2 className="text-base sm:text-lg font-semibold text-slate-900 leading-snug">
-          "{query}"
-        </h2>
+        <div>
+          <div className="text-[11px] font-mono font-semibold text-[#61707D] uppercase">
+            Analyzed Procurement Specification Query:
+          </div>
+          <h2 className="text-base font-bold text-[#0B1F33] leading-snug mt-1 font-mono">
+            "{query}"
+          </h2>
+        </div>
 
         {/* Extracted Requirement Parameters Table/Grid */}
         {extractedRequirements.length > 0 && (
-          <div className="pt-3 border-t border-slate-100">
-            <div className="text-xs font-medium text-slate-500 mb-2">
-              Identified Parameters:
+          <div className="pt-3 border-t border-[#E3E8ED]">
+            <div className="text-xs font-mono font-bold text-[#0B1F33] mb-2 uppercase tracking-wider">
+              Extracted Technical Parameters Matrix:
             </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 text-xs">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 text-xs font-mono">
               {extractedRequirements.map((req, idx) => (
-                <div key={idx} className="p-2 bg-slate-50 rounded border border-slate-200/80 font-normal">
-                  <div className="text-xs text-slate-400 font-normal">{req.key}</div>
-                  <div className="font-medium text-slate-800 truncate">{req.value}</div>
+                <div key={idx} className="p-2 bg-[#F4F6F8] rounded-[3px] border border-[#E3E8ED]">
+                  <div className="text-[10px] text-[#61707D] font-semibold">{req.key}</div>
+                  <div className="font-bold text-[#0B1F33] truncate mt-0.5">{req.value}</div>
                 </div>
               ))}
             </div>
@@ -64,13 +81,13 @@ export default function RecommendationResultsPage({ globalResults }) {
       </div>
 
       {/* Results Header Bar */}
-      <div className="flex items-center justify-between pt-1">
+      <div className="flex items-center justify-between pt-1 border-b border-[#E3E8ED] pb-2">
         <div className="flex items-center gap-2">
-          <h3 className="text-base font-semibold text-slate-900">
-            Applicable Indian Standards
+          <h3 className="text-sm font-mono font-bold text-[#0B1F33] uppercase tracking-wider">
+            Identified Bureau of Indian Standards ({recommendations.length})
           </h3>
-          <span className="text-xs font-medium px-2 py-0.5 rounded bg-emerald-50 text-emerald-900 border border-emerald-200">
-            {recommendations.length} Standards Found
+          <span className="text-xs font-mono font-bold px-2 py-0.5 rounded-[3px] bg-emerald-50 text-emerald-950 border border-emerald-300">
+            {recommendations.length} Matches Found
           </span>
         </div>
       </div>
@@ -88,12 +105,12 @@ export default function RecommendationResultsPage({ globalResults }) {
         </div>
       ) : (
         <EmptyState 
-          title="No Matching Indian Standards"
-          description="Try broadening your procurement description or check for spelling errors."
+          title="No Matching Indian Standards Found"
+          description="Broaden your product description or specify core electrical/mechanical parameters."
+          actionText="Search New Specification"
           onReset={() => navigate('/search')}
         />
       )}
     </div>
   );
 }
-

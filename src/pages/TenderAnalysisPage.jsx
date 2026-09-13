@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FileText, CheckCircle2 } from 'lucide-react';
+import { FileText, CheckCircle2, FileSpreadsheet, RotateCcw } from 'lucide-react';
 import FileUploader from '../components/FileUploader';
 import LoadingAnalysis from '../components/LoadingAnalysis';
 import RequirementList from '../components/RequirementList';
@@ -34,12 +34,16 @@ export default function TenderAnalysisPage({ setToast }) {
   return (
     <div className="space-y-5 max-w-5xl mx-auto">
       {/* Header */}
-      <div className="bg-white rounded-md p-5 border border-slate-200">
-        <h2 className="text-2xl font-semibold text-slate-900 leading-tight mb-1">
-          Tender Review
+      <div className="bg-white rounded-[4px] p-5 border border-[#E3E8ED] shadow-2xs">
+        <div className="flex items-center gap-2 text-xs font-mono text-[#28536F] font-bold uppercase tracking-wider mb-1">
+          <FileSpreadsheet className="w-4 h-4 text-[#12304A]" />
+          <span>Document Intelligence Workspace</span>
+        </div>
+        <h2 className="text-lg font-bold text-[#0B1F33] leading-tight mb-1">
+          Tender & Specification Technical Review
         </h2>
-        <p className="text-xs sm:text-sm text-slate-500 font-normal">
-          Upload a procurement specification document to identify applicable standards and specification gaps.
+        <p className="text-xs text-[#61707D]">
+          Upload a procurement specification or RFP document (PDF/DOCX) to extract mandatory requirements and detect standards compliance gaps.
         </p>
       </div>
 
@@ -64,14 +68,14 @@ export default function TenderAnalysisPage({ setToast }) {
       {!isProcessing && analysisResult && (
         <div className="space-y-5">
           {/* Document Summary Bar */}
-          <div className="bg-white rounded-md p-4 border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+          <div className="bg-white rounded-[4px] p-4 border border-[#E3E8ED] flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs font-mono shadow-2xs">
             <div>
-              <div className="flex items-center gap-2 font-medium text-slate-900 mb-0.5">
-                <FileText className="w-4 h-4 text-slate-600" />
-                <span>Document: {analysisResult.documentName}</span>
+              <div className="flex items-center gap-2 font-bold text-[#0B1F33] mb-0.5">
+                <FileText className="w-4 h-4 text-[#12304A]" />
+                <span>SPECIFICATION FILE: {analysisResult.documentName}</span>
               </div>
-              <p className="text-slate-500 font-normal">
-                Pages: 18 • Detected Product Scope: <strong className="text-slate-800 font-medium">{analysisResult.extractedProduct}</strong>
+              <p className="text-[#61707D]">
+                Length: 18 Pages • Extracted Category: <strong className="text-[#0B1F33]">{analysisResult.extractedProduct}</strong>
               </p>
             </div>
 
@@ -80,9 +84,10 @@ export default function TenderAnalysisPage({ setToast }) {
                 setAnalysisResult(null);
                 setSelectedFile(null);
               }}
-              className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-300 rounded font-medium transition-colors self-start"
+              className="inst-btn-secondary py-1.5 px-3 text-xs font-mono self-start"
             >
-              Review Another Specification
+              <RotateCcw className="w-3.5 h-3.5" />
+              <span>Review Another Document</span>
             </button>
           </div>
 
@@ -94,8 +99,8 @@ export default function TenderAnalysisPage({ setToast }) {
 
           {/* Recommended Applicable Standards */}
           <div className="space-y-3 pt-2">
-            <h3 className="text-base font-semibold text-slate-900">
-              Recommended Applicable Standards ({analysisResult.recommendedStandards?.length || 0})
+            <h3 className="text-sm font-mono font-bold text-[#0B1F33] uppercase tracking-wider">
+              Governing Indian Standards Identified ({analysisResult.recommendedStandards?.length || 0})
             </h3>
 
             <div className="space-y-4">
@@ -113,4 +118,3 @@ export default function TenderAnalysisPage({ setToast }) {
     </div>
   );
 }
-

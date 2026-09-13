@@ -1,36 +1,34 @@
 import React from 'react';
 import { Check } from 'lucide-react';
 
-/**
-/ * Basis for Recommendation Component
-/ * Documents the technical rationale for standard alignment.
-/ */
 export default function AIExplanation({ explanation, matchedFactors = [] }) {
   return (
-    <div className="bg-slate-50 text-slate-800 p-4 rounded-md border border-slate-200/90 my-3 text-xs space-y-2.5">
+    <div className="bg-[#F4F6F8] text-[#17212B] p-4 rounded-[4px] border border-[#E3E8ED] my-3 text-xs space-y-2.5">
       {/* Header Badge */}
-      <div className="flex items-center justify-between gap-2 pb-2 border-b border-slate-200 font-semibold">
-        <span className="text-slate-900 text-xs font-semibold">Why this standard matches</span>
-        <span className="text-xs text-slate-500 font-medium bg-white px-2 py-0.5 rounded border border-slate-200">
-          Basis for recommendation
+      <div className="flex items-center justify-between gap-2 pb-2 border-b border-[#E3E8ED]">
+        <span className="text-[#0B1F33] font-bold font-mono uppercase tracking-wider text-[11px]">
+          Rationale for Standard Alignment
+        </span>
+        <span className="text-[10px] font-mono font-semibold bg-white text-[#12304A] px-2 py-0.5 rounded-[3px] border border-[#E3E8ED]">
+          Technical Recommendation Analysis
         </span>
       </div>
 
       {/* Rationale Text */}
-      <p className="text-slate-700 leading-relaxed font-normal">
-        {explanation || `Standard matches official Bureau of Indian Standards scope. Technical parameters and testing specifications directly align with the specified requirement parameters.`}
+      <p className="text-[#17212B] leading-relaxed font-normal">
+        {explanation || `Standard aligns directly with official Bureau of Indian Standards (BIS) scope. Technical parameters, safety ratings, and test methods meet specified procurement parameters.`}
       </p>
 
       {/* Detailed Match Factors */}
       {matchedFactors.length > 0 && (
-        <div className="pt-1.5 border-t border-slate-200/70">
-          <div className="text-xs font-medium text-slate-500 mb-1.5">
-            Matched Parameters:
+        <div className="pt-2 border-t border-[#E3E8ED]">
+          <div className="text-[11px] font-mono font-semibold text-[#61707D] mb-1.5 uppercase">
+            Parameter Mapping Matrix:
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
             {matchedFactors.map((factor, idx) => (
-              <div key={idx} className="flex items-start gap-1.5 text-slate-700 bg-white px-2.5 py-1 rounded border border-slate-200 text-xs font-normal">
-                <Check className="w-3.5 h-3.5 text-emerald-600 mt-0.5 shrink-0" />
+              <div key={idx} className="flex items-start gap-1.5 text-[#17212B] bg-white px-2.5 py-1 rounded-[3px] border border-[#E3E8ED] text-xs font-mono">
+                <Check className="w-3.5 h-3.5 text-emerald-700 mt-0.5 shrink-0" />
                 <span>{factor}</span>
               </div>
             ))}
@@ -40,4 +38,3 @@ export default function AIExplanation({ explanation, matchedFactors = [] }) {
     </div>
   );
 }
-
