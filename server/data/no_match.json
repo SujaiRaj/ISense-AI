@@ -1,0 +1,8 @@
+{
+  "query": "__QUERY__",
+  "categoryIdentified": "Unrecognised",
+  "extractedRequirements": [],
+  "recommendations": [],
+  "noMatch": true,
+  "message": "No matching Indian Standard found for the given query. Try rephrasing using the product name, material type, or application context (e.g. 'LED street light', 'safety helmet', 'OPC cement')."
+}

@@ -13,12 +13,17 @@ dist-ssr
 *.local
 .env
 .env.*
+!.env.example
+
+# Vercel
+.vercel
 
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
 .idea
 .DS_Store
+Thumbs.db
 *.suo
 *.ntvs*
 *.njsproj

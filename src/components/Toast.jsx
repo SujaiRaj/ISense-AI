@@ -12,15 +12,15 @@ export default function Toast({ message, type = "success", onClose, duration = 4
 
   if (!message) return null;
 
-  let bg = "bg-[#0B1F33] text-white border-[#12304A]";
-  let icon = <CheckCircle2 className="w-4 h-4 text-teal-300" />;
+  let bg = "bg-secondary text-white border-slate-700/80 shadow-lg";
+  let icon = <CheckCircle2 className="w-4 h-4 text-emerald-400" />;
 
   if (type === "error") {
-    bg = "bg-rose-950 text-white border-rose-800";
+    bg = "bg-rose-950 text-white border-rose-800 shadow-lg";
     icon = <AlertCircle className="w-4 h-4 text-rose-300" />;
   } else if (type === "info") {
-    bg = "bg-[#12304A] text-white border-[#28536F]";
-    icon = <Info className="w-4 h-4 text-blue-300" />;
+    bg = "bg-secondary text-white border-slate-700/80 shadow-lg";
+    icon = <Info className="w-4 h-4 text-primary" />;
   }
 
   return (

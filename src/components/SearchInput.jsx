@@ -30,7 +30,7 @@ export default function SearchInput({
           value={value}
           onChange={(e) => onChange(e.target.value)}
           placeholder={placeholder}
-          className="w-full p-4 text-sm text-[#0F172A] placeholder-[#94A3B8] bg-white rounded border border-[#E2E8F0] focus:border-[#0F172A] outline-none transition-all resize-y leading-relaxed"
+          className="w-full p-4 text-sm text-[#0F172A] placeholder-[#94A3B8] bg-white rounded border border-[#E2E8F0] focus:border-primary focus:ring-1 focus:ring-primary/20 outline-none transition-all resize-y leading-relaxed"
         />
 
         {/* Action Bar */}
@@ -44,7 +44,7 @@ export default function SearchInput({
             type="button"
             disabled={!value.trim() || loading}
             onClick={() => onSearch(value)}
-            className="w-52 h-10 bg-[#0F172A] hover:bg-[#1E3A8A] text-white rounded font-semibold text-xs transition-colors disabled:opacity-50 disabled:cursor-not-allowed shrink-0 flex items-center justify-center"
+            className="w-52 h-10 bg-primary hover:bg-[#C2410C] text-white rounded-xl font-bold text-xs transition-colors disabled:opacity-50 disabled:cursor-not-allowed shrink-0 flex items-center justify-center cursor-pointer shadow-xs"
           >
             {loading ? (
               <span className="inline-flex items-center gap-2">
@@ -66,7 +66,7 @@ export default function SearchInput({
             <button
               type="button"
               onClick={() => onSelectPreset ? onSelectPreset(item.query) : onSearch(item.query)}
-              className="text-[#0F172A] hover:text-[#1D4ED8] hover:underline font-medium transition-colors"
+              className="text-[#0F172A] hover:text-primary hover:underline font-medium transition-colors cursor-pointer"
             >
               {item.label}
             </button>

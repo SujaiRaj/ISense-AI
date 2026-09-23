@@ -1,158 +1,117 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
-import { Search, Menu, X, User, ChevronDown } from 'lucide-react';
+import React, { useState } from 'react';
+import { useLocation, useNavigate, Link } from 'react-router-dom';
 
-export default function Navbar({ userProfile }) {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
+export default function Navbar({ userProfile, onOpenSidebar }) {
   const [searchQuery, setSearchQuery] = useState('');
-  const menuRef = useRef(null);
+  const location = useLocation();
   const navigate = useNavigate();
 
-  const userName = userProfile?.name || "Keshav Sharma";
+  const userName = userProfile?.name || "Rajesh Verma";
+  const userDesignation = userProfile?.designation || "Directorate of Supplies & Disposal";
 
-  const navItems = [
-    { path: '/dashboard', label: 'Home' },
-    { path: '/standards', label: 'Standards' },
-    { path: '/search', label: 'Recommendations' },
-    { path: '/tender-analysis', label: 'Tender Analysis' },
-    { path: '/compliance', label: 'Compliance' },
-    { path: '/history', label: 'Analysis History' },
-    { path: '/profile', label: 'Profile' },
-    { path: '/about', label: 'About' }
-  ];
+  const getBreadcrumb = () => {
+    const path = location.pathname;
+    if (path.startsWith('/search')) return 'Standards Search';
+    if (path.startsWith('/recommendations')) return 'Recommendations';
+    if (path.startsWith('/tender-analysis')) return 'Tender Review';
+    if (path.startsWith('/compliance')) return 'QCO Compliance';
+    if (path.startsWith('/standards/')) return 'Specification Detail';
+    if (path.startsWith('/standards')) return 'Standards Library';
+    if (path.startsWith('/history')) return 'Audit History';
+    if (path.startsWith('/profile')) return 'Officer Profile';
+    if (path.startsWith('/about')) return 'About Platform';
+    return 'Overview';
+  };
 
-  useEffect(() => {
-    function handleClickOutside(event) {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
-        setMenuOpen(false);
-        setProfileDropdownOpen(false);
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
-  const handleHeaderSearch = (e) => {
+  const handleSearchSubmit = (e) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      navigate(`/standards?search=${encodeURIComponent(searchQuery.trim())}`);
+      navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
     }
   };
 
   return (
-    <header className="bg-white border-b border-[#E2E8F0] sticky top-0 z-40 font-sans shadow-2xs">
-      <div className="w-[94%] max-w-[1440px] mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between gap-6">
-        
-        {/* Brand Logo */}
-        <NavLink to="/dashboard" className="flex items-center gap-3 shrink-0 group">
-          <div className="w-8 h-8 rounded bg-[#102A43] text-white flex items-center justify-center font-bold text-sm tracking-tight shadow-xs">
-            IS
-          </div>
-          <div>
-            <span className="font-extrabold text-[#102A43] text-base tracking-tight leading-none block group-hover:text-[#0F766E] transition-colors">
-              ISense AI
-            </span>
-            <span className="text-[11px] text-[#64748B] font-medium leading-none block mt-1">
-              Indian Standards Intelligence
-            </span>
-          </div>
-        </NavLink>
+    <header className="fixed top-0 left-0 lg:left-[260px] right-0 h-16 bg-white/95 backdrop-blur-xs border-b border-slate-200 z-40 flex items-center justify-between px-6">
+      {/* Left Breadcrumb & Standardized Badge */}
+      <div className="flex items-center gap-3 min-w-0">
+        <button
+          onClick={onOpenSidebar}
+          className="lg:hidden p-1.5 rounded-md text-slate-500 hover:bg-slate-100 transition-colors"
+          aria-label="Open Sidebar"
+        >
+          <span className="material-symbols-outlined text-[20px]">menu</span>
+        </button>
 
-        {/* Search & Actions */}
-        <div className="flex items-center gap-4 relative" ref={menuRef}>
-          {/* Header Search Form */}
-          <form onSubmit={handleHeaderSearch} className="relative hidden md:block w-56 lg:w-64">
-            <Search className="w-3.5 h-3.5 text-[#94A3B8] absolute left-3 top-1/2 -translate-y-1/2" />
-            <input
-              type="text"
-              placeholder="Search IS number or product..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-8 pr-3 py-1.5 text-xs text-[#102A43] bg-[#F8FAFC] rounded border border-[#E2E8F0] focus:bg-white focus:border-[#0F766E] outline-none transition-all"
-            />
-          </form>
+        <div className="flex items-center gap-1.5 text-xs text-slate-500 min-w-0">
+          <div className="w-2 h-2 rounded-full bg-primary shrink-0" />
+          <Link to="/dashboard" className="text-slate-700 font-medium hover:text-primary transition-colors shrink-0">
+            Portal
+          </Link>
+          <span className="material-symbols-outlined text-[13px] shrink-0 text-slate-300">chevron_right</span>
+          <span className="truncate text-slate-900 font-semibold">
+            {getBreadcrumb()}
+          </span>
+        </div>
 
-          {/* User Profile Badge - Shows User's Actual Name */}
-          <button
-            onClick={() => {
-              setProfileDropdownOpen(!profileDropdownOpen);
-              setMenuOpen(false);
-            }}
-            className="flex items-center gap-2 px-2.5 py-1.5 rounded hover:bg-[#F8FAFC] transition-colors text-left outline-none border border-transparent hover:border-[#E2E8F0]"
+        <div className="hidden xl:flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-orange-50 text-primary text-[11px] font-semibold border border-orange-200/70">
+          <span className="material-symbols-outlined text-[14px] text-primary">gavel</span>
+          <span>Govt. of India Standardized</span>
+        </div>
+      </div>
+
+      {/* Right Controls */}
+      <div className="flex items-center gap-3">
+        <form onSubmit={handleSearchSubmit} className="hidden md:flex items-center w-64 lg:w-80 px-2.5 py-1.5 rounded-lg bg-surface border border-slate-200 focus-within:border-primary focus-within:ring-1 focus-within:ring-primary/20 focus-within:bg-white transition-all shadow-2xs">
+          <span className="material-symbols-outlined text-slate-400 text-[16px] mr-2">search</span>
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search IS number or item..."
+            className="w-full bg-transparent border-none outline-none font-body-sm text-xs text-slate-900 placeholder:text-slate-400"
+          />
+          <kbd className="font-code-sm text-[10px] px-1 py-0.5 rounded bg-white border border-slate-200 text-slate-400 shrink-0">
+            ⌘K
+          </kbd>
+        </form>
+
+        <div className="flex items-center gap-1">
+          <button 
+            type="button"
+            className="relative p-1.5 rounded-md text-slate-400 hover:text-primary hover:bg-orange-50/50 transition-colors"
+            title="Notifications"
           >
-            <div className="w-7 h-7 rounded bg-[#F0FDFA] text-[#0F766E] flex items-center justify-center border border-[#CCFBF1]">
-              <User className="w-4 h-4" />
-            </div>
-            <span className="text-xs font-semibold text-[#102A43] hidden sm:inline-block">
+            <span className="material-symbols-outlined text-[19px]">notifications</span>
+            <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-primary ring-2 ring-white" />
+          </button>
+          
+          <button 
+            type="button"
+            className="p-1.5 rounded-md text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors"
+            title="Help"
+          >
+            <span className="material-symbols-outlined text-[19px]">help</span>
+          </button>
+        </div>
+
+        <div className="h-5 w-px bg-slate-200 hidden sm:block" />
+
+        <Link 
+          to="/profile" 
+          className="flex items-center gap-2 pl-1 hover:opacity-90 transition-opacity"
+        >
+          <div className="w-7 h-7 rounded-full bg-secondary text-white flex items-center justify-center shrink-0 font-medium text-xs ring-2 ring-orange-200">
+            <span>{userName.charAt(0)}</span>
+          </div>
+          <div className="hidden 2xl:flex flex-col text-left">
+            <span className="font-semibold text-slate-900 leading-tight text-xs">
               {userName}
             </span>
-            <ChevronDown className="w-3.5 h-3.5 text-[#64748B]" />
-          </button>
-
-          {/* Profile Dropdown */}
-          {profileDropdownOpen && (
-            <div className="absolute right-12 top-12 w-56 bg-white rounded border border-[#E2E8F0] shadow-md py-1 z-50 text-xs">
-              <div className="px-4 py-2 border-b border-[#E2E8F0] bg-[#F8FAFC]">
-                <div className="font-bold text-[#102A43]">{userName}</div>
-                <div className="text-[11px] text-[#64748B] truncate">{userProfile?.email || "officer.procurement@gov.in"}</div>
-              </div>
-
-              <NavLink
-                to="/profile"
-                onClick={() => setProfileDropdownOpen(false)}
-                className="block px-4 py-2 text-[#334155] hover:bg-[#F0FDFA] hover:text-[#0F766E] font-medium"
-              >
-                Profile Settings
-              </NavLink>
-              <NavLink
-                to="/history"
-                onClick={() => setProfileDropdownOpen(false)}
-                className="block px-4 py-2 text-[#334155] hover:bg-[#F0FDFA] hover:text-[#0F766E] font-medium"
-              >
-                Analysis History
-              </NavLink>
-            </div>
-          )}
-
-          {/* Main Navigation Menu Toggle Button */}
-          <button
-            onClick={() => {
-              setMenuOpen(!menuOpen);
-              setProfileDropdownOpen(false);
-            }}
-            className="p-2 rounded text-[#102A43] hover:bg-[#F0FDFA] border border-[#E2E8F0] flex items-center gap-1.5 text-xs font-semibold"
-            aria-label="Navigation Menu"
-          >
-            {menuOpen ? <X className="w-4 h-4 text-[#0F766E]" /> : <Menu className="w-4 h-4" />}
-            <span className="hidden lg:inline-block">Navigation</span>
-          </button>
-
-          {/* Dropdown Navigation Menu Modal */}
-          {menuOpen && (
-            <div className="absolute right-0 top-12 w-64 bg-white rounded border border-[#E2E8F0] shadow-lg p-2 z-50 text-xs space-y-1">
-              <div className="px-3 py-1.5 text-[11px] font-bold text-[#0F766E] uppercase tracking-wider border-b border-[#E2E8F0] mb-1">
-                Navigation
-              </div>
-              {navItems.map((item) => (
-                <NavLink
-                  key={item.path}
-                  to={item.path}
-                  onClick={() => setMenuOpen(false)}
-                  className={({ isActive }) =>
-                    `block px-3 py-2 rounded text-xs font-medium transition-colors ${
-                      isActive
-                        ? 'text-[#0F766E] bg-[#F0FDFA] font-bold border-l-2 border-[#0F766E]'
-                        : 'text-[#334155] hover:text-[#102A43] hover:bg-[#F8FAFC]'
-                    }`
-                  }
-                >
-                  {item.label}
-                </NavLink>
-              ))}
-            </div>
-          )}
-        </div>
+            <span className="text-[11px] text-slate-400 truncate max-w-[180px]">
+              {userDesignation}
+            </span>
+          </div>
+        </Link>
       </div>
     </header>
   );

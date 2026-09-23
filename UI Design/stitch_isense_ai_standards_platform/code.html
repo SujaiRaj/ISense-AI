@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"background":"#f8f9ff","surface-container-highest":"#d9e3f6","on-secondary-container":"#fffbff","tertiary-fixed":"#dee2ef","surface-container":"#e6eeff","on-tertiary":"#ffffff","surface-container-high":"#dee9fc","surface-container-low":"#eff4ff","outline-variant":"#c4c5d6","tertiary-fixed-dim":"#c2c6d3","surface-tint":"#2c53d1","primary-fixed":"#dde1ff","secondary-container":"#4b6be4","tertiary":"#464a55","on-primary-container":"#d8ddff","secondary-fixed-dim":"#b7c4ff","surface-dim":"#d0dbed","inverse-primary":"#b7c4ff","on-tertiary-container":"#dadeeb","inverse-on-surface":"#eaf1ff","on-secondary":"#ffffff","on-background":"#121c2a","surface-container-lowest":"#ffffff","surface-bright":"#f8f9ff","on-primary-fixed":"#001452","error":"#ba1a1a","primary":"#063cbc","on-primary":"#ffffff","on-tertiary-fixed-variant":"#424751","tertiary-container":"#5d626d","secondary-fixed":"#dde1ff","surface":"#f8f9ff","inverse-surface":"#27313f","error-container":"#ffdad6","secondary":"#2e51c9","outline":"#747685","primary-fixed-dim":"#b7c4ff","on-tertiary-fixed":"#171c25","on-surface-variant":"#444654","surface-variant":"#d9e3f6","on-error-container":"#93000a","on-secondary-fixed":"#001453","on-surface":"#121c2a","on-secondary-fixed-variant":"#0939b4","primary-container":"#3157d5","on-error":"#ffffff","on-primary-fixed-variant":"#0038b6"},borderRadius:{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},spacing:{"margin":"2rem","margin-mobile":"1rem","gutter-mobile":"0.75rem","space-xl":"2rem","space-xs":"0.25rem","space-sm":"0.5rem","space-md":"0.75rem","space-lg":"1.25rem","gutter":"1.5rem"},fontFamily:{"body-md":["Inter"],"headline-lg-mobile":["Inter"],"label-sm":["Inter"],"code-sm":["JetBrains Mono"],"headline-md":["Inter"],"label-md":["Inter"],"headline-sm":["Inter"],"body-sm":["Inter"],"label-lg":["Inter"],"headline-lg":["Inter"],"body-lg":["Inter"],"display":["Inter"]},fontSize:{"body-md":["0.875rem",{"lineHeight":"1.375rem","letterSpacing":"0em","fontWeight":"400"}],"headline-lg-mobile":["1.375rem",{"lineHeight":"1.75rem","letterSpacing":"-0.015em","fontWeight":"600"}],"label-sm":["0.6875rem",{"lineHeight":"0.875rem","letterSpacing":"0.03em","fontWeight":"600"}],"code-sm":["0.75rem",{"lineHeight":"1rem","letterSpacing":"-0.01em","fontWeight":"500"}],"headline-md":["1.25rem",{"lineHeight":"1.75rem","letterSpacing":"-0.015em","fontWeight":"600"}],"label-md":["0.75rem",{"lineHeight":"1rem","letterSpacing":"0.01em","fontWeight":"500"}],"headline-sm":["1rem",{"lineHeight":"1.5rem","letterSpacing":"-0.01em","fontWeight":"600"}],"body-sm":["0.75rem",{"lineHeight":"1.125rem","letterSpacing":"0.005em","fontWeight":"400"}],"label-lg":["0.875rem",{"lineHeight":"1.25rem","letterSpacing":"-0.005em","fontWeight":"500"}],"headline-lg":["1.75rem",{"lineHeight":"2.25rem","letterSpacing":"-0.02em","fontWeight":"600"}],"body-lg":["1rem",{"lineHeight":"1.625rem","letterSpacing":"-0.005em","fontWeight":"400"}],"display":["2.25rem",{"lineHeight":"2.75rem","letterSpacing":"-0.025em","fontWeight":"600"}]}}}}</script></head><body class="bg-surface font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-[260px] bg-surface-container-lowest z-50 flex flex-col border-r border-outline-variant/30 shadow-[0_1px_8px_rgba(0,0,0,0.03)]"><div class="h-16 px-space-lg flex items-center gap-3 border-b border-outline-variant/30"><div class="w-9 h-9 rounded-lg bg-primary-container flex items-center justify-center text-on-primary shadow-sm flex-shrink-0"><span class="material-symbols-outlined text-[20px]">verified</span></div><div class="flex flex-col min-w-0"><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight leading-none">ISense AI</span><span class="font-label-sm text-label-sm text-outline truncate mt-1 tracking-normal">Indian Standards Intel</span></div></div><div class="px-space-md py-space-sm border-b border-outline-variant/20 bg-surface-container-low/40"><div class="flex items-center justify-between"><div class="flex items-center gap-1.5"><span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span></span><span class="font-label-sm text-label-sm text-on-surface font-semibold tracking-wider">AI ONLINE</span></div><span class="font-code-sm text-code-sm text-primary-container bg-surface-container px-1.5 py-0.5 rounded">v2025.2</span></div></div><nav class="flex-1 overflow-y-auto px-space-md py-space-md space-y-5" data-active-classes="bg-surface-container text-primary font-semibold"><div class="space-y-1"><div class="px-space-sm pb-1 font-label-sm text-label-sm text-outline tracking-wider uppercase">Overview</div><a aria-current="page" class="flex items-center gap-3 px-space-sm py-2 rounded-lg transition-colors bg-surface-container text-primary font-semibold" data-path="dashboard" href="#"><span class="material-symbols-outlined text-[18px]">grid_view</span><span>Dashboard</span></a></div><div class="space-y-1"><div class="px-space-sm pb-1 font-label-sm text-label-sm text-outline tracking-wider uppercase">Intelligence</div><a class="flex items-center gap-3 px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors font-label-lg text-label-lg" data-path="ai-standard-search" href="#"><span class="material-symbols-outlined text-[18px]">manage_search</span><span>AI Standard Search</span></a><a class="flex items-center gap-3 px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors font-label-lg text-label-lg" data-path="recommendations" href="#"><span class="material-symbols-outlined text-[18px]">auto_awesome</span><span>Recommendations</span></a><a class="flex items-center gap-3 px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors font-label-lg text-label-lg" data-path="tender-analysis" href="#"><span class="material-symbols-outlined text-[18px]">fact_check</span><span>Tender Analysis</span></a></div><div class="space-y-1"><div class="px-space-sm pb-1 font-label-sm text-label-sm text-outline tracking-wider uppercase">Compliance</div><a class="flex items-center gap-3 px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors font-label-lg text-label-lg" data-path="qco-tracker" href="#"><span class="material-symbols-outlined text-[18px]">policy</span><span>QCO Tracker</span></a><a class="flex items-center gap-3 px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors font-label-lg text-label-lg" data-path="standards-library" href="#"><span class="material-symbols-outlined text-[18px]">local_library</span><span>Standards Library</span></a></div><div class="space-y-1"><div class="px-space-sm pb-1 font-label-sm text-label-sm text-outline tracking-wider uppercase">Details &amp; Access</div><a class="flex items-center gap-3 px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors font-label-lg text-label-lg" data-path="standard-detail-view" href="#"><span class="material-symbols-outlined text-[18px]">description</span><span>Standard Detail View</span></a><a class="flex items-center gap-3 px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors font-label-lg text-label-lg" data-path="sign-out-portal-gateway" href="#"><span class="material-symbols-outlined text-[18px]">logout</span><span>Sign Out / Gateway</span></a></div></nav><div class="p-space-md border-t border-outline-variant/30"><div class="p-2.5 rounded-xl bg-surface-container-low/70 flex items-center justify-between"><div class="flex flex-col"><span class="font-label-sm text-label-sm text-on-surface font-semibold">BIS Gazette Sync</span><span class="font-code-sm text-code-sm text-outline">Synced 12m ago</span></div><span class="material-symbols-outlined text-primary text-[18px]">sync</span></div></div></aside><div class="pl-[260px]"><header class="fixed top-0 left-[260px] right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-md border-b border-outline-variant/30 z-40 flex items-center justify-between px-gutter"><div class="flex items-center gap-4 min-w-0"><div class="flex items-center gap-2 text-outline font-label-md text-label-md"><span class="text-on-surface font-semibold">National Portal</span><span class="material-symbols-outlined text-[14px]">chevron_right</span><span class="truncate text-on-surface-variant">GeM &amp; BIS Compliance</span></div><div class="hidden xl:flex items-center gap-2 px-space-sm py-1 rounded-md bg-surface-container-low text-primary-container font-label-sm text-label-sm"><span class="material-symbols-outlined text-[14px]">gavel</span><span>Govt. of India Standardized</span></div></div><div class="flex items-center gap-space-md"><div class="hidden md:flex items-center w-72 lg:w-96 px-3 py-1.5 rounded-lg bg-surface border border-outline-variant/50 focus-within:border-primary-container transition-colors shadow-sm"><span class="material-symbols-outlined text-outline text-[18px] mr-2">search</span><span class="font-body-sm text-body-sm text-outline flex-1">Search Indian Standards (IS/ISO)...</span><kbd class="font-code-sm text-code-sm px-1.5 py-0.5 rounded bg-surface-container text-on-surface-variant">⌘K</kbd></div><div class="flex items-center gap-1"><button class="relative p-2 rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-error"></span></button><button class="p-2 rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">help</span></button></div><div class="h-6 w-px bg-outline-variant/40"></div><div class="flex items-center gap-2.5 pl-1"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div><div class="hidden 2xl:flex flex-col text-left"><span class="font-label-md text-label-md text-on-surface font-semibold leading-tight">Rajesh Verma</span><span class="font-label-sm text-label-sm text-outline truncate max-w-[210px]">Directorate of Supplies &amp; Disposal</span></div></div></div></header><main class="relative pt-16 bg-surface min-h-screen"><div class="flex flex-col w-full">
+<!-- Top Command Ribbon / Live Status -->
+<div class="px-gutter pt-space-lg pb-space-sm flex flex-col md:flex-row md:items-end justify-between gap-space-md">
+<div>
+<div class="flex items-center gap-2 mb-1.5">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-surface-container-high text-primary font-label-sm text-label-sm font-semibold tracking-wide">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-600"></span>
+</span>
+          AI Engine Active
+        </span>
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-code-sm text-code-sm">
+<span class="material-symbols-outlined text-[13px]">update</span>
+          Database Updated: Today 08:30 IST
+        </span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-background tracking-tight">Good morning, Procurement Officer</h1>
+<p class="font-body-md text-body-md text-outline mt-0.5">Monitor standards intelligence, recommendations, and procurement compliance from one sovereign interface.</p>
+</div>
+<!-- Quick Telemetry & Action Trigger -->
+<div class="flex items-center gap-2.5">
+<button class="group flex items-center gap-2 px-3.5 py-2 rounded-xl bg-surface-container-lowest text-on-surface hover:bg-surface-container transition-all shadow-sm" type="button">
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors text-[18px]">file_download</span>
+<span class="font-label-md text-label-md font-medium">Export Gazette Audit</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-xl bg-primary text-on-primary hover:bg-secondary-container transition-all shadow-sm font-label-md text-label-md font-semibold" type="button">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+<span>New Tender Audit</span>
+</button>
+</div>
+</div>
+<div class="px-gutter pb-space-xl space-y-space-lg">
+<!-- Hero Statistics (3 Elevated Bento Panels) -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Stat 1: Indexed Standards -->
+<div class="relative overflow-hidden rounded-2xl bg-surface-container-lowest p-space-lg shadow-sm hover:shadow-md transition-all group">
+<div class="absolute -right-6 -bottom-6 w-32 h-32 rounded-full bg-surface-container-low/80 pointer-events-none transition-transform group-hover:scale-110"></div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+</span>
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider font-semibold">Indexed Standards</span>
+</div>
+<span class="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full bg-surface-container-high text-primary font-code-sm text-code-sm font-semibold">
+<span class="material-symbols-outlined text-[12px]">trending_up</span> +12.4%
+          </span>
+</div>
+<div class="mt-4 flex items-baseline gap-2">
+<span class="font-display text-display text-on-background tracking-tight" id="metric-standards">12,486</span>
+<span class="font-body-sm text-body-sm text-outline">active codes</span>
+</div>
+<p class="mt-2 font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+          Indian Standards &amp; gazetted amendments indexed across all 14 BIS technical divisions.
+        </p>
+<div class="mt-4 pt-3 flex items-center justify-between text-outline">
+<span class="font-code-sm text-code-sm">Division CED, ETD, MTD</span>
+<span class="material-symbols-outlined text-[16px] text-primary group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</div>
+</div>
+<!-- Stat 2: Recommendations -->
+<div class="relative overflow-hidden rounded-2xl bg-surface-container-lowest p-space-lg shadow-sm hover:shadow-md transition-all group">
+<div class="absolute -right-6 -bottom-6 w-32 h-32 rounded-full bg-surface-container-low/80 pointer-events-none transition-transform group-hover:scale-110"></div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[18px]">auto_awesome</span>
+</span>
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider font-semibold">AI Recommendations</span>
+</div>
+<span class="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full bg-surface-container-high text-primary font-code-sm text-code-sm font-semibold">
+<span class="material-symbols-outlined text-[12px]">trending_up</span> +18.2%
+          </span>
+</div>
+<div class="mt-4 flex items-baseline gap-2">
+<span class="font-display text-display text-on-background tracking-tight" id="metric-recs">3,842</span>
+<span class="font-body-sm text-body-sm text-outline">synthesized</span>
+</div>
+<p class="mt-2 font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+          Automated specifications derived for GeM procurements &amp; multi-state civil infrastructure tenders.
+        </p>
+<div class="mt-4 pt-3 flex items-center justify-between text-outline">
+<span class="font-code-sm text-code-sm">Avg latency: 1.4s / clause</span>
+<span class="material-symbols-outlined text-[16px] text-primary group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</div>
+</div>
+<!-- Stat 3: Tenders Analyzed -->
+<div class="relative overflow-hidden rounded-2xl bg-surface-container-lowest p-space-lg shadow-sm hover:shadow-md transition-all group">
+<div class="absolute -right-6 -bottom-6 w-32 h-32 rounded-full bg-surface-container-low/80 pointer-events-none transition-transform group-hover:scale-110"></div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">rule</span>
+</span>
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider font-semibold">Tenders Analyzed</span>
+</div>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface-container text-primary font-code-sm text-code-sm font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> 98.6% Res
+          </span>
+</div>
+<div class="mt-4 flex items-baseline gap-2">
+<span class="font-display text-display text-on-background tracking-tight" id="metric-tenders">1,264</span>
+<span class="font-body-sm text-body-sm text-outline">audited</span>
+</div>
+<p class="mt-2 font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+          Procurement RFPs/BOQs vetted with full citation mapping against active QCO compliance mandates.
+        </p>
+<div class="mt-4 pt-3 flex items-center justify-between text-outline">
+<span class="font-code-sm text-code-sm">Zero critical discrepancies</span>
+<span class="material-symbols-outlined text-[16px] text-primary group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</div>
+</div>
+</div>
+<!-- Quick Actions Modular Grid -->
+<div>
+<div class="flex items-center justify-between mb-3">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider font-semibold">Direct Auditor Workflows</span>
+<span class="font-code-sm text-code-sm text-on-surface-variant">Press ⌘1 to ⌘4 for rapid launch</span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- Action 1 -->
+<a class="p-space-lg rounded-2xl bg-surface-container-lowest hover:bg-surface-container-low/70 transition-all shadow-sm hover:shadow-md group flex flex-col justify-between" data-path="ai-standard-search" href="#">
+<div>
+<div class="w-11 h-11 rounded-xl bg-surface-container text-primary flex items-center justify-center transition-transform group-hover:scale-105">
+<span class="material-symbols-outlined text-[22px]">manage_search</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mt-3.5 group-hover:text-primary transition-colors">Find a Standard</h3>
+<p class="font-body-sm text-body-sm text-outline mt-1.5 leading-relaxed">
+              Search Indian Standards using AI natural language requirement matching &amp; code crosswalks.
+            </p>
+</div>
+<div class="mt-4 pt-2 flex items-center justify-between text-primary font-label-md text-label-md font-semibold">
+<span>Query Corpus</span>
+<span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">chevron_right</span>
+</div>
+</a>
+<!-- Action 2 -->
+<a class="p-space-lg rounded-2xl bg-surface-container-lowest hover:bg-surface-container-low/70 transition-all shadow-sm hover:shadow-md group flex flex-col justify-between" data-path="tender-analysis" href="#">
+<div>
+<div class="w-11 h-11 rounded-xl bg-surface-container-high text-primary flex items-center justify-center transition-transform group-hover:scale-105">
+<span class="material-symbols-outlined text-[22px]">fact_check</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mt-3.5 group-hover:text-primary transition-colors">Analyze Tender</h3>
+<p class="font-body-sm text-body-sm text-outline mt-1.5 leading-relaxed">
+              Upload procurement RFP/BOQ to identify standard mandates, outdated citations &amp; compliance gaps.
+            </p>
+</div>
+<div class="mt-4 pt-2 flex items-center justify-between text-primary font-label-md text-label-md font-semibold">
+<span>Ingest Document</span>
+<span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">chevron_right</span>
+</div>
+</a>
+<!-- Action 3 -->
+<a class="p-space-lg rounded-2xl bg-surface-container-lowest hover:bg-surface-container-low/70 transition-all shadow-sm hover:shadow-md group flex flex-col justify-between" data-path="qco-tracker" href="#">
+<div>
+<div class="w-11 h-11 rounded-xl bg-surface-container text-primary-container flex items-center justify-center transition-transform group-hover:scale-105">
+<span class="material-symbols-outlined text-[22px]">policy</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mt-3.5 group-hover:text-primary transition-colors">Check Compliance</h3>
+<p class="font-body-sm text-body-sm text-outline mt-1.5 leading-relaxed">
+              Verify mandatory BIS certification rules &amp; active gazette Quality Control Orders (QCOs).
+            </p>
+</div>
+<div class="mt-4 pt-2 flex items-center justify-between text-primary font-label-md text-label-md font-semibold">
+<span>Verify Order</span>
+<span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">chevron_right</span>
+</div>
+</a>
+<!-- Action 4 -->
+<a class="p-space-lg rounded-2xl bg-surface-container-lowest hover:bg-surface-container-low/70 transition-all shadow-sm hover:shadow-md group flex flex-col justify-between" data-path="standards-library" href="#">
+<div>
+<div class="w-11 h-11 rounded-xl bg-surface-container text-secondary flex items-center justify-center transition-transform group-hover:scale-105">
+<span class="material-symbols-outlined text-[22px]">local_library</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mt-3.5 group-hover:text-primary transition-colors">Browse Library</h3>
+<p class="font-body-sm text-body-sm text-outline mt-1.5 leading-relaxed">
+              Explore 12,000+ indexed standards with revision logs, withdrawn notices &amp; draft revisions.
+            </p>
+</div>
+<div class="mt-4 pt-2 flex items-center justify-between text-primary font-label-md text-label-md font-semibold">
+<span>Access Repository</span>
+<span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">chevron_right</span>
+</div>
+</a>
+</div>
+</div>
+<!-- Analytics & Intelligence Center (Split Grid) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
+<!-- Left: Standards by Product Category (7 cols) -->
+<div class="lg:col-span-7 bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between pb-3">
+<div>
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider font-semibold">National Distribution</span>
+<h2 class="font-headline-md text-headline-md text-on-surface mt-0.5">Standards by Product Category</h2>
+</div>
+<div class="flex items-center gap-1.5 p-1 rounded-lg bg-surface-container-low">
+<button class="px-2.5 py-1 rounded-md bg-surface-container-lowest text-primary font-label-sm text-label-sm font-semibold shadow-xs">Share</button>
+<button class="px-2.5 py-1 rounded-md text-outline hover:text-on-surface font-label-sm text-label-sm">Absolute</button>
+</div>
+</div>
+<!-- Chart Visual Area (Custom Vectorized Multi-layer Visualizer) -->
+<div class="grid grid-cols-1 sm:grid-cols-12 gap-gutter items-center my-4 py-2">
+<!-- Donut Visual -->
+<div class="sm:col-span-5 flex flex-col items-center justify-center relative">
+<div class="relative w-44 h-44 flex items-center justify-center">
+<!-- SVG Segment Donut (Clean Monotone Deep Blue/Indigo Hierarchy) -->
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 100 100">
+<!-- Background Track -->
+<circle class="text-surface-container-low" cx="50" cy="50" fill="transparent" r="38" stroke="currentColor" stroke-width="12"></circle>
+<!-- Electrical: 27.4% -> dasharray 65.4 173.4 -->
+<circle class="text-primary" cx="50" cy="50" fill="transparent" r="38" stroke="currentColor" stroke-dasharray="65.4 238.8" stroke-dashoffset="0" stroke-width="12"></circle>
+<!-- Civil: 23.1% -> 55.1 -->
+<circle class="text-secondary-container" cx="50" cy="50" fill="transparent" r="38" stroke="currentColor" stroke-dasharray="55.1 238.8" stroke-dashoffset="-65.4" stroke-width="12"></circle>
+<!-- Mechanical: 14.8% -> 35.3 -->
+<circle class="text-primary-container" cx="50" cy="50" fill="transparent" r="38" stroke="currentColor" stroke-dasharray="35.3 238.8" stroke-dashoffset="-120.5" stroke-width="12"></circle>
+<!-- PPE: 13.1% -> 31.3 -->
+<circle class="text-surface-container-highest" cx="50" cy="50" fill="transparent" r="38" stroke="currentColor" stroke-dasharray="31.3 238.8" stroke-dashoffset="-155.8" stroke-width="12"></circle>
+<!-- IT/Telecom: 11.4% -> 27.2 -->
+<circle class="text-surface-container-high" cx="50" cy="50" fill="transparent" r="38" stroke="currentColor" stroke-dasharray="27.2 238.8" stroke-dashoffset="-187.1" stroke-width="12"></circle>
+<!-- Chem/Textiles: 10.2% -> 24.5 -->
+<circle class="text-outline-variant" cx="50" cy="50" fill="transparent" r="38" stroke="currentColor" stroke-dasharray="24.5 238.8" stroke-dashoffset="-214.3" stroke-width="12"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center text-center pointer-events-none">
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold leading-none">12,486</span>
+<span class="font-label-sm text-label-sm text-outline mt-1">Total Codes</span>
+</div>
+</div>
+<div class="flex items-center gap-1.5 mt-2 font-code-sm text-code-sm text-outline">
+<span class="material-symbols-outlined text-[14px] text-primary">donut_large</span>
+<span>Calibrated to Gazette 2025</span>
+</div>
+</div>
+<!-- Horizontal Precision Bars -->
+<div class="sm:col-span-7 space-y-3">
+<!-- Electrical -->
+<div class="space-y-1">
+<div class="flex justify-between items-center text-on-surface">
+<span class="font-label-md text-label-md font-semibold flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-primary inline-block"></span>
+                    Electrical Equipment &amp; Cables
+                  </span>
+<span class="font-code-sm text-code-sm text-on-surface font-medium">3,420 <span class="text-outline">(27.4%)</span></span>
+</div>
+<div class="h-2 w-full rounded-full bg-surface-container-low overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 27.4%"></div>
+</div>
+</div>
+<!-- Civil Engineering -->
+<div class="space-y-1">
+<div class="flex justify-between items-center text-on-surface">
+<span class="font-label-md text-label-md font-semibold flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary-container inline-block"></span>
+                    Civil Engineering &amp; Construction
+                  </span>
+<span class="font-code-sm text-code-sm text-on-surface font-medium">2,890 <span class="text-outline">(23.1%)</span></span>
+</div>
+<div class="h-2 w-full rounded-full bg-surface-container-low overflow-hidden">
+<div class="h-full bg-secondary-container rounded-full" style="width: 23.1%"></div>
+</div>
+</div>
+<!-- Mechanical & Metallurgy -->
+<div class="space-y-1">
+<div class="flex justify-between items-center text-on-surface">
+<span class="font-label-md text-label-md font-semibold flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-primary-container inline-block"></span>
+                    Mechanical &amp; Metallurgy
+                  </span>
+<span class="font-code-sm text-code-sm text-on-surface font-medium">1,850 <span class="text-outline">(14.8%)</span></span>
+</div>
+<div class="h-2 w-full rounded-full bg-surface-container-low overflow-hidden">
+<div class="h-full bg-primary-container rounded-full" style="width: 14.8%"></div>
+</div>
+</div>
+<!-- PPE -->
+<div class="space-y-1">
+<div class="flex justify-between items-center text-on-surface">
+<span class="font-label-md text-label-md font-semibold flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-surface-container-highest inline-block"></span>
+                    Personal Protective Equipment (PPE)
+                  </span>
+<span class="font-code-sm text-code-sm text-on-surface font-medium">1,640 <span class="text-outline">(13.1%)</span></span>
+</div>
+<div class="h-2 w-full rounded-full bg-surface-container-low overflow-hidden">
+<div class="h-full bg-surface-container-highest rounded-full" style="width: 13.1%"></div>
+</div>
+</div>
+<!-- IT & Electronics -->
+<div class="space-y-1">
+<div class="flex justify-between items-center text-on-surface">
+<span class="font-label-md text-label-md font-semibold flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-surface-container-high inline-block"></span>
+                    IT, Electronics &amp; Telecom
+                  </span>
+<span class="font-code-sm text-code-sm text-on-surface font-medium">1,420 <span class="text-outline">(11.4%)</span></span>
+</div>
+<div class="h-2 w-full rounded-full bg-surface-container-low overflow-hidden">
+<div class="h-full bg-surface-container-high rounded-full" style="width: 11.4%"></div>
+</div>
+</div>
+<!-- Chemicals & Textiles -->
+<div class="space-y-1">
+<div class="flex justify-between items-center text-on-surface">
+<span class="font-label-md text-label-md font-semibold flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-outline-variant inline-block"></span>
+                    Chemicals &amp; Technical Textiles
+                  </span>
+<span class="font-code-sm text-code-sm text-on-surface font-medium">1,266 <span class="text-outline">(10.2%)</span></span>
+</div>
+<div class="h-2 w-full rounded-full bg-surface-container-low overflow-hidden">
+<div class="h-full bg-outline-variant rounded-full" style="width: 10.2%"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-4 pt-3 flex items-center justify-between bg-surface-container-low/60 rounded-xl p-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">verified_user</span>
+<span class="font-body-sm text-body-sm text-on-surface">Compulsory Registration Scheme (CRS) tracks 88 of these categories</span>
+</div>
+<a class="font-label-sm text-label-sm text-primary font-semibold hover:underline" data-path="standards-library" href="#">View Taxonomy</a>
+</div>
+</div>
+<!-- Right: Real-Time AI Activity Feed (5 cols) -->
+<div class="lg:col-span-5 bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between pb-3">
+<div>
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider font-semibold">Continuous Audit Trail</span>
+<h2 class="font-headline-md text-headline-md text-on-surface mt-0.5">Recent AI Activity</h2>
+</div>
+<span class="flex h-2.5 w-2.5 rounded-full bg-emerald-500 animate-pulse" title="Live stream active"></span>
+</div>
+<!-- Feed Items Stack -->
+<div class="space-y-3 mt-2">
+<!-- Feed Item 1: Recommendation -->
+<div class="p-3 rounded-xl bg-surface-container-low/50 hover:bg-surface-container-low transition-colors">
+<div class="flex items-start justify-between gap-2">
+<div class="flex items-center gap-2">
+<span class="w-7 h-7 rounded-lg bg-surface-container text-primary flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[16px]">psychology</span>
+</span>
+<div>
+<span class="font-label-sm text-label-sm text-on-surface font-semibold block leading-tight">AI recommendation generated</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">LED Street Light (IS 10322)</span>
+</div>
+</div>
+<span class="font-code-sm text-code-sm text-outline flex-shrink-0">2 min ago</span>
+</div>
+<div class="mt-2.5 flex items-center justify-between">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface-container-high text-primary font-code-sm text-code-sm font-semibold">
+                  Match 94%
+                </span>
+<span class="font-code-sm text-code-sm text-outline">GeM-Bid #2026-9812</span>
+</div>
+</div>
+<!-- Feed Item 2: Tender Analyzed -->
+<div class="p-3 rounded-xl bg-surface-container-low/50 hover:bg-surface-container-low transition-colors">
+<div class="flex items-start justify-between gap-2">
+<div class="flex items-center gap-2">
+<span class="w-7 h-7 rounded-lg bg-surface-container-high text-primary-container flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[16px]">analytics</span>
+</span>
+<div>
+<span class="font-label-sm text-label-sm text-on-surface font-semibold block leading-tight">Tender analyzed</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">TN-PWD-2026-0184 (48 requirements evaluated)</span>
+</div>
+</div>
+<span class="font-code-sm text-code-sm text-outline flex-shrink-0">18 min ago</span>
+</div>
+<div class="mt-2.5 flex items-center justify-between">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-error-container text-on-error-container font-code-sm text-code-sm font-semibold">
+<span class="material-symbols-outlined text-[12px]">warning</span> 3 gaps detected
+                </span>
+<span class="font-code-sm text-code-sm text-outline">Mandatory Cement IS 1489 missing</span>
+</div>
+</div>
+<!-- Feed Item 3: Standard Status Updated -->
+<div class="p-3 rounded-xl bg-surface-container-low/50 hover:bg-surface-container-low transition-colors">
+<div class="flex items-start justify-between gap-2">
+<div class="flex items-center gap-2">
+<span class="w-7 h-7 rounded-lg bg-surface-container text-secondary flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[16px]">sync_alt</span>
+</span>
+<div>
+<span class="font-label-sm text-label-sm text-on-surface font-semibold block leading-tight">Standard status updated</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">IS 302: Part 1 (Electrical Appliances)</span>
+</div>
+</div>
+<span class="font-code-sm text-code-sm text-outline flex-shrink-0">1 hour ago</span>
+</div>
+<div class="mt-2.5 flex items-center justify-between">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-code-sm text-code-sm">
+                  Amendment 2 published
+                </span>
+<span class="font-code-sm text-code-sm text-primary font-semibold">Gazette S.O. 412(E)</span>
+</div>
+</div>
+<!-- Feed Item 4: QCO Compliance -->
+<div class="p-3 rounded-xl bg-surface-container-low/50 hover:bg-surface-container-low transition-colors">
+<div class="flex items-start justify-between gap-2">
+<div class="flex items-center gap-2">
+<span class="w-7 h-7 rounded-lg bg-surface-container-high text-primary flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[16px]">verified</span>
+</span>
+<div>
+<span class="font-label-sm text-label-sm text-on-surface font-semibold block leading-tight">QCO compliance checked</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Industrial Safety Helmets (IS 2925)</span>
+</div>
+</div>
+<span class="font-code-sm text-code-sm text-outline flex-shrink-0">2 hours ago</span>
+</div>
+<div class="mt-2.5 flex items-center justify-between">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface-container text-primary font-code-sm text-code-sm font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Mandatory Certification Verified
+                </span>
+<span class="font-code-sm text-code-sm text-outline">DPIIT Order 2024</span>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-4 pt-3 flex items-center justify-between">
+<span class="font-code-sm text-code-sm text-outline">Showing latest 4 of 142 daily events</span>
+<a class="font-label-sm text-label-sm text-primary font-semibold hover:underline flex items-center gap-1" data-path="tender-analysis" href="#">
+<span>View Full Audit Log</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Sovereign Regulatory Gazette Notice & Quick Crosswalk Banner -->
+<div class="relative overflow-hidden rounded-2xl bg-surface-container-high p-space-lg text-on-surface shadow-sm">
+<div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+<div class="flex items-center gap-3.5">
+<div class="w-12 h-12 rounded-xl bg-primary text-on-primary flex items-center justify-center flex-shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[24px]">gavel</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface">BIS Gazette QCO Notification 2025/Q1 In Force</span>
+<span class="px-2 py-0.5 rounded-full bg-primary text-on-primary font-label-sm text-label-sm font-semibold">Immediate Effect</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-0.5 max-w-3xl">
+              17 new mechanical fasteners, polymer conduits, and medical diagnostic items are now legally governed under mandatory Indian Standards conformity for central &amp; state public procurement.
+            </p>
+</div>
+</div>
+<div class="flex items-center gap-2 flex-shrink-0">
+<a class="px-4 py-2 rounded-xl bg-primary text-on-primary hover:bg-secondary-container transition-all font-label-md text-label-md font-semibold text-center" data-path="qco-tracker" href="#">
+            Review Impacted Items
+          </a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+  // Simple micro-interaction: subtle count-up animation simulation on dashboard load
+  (function () {
+    const animateValue = (id, start, end, duration) => {
+      const obj = document.getElementById(id);
+      if (!obj) return;
+      let startTimestamp = null;
+      const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        const current = Math.floor(progress * (end - start) + start);
+        obj.textContent = current.toLocaleString('en-IN');
+        if (progress < 1) {
+          window.requestAnimationFrame(step);
+        } else {
+          obj.textContent = end.toLocaleString('en-IN');
+        }
+      };
+      window.requestAnimationFrame(step);
+    };
+
+    // Trigger on visibility
+    setTimeout(() => {
+      animateValue('metric-standards', 12100, 12486, 900);
+      animateValue('metric-recs', 3600, 3842, 850);
+      animateValue('metric-tenders', 1150, 1264, 800);
+    }, 150);
+  })();
+</script></main></div></body></html>

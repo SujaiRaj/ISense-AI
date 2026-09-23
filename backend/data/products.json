@@ -1,0 +1,266 @@
+[
+  {
+    "productId": "P001",
+    "productName": "LED Street Light",
+    "productCategory": "Electrical / Luminaires",
+    "query_keywords": ["led", "street light", "road lighting", "luminaire", "municipal lighting", "highway light", "sodium vapour replacement"],
+    "primary_recommendation": {
+      "isNumber": "IS 10322 (Part 5/Sec 3): 2012",
+      "title": "Luminaires — Part 5: Particular Requirements, Section 3: Luminaires for Road and Street Lighting",
+      "year": 2012,
+      "status": "CURRENT",
+      "relevanceScore": 96,
+      "explanation": "IS 10322 (Part 5/Sec 3) is the principal BIS specification governing LED luminaires deployed in municipal road and street lighting projects. Clause 12 of the standard mandates a minimum ingress protection rating of IP-66 (dust-tight, jet-proof) for the luminaire housing, which is critical for outdoor installation durability. Additionally, Clause 9 specifies photometric performance requirements including minimum luminous efficacy of 90 lm/W, ensuring energy efficiency criteria are met before procurement under government smart-city and SLNP programmes.",
+      "certification": {
+        "isMandatory": true,
+        "scheme": "CRS",
+        "schemeFullName": "Compulsory Registration Scheme (BIS)",
+        "notificationRef": "MeitY Gazette Notification S.O. 2357(E) dated 27-Aug-2012 (Electronics & IT Goods Order); BIS Annexure-2 List of Products under CRS",
+        "bisProductManualUrl": "https://www.bis.gov.in/wp-content/uploads/2025/03/temp_2131689472.pdf",
+        "notes": "All LED road/street luminaires imported or manufactured in India must carry BIS CRS Registration mark. Procurement officers must verify the Registration No. on BIS portal before issuing LOA."
+      }
+    },
+    "alternate_recommendations": [
+      {
+        "isNumber": "IS 10322 (Part 5/Sec 5): 2013",
+        "title": "Luminaires — Part 5: Particular Requirements, Section 5: Floodlights",
+        "year": 2013,
+        "relevanceScore": 81,
+        "explanation": "Applicable when the tender specifies area-flood lighting at junctions or interchanges rather than linear road lighting. Same CRS regime applies."
+      },
+      {
+        "isNumber": "IS 16102 (Part 1): 2012",
+        "title": "Self-Ballasted LED Lamps for General Lighting Services — Part 1: Safety Requirements",
+        "year": 2012,
+        "relevanceScore": 68,
+        "explanation": "Applies to self-contained LED retrofit lamps (E27/E40 base) rather than dedicated luminaire modules; relevant only if the tender specifies retrofittable lamp assemblies."
+      }
+    ],
+    "qco_enforcement": {
+      "isActive": true,
+      "orderRef": "Quality Control Order for LED Lights and Fixtures (S.O. 1308(E)) — MeitY, 2023",
+      "effectiveDate": "2023-10-01",
+      "mandatedStandards": ["IS 10322 (Part 5/Sec 3): 2012", "IS 16102 (Part 1): 2012"],
+      "penaltyClause": "Section 16(1) of the BIS Act, 2016 — non-compliant goods are liable to seizure and penalty up to Rs. 10 lakh per offence"
+    },
+    "key_clauses": [
+      { "clauseNumber": "Cl. 9", "description": "Photometric performance — minimum luminous efficacy 90 lm/W" },
+      { "clauseNumber": "Cl. 12", "description": "Ingress protection — IP66 minimum for outdoor luminaire housing" },
+      { "clauseNumber": "Cl. 14", "description": "Thermal management — junction temperature Tj must not exceed 85 degrees C at rated load" },
+      { "clauseNumber": "Cl. 6.3", "description": "Power factor — minimum PF 0.90 at full load" }
+    ],
+    "procurement_notes": "GeM Category: LED Street Light (CAT ID: Q3/265). Mandatory BIS CRS Registration Number must be submitted with bid. Verify registration validity on BIS ICSAI portal. EESL bulk procurement specifications additionally require minimum 50,000 lm output for 150W+ category luminaires."
+  },
+  {
+    "productId": "P002",
+    "productName": "Safety Helmet",
+    "productCategory": "Personal Protective Equipment (PPE) / Head Protection",
+    "query_keywords": ["safety helmet", "hard hat", "head protection", "industrial helmet", "construction helmet", "PPE helmet", "IS 2925"],
+    "primary_recommendation": {
+      "isNumber": "IS 2925: 1984 (Reaffirmed 2020)",
+      "title": "Industrial Safety Helmets",
+      "year": 1984,
+      "status": "CURRENT",
+      "relevanceScore": 97,
+      "explanation": "IS 2925 is the definitive BIS specification for industrial safety helmets covering construction, mining, tunnelling, and general industrial use. Clause 5.2 specifies a shock absorption test wherein a 5 kg hemispherical striker dropped from 1.0 m must not transmit more than 5 kN peak force to the headform, while Clause 5.3 requires the shell to withstand penetration by a 1 kg conical striker at 7.0 m/s. The standard also mandates a minimum shell retention of 25 N-m torque (Clause 5.4), directly verifiable during pre-dispatch inspection.",
+      "certification": {
+        "isMandatory": true,
+        "scheme": "ISI",
+        "schemeFullName": "ISI Mark Certification (BIS Scheme-I)",
+        "notificationRef": "Ministry of Labour and Employment — Personal Protective Equipment and Body Protection Order, 2022 (S.O. 4808(E)); BIS Product Manual PM/IS 2925/1/January 2019",
+        "bisProductManualUrl": "https://www.bis.gov.in/wp-content/uploads/IS-2925-Product-Manual.pdf",
+        "notes": "Safety helmets procured for government construction or mining contracts must bear ISI mark (Scheme-I) under BIS (Conformity Assessment) Regulations, 2018. Licence number must be validated on www.bis.gov.in/product-certification."
+      }
+    },
+    "alternate_recommendations": [
+      {
+        "isNumber": "IS 17012: 2018",
+        "title": "Personal Protective Equipment — Head Protection — Industrial Safety Helmets for High-Temperature Working Environment",
+        "year": 2018,
+        "relevanceScore": 74,
+        "explanation": "Required specifically for environments with radiant heat exposure (foundries, smelters, glass plants). Clause 8 adds a thermal stability test at 150 degrees C for 30 minutes in addition to IS 2925 mechanical tests."
+      }
+    ],
+    "qco_enforcement": {
+      "isActive": true,
+      "orderRef": "PPE and Body Protection Quality Control Order, 2022 (S.O. 4808(E)) — Ministry of Labour and Employment",
+      "effectiveDate": "2023-06-01",
+      "mandatedStandards": ["IS 2925: 1984"],
+      "penaltyClause": "BIS Act 2016, Section 29 — use/sale of non-ISI marked helmets after enforcement date carries imprisonment up to 2 years or fine up to Rs. 2 lakh"
+    },
+    "key_clauses": [
+      { "clauseNumber": "Cl. 5.2", "description": "Shock absorption — 5 kg hemispherical striker, 1.0 m drop; max transmitted force not more than 5 kN" },
+      { "clauseNumber": "Cl. 5.3", "description": "Penetration resistance — 1 kg conical striker at 7.0 m/s must not contact headform" },
+      { "clauseNumber": "Cl. 5.4", "description": "Retention system — harness must withstand 25 N-m torque without breakage" },
+      { "clauseNumber": "Cl. 5.5", "description": "Flame resistance — shell must self-extinguish within 5 s of flame removal" },
+      { "clauseNumber": "Cl. 4.1", "description": "Construction — shell, harness, and sweatband; minimum mass of complete assembly not more than 445 g" }
+    ],
+    "procurement_notes": "GeM Category: Safety Helmet (CAT ID: Q1/103). All helmets must bear ISI mark with manufacturer licence number. Shelf-life: helmets older than 3 years from manufacture date must not be procured. Colour coding per tender: typically white for supervisors, yellow for workers."
+  },
+  {
+    "productId": "P003",
+    "productName": "Portland Cement",
+    "productCategory": "Construction Materials / Cementitious Binders",
+    "query_keywords": ["portland cement", "OPC cement", "ordinary portland cement", "43 grade cement", "53 grade cement", "PPC cement", "blended cement", "IS 269", "IS 8112"],
+    "primary_recommendation": {
+      "isNumber": "IS 8112: 2013 (Reaffirmed 2019)",
+      "title": "Ordinary Portland Cement, 43 Grade — Specification",
+      "year": 2013,
+      "status": "CURRENT",
+      "relevanceScore": 95,
+      "explanation": "IS 8112 governs Ordinary Portland Cement (OPC) 43 Grade, the most widely specified cement in government building and infrastructure contracts. Clause 5.1 mandates a minimum 28-day compressive strength of 43 N/mm² (hence the grade designation), with Clause 5.3 setting an initial setting time of not less than 30 minutes and a final setting time of not more than 600 minutes — requirements directly verifiable at site receiving inspection. Clause 7 requires each bag or bulk consignment to be accompanied by a test certificate from the manufacturer's laboratory endorsed under the ISI licence.",
+      "certification": {
+        "isMandatory": true,
+        "scheme": "ISI",
+        "schemeFullName": "ISI Mark Certification (BIS Scheme-I)",
+        "notificationRef": "Ministry of Commerce and Industry — Cement (Quality Control) Order, 2003; BIS Cement Product Manual; compulsory ISI marking under Schedule I of the order",
+        "bisProductManualUrl": "https://www.bis.gov.in/product-certification/scheme-i-product-certification/",
+        "notes": "All cement manufactured or imported for sale in India must bear ISI mark as per the Cement (Quality Control) Order, 2003. Government agencies (CPWD, NHAI, PWD) must not procure cement without valid ISI licence number on bags or bulk delivery challans."
+      }
+    },
+    "alternate_recommendations": [
+      {
+        "isNumber": "IS 12269: 2013",
+        "title": "Ordinary Portland Cement, 53 Grade — Specification",
+        "year": 2013,
+        "relevanceScore": 90,
+        "explanation": "Mandated for pre-stressed concrete, high-rise structures, and elements requiring early strength gain. Clause 5.1 requires minimum 28-day compressive strength of 53 N/mm²."
+      },
+      {
+        "isNumber": "IS 269: 2015",
+        "title": "Ordinary Portland Cement, 33 Grade — Specification",
+        "year": 2015,
+        "relevanceScore": 72,
+        "explanation": "Used in low-stress masonry and plastering works. Minimum 28-day strength 33 N/mm². Being progressively replaced by 43-grade in most government specifications."
+      },
+      {
+        "isNumber": "IS 1489 (Part 1): 2015",
+        "title": "Portland Pozzolana Cement — Part 1: Fly Ash Based",
+        "year": 2015,
+        "relevanceScore": 78,
+        "explanation": "Specified in CPWD and PWD tenders for mass concrete (dams, foundations) due to lower heat of hydration and reduced CO2 footprint per GFR Rule 149 green-procurement mandate."
+      }
+    ],
+    "qco_enforcement": {
+      "isActive": true,
+      "orderRef": "Cement (Quality Control) Order, 2003 — S.O. 1110(E), Ministry of Commerce and Industry",
+      "effectiveDate": "2003-08-18",
+      "mandatedStandards": ["IS 269: 2015", "IS 8112: 2013", "IS 12269: 2013", "IS 1489 (Part 1): 2015"],
+      "penaltyClause": "BIS Act 2016 Section 29 — penalties for non-ISI marked cement in the supply chain"
+    },
+    "key_clauses": [
+      { "clauseNumber": "Cl. 5.1", "description": "Compressive strength — 28-day minimum 43 N/mm2 (for OPC 43 grade)" },
+      { "clauseNumber": "Cl. 5.2", "description": "Fineness — specific surface 225 m2/kg minimum by Blaine air permeability" },
+      { "clauseNumber": "Cl. 5.3", "description": "Setting time — initial not less than 30 min; final not more than 600 min" },
+      { "clauseNumber": "Cl. 5.4", "description": "Soundness — Le Chatelier expansion not more than 10 mm; autoclave expansion not more than 0.8%" },
+      { "clauseNumber": "Cl. 6", "description": "Chemical requirements — C3A content not more than 10%; SO3 content not more than 2.5% for OPC 43" }
+    ],
+    "procurement_notes": "GeM Category: Cement (CAT ID: Q2/187). Minimum batch testing requirement: 1 sample per 200 MT for Third Party Inspection (TPI) by NABL-accredited lab. Bulk delivery challan must state ISI licence number, batch number, and date of manufacture. Cement older than 90 days from packing date must not be accepted on site."
+  },
+  {
+    "productId": "P004",
+    "productName": "PVC Cable",
+    "productCategory": "Electrical / Cables and Wires",
+    "query_keywords": ["PVC cable", "PVC insulated cable", "electrical cable", "wiring cable", "IS 694", "armoured cable", "power cable", "multi-core cable"],
+    "primary_recommendation": {
+      "isNumber": "IS 694: 2010 (Reaffirmed 2019)",
+      "title": "PVC Insulated Cables for Working Voltages up to and including 1100 V",
+      "year": 2010,
+      "status": "CURRENT",
+      "relevanceScore": 94,
+      "explanation": "IS 694 is the governing specification for PVC-insulated copper and aluminium conductor cables rated up to 1100 V, which constitute the vast majority of internal electrification and distribution wiring in government building projects. Clause 11 mandates a minimum volume resistivity of PVC insulation of 1 x 10 to the power 12 ohm-cm at 27 degrees C (and not less than 1 x 10 to the power 9 ohm-cm at 70 degrees C), directly verifiable during type tests. Clause 9 specifies conductor resistance at 20 degrees C for each cross-section (e.g., 1.5 mm2 copper conductor not more than 12.1 ohm/km), providing a concrete acceptance criterion for incoming-material inspection at stores.",
+      "certification": {
+        "isMandatory": true,
+        "scheme": "ISI",
+        "schemeFullName": "ISI Mark Certification (BIS Scheme-I)",
+        "notificationRef": "Cables (Quality Control) Order, 2023 — S.O. 5157(E), Ministry of Heavy Industries; BIS Product Manual for IS 694",
+        "bisProductManualUrl": "https://www.bis.gov.in/product-certification/scheme-i-product-certification/",
+        "notes": "ISI marking on PVC cables is mandatory under the Cables Quality Control Order, 2023. The ISI mark must appear on the outer sheath of every drum or coil at intervals not exceeding 1 m. Procurement officers must validate licence number on BIS ICSAI portal and cross-check the drum label."
+      }
+    },
+    "alternate_recommendations": [
+      {
+        "isNumber": "IS 1554 (Part 1): 2007 (Reaffirmed 2019)",
+        "title": "PVC Insulated (Heavy Duty) Electric Cables — Part 1: For Working Voltages up to and including 1100 V",
+        "year": 2007,
+        "relevanceScore": 85,
+        "explanation": "Applicable for armoured, heavy-duty underground cable runs where mechanical protection is required. Clause 15 specifies galvanised steel wire armour tensile strength requirements not present in IS 694."
+      },
+      {
+        "isNumber": "IS 7098 (Part 1): 2011",
+        "title": "Cross-Linked Polyethylene Insulated PVC Sheathed Cables — Part 1: For Working Voltages up to and including 1100 V",
+        "year": 2011,
+        "relevanceScore": 79,
+        "explanation": "XLPE insulation variant specified in CPWD and power distribution tenders where higher continuous conductor temperature (90 degrees C vs 70 degrees C for PVC) is required for increased current-carrying capacity."
+      }
+    ],
+    "qco_enforcement": {
+      "isActive": true,
+      "orderRef": "Cables (Quality Control) Order, 2023 — S.O. 5157(E), Ministry of Heavy Industries, dated 18-Dec-2023",
+      "effectiveDate": "2024-06-18",
+      "mandatedStandards": ["IS 694: 2010", "IS 1554 (Part 1): 2007", "IS 7098 (Part 1): 2011"],
+      "penaltyClause": "BIS Act 2016, Section 29 — penalties for sale or use of non-ISI marked cables up to Rs. 2 lakh fine and/or imprisonment"
+    },
+    "key_clauses": [
+      { "clauseNumber": "Cl. 9", "description": "Conductor resistance — 1.5 mm2 Cu conductor not more than 12.1 ohm/km at 20 degrees C; 2.5 mm2 not more than 7.41 ohm/km" },
+      { "clauseNumber": "Cl. 11", "description": "Insulation resistance — volume resistivity not less than 1e12 ohm-cm at 27 degrees C; not less than 1e9 ohm-cm at 70 degrees C" },
+      { "clauseNumber": "Cl. 12", "description": "Voltage test — 2000 V AC for 15 minutes without breakdown for 1100 V rated cables" },
+      { "clauseNumber": "Cl. 13", "description": "Flame retardance — cable must self-extinguish per IEC 60332-1 test conditions" },
+      { "clauseNumber": "Cl. 8", "description": "Insulation thickness — 1.5 mm2 minimum 0.7 mm PVC insulation wall thickness" }
+    ],
+    "procurement_notes": "GeM Category: PVC Cable (CAT ID: Q3/441). Mandatory TPI (Third Party Inspection) by BIS-empanelled agency before dispatch for orders above Rs. 5 lakh. Test report must cover conductor resistance, insulation resistance, voltage withstand, and flame retardance. Reel or drum identification label must show batch number, date of manufacture, ISI licence number, and net weight."
+  },
+  {
+    "productId": "P005",
+    "productName": "Safety Shoes",
+    "productCategory": "Personal Protective Equipment (PPE) / Foot Protection",
+    "query_keywords": ["safety shoes", "safety footwear", "steel toe shoes", "safety boots", "occupational footwear", "IS 15298", "anti-static footwear", "PPE footwear"],
+    "primary_recommendation": {
+      "isNumber": "IS 15298 (Part 2): 2016 (Reaffirmed 2022)",
+      "title": "Safety Footwear — Part 2: Requirements and Test Methods",
+      "year": 2016,
+      "status": "CURRENT",
+      "relevanceScore": 96,
+      "explanation": "IS 15298 (Part 2) is the principal BIS specification for occupational safety footwear covering ankle boot and shoe types used in construction, manufacturing, and public works. Clause 7.3 mandates that the toecap (typically steel or composite) must withstand a 200 J impact energy and 15 kN static compression without the internal clearance falling below 12.7 mm — the critical life-safety criterion for foot-crush protection. Clause 7.6 requires the outsole to exhibit a minimum slip resistance coefficient of friction not less than 0.32 on ceramic tile wet surface per the EN ISO 13287 protocol, ensuring compliance with Ministry of Labour safe-workplace provisions.",
+      "certification": {
+        "isMandatory": true,
+        "scheme": "ISI",
+        "schemeFullName": "ISI Mark Certification (BIS Scheme-I)",
+        "notificationRef": "PPE and Body Protection Quality Control Order, 2022 (S.O. 4808(E)) — Ministry of Labour and Employment, dated 17-Nov-2022; BIS Product Manual PM/IS 15298/1",
+        "bisProductManualUrl": "https://www.bis.gov.in/product-certification/scheme-i-product-certification/",
+        "notes": "Safety footwear for government contracts must carry ISI mark under the QCO, 2022. Procurement officers should verify licence validity and the declared protective category (S1, S2, S3 per IS 15298 Part 1) against the tender's hazard specification."
+      }
+    },
+    "alternate_recommendations": [
+      {
+        "isNumber": "IS 15298 (Part 1): 2016",
+        "title": "Safety Footwear — Part 1: Classification and Marking",
+        "year": 2016,
+        "relevanceScore": 88,
+        "explanation": "Companion classification standard; defines categories S1 (anti-static, fuel-resistant sole, toecap) through S5 (S4 plus penetration resistance, cleated outsole). Must be read alongside Part 2 to specify the correct category in a tender."
+      },
+      {
+        "isNumber": "IS 15298 (Part 3): 2016",
+        "title": "Safety Footwear — Part 3: Additional Requirements for Safety, Protective and Occupational Footwear",
+        "year": 2016,
+        "relevanceScore": 77,
+        "explanation": "Covers specialised requirements — metatarsal protection, electrical hazard insulation (EH), conductive footwear — for site-specific procurement in electrical, mining, or explosive-hazard environments."
+      }
+    ],
+    "qco_enforcement": {
+      "isActive": true,
+      "orderRef": "PPE and Body Protection Quality Control Order, 2022 — S.O. 4808(E), Ministry of Labour and Employment",
+      "effectiveDate": "2023-06-01",
+      "mandatedStandards": ["IS 15298 (Part 1): 2016", "IS 15298 (Part 2): 2016"],
+      "penaltyClause": "BIS Act 2016, Section 29 — sale or supply of non-ISI marked safety footwear is liable to penalty up to Rs. 2 lakh and/or imprisonment up to 2 years"
+    },
+    "key_clauses": [
+      { "clauseNumber": "Cl. 7.3", "description": "Toecap protection — 200 J impact and 15 kN compression; internal clearance not less than 12.7 mm post-test" },
+      { "clauseNumber": "Cl. 7.6", "description": "Slip resistance — CoF not less than 0.32 on wet ceramic tile (EN ISO 13287 test method)" },
+      { "clauseNumber": "Cl. 7.4", "description": "Penetration resistance — 1100 N force from a 4.5 mm nail must not pierce the midsole (S3 category)" },
+      { "clauseNumber": "Cl. 7.7", "description": "Anti-static properties — electrical resistance 100 kilohm to 1000 megaohm (S1/S2/S3 categories)" },
+      { "clauseNumber": "Cl. 7.2", "description": "Upper durability — flex resistance not less than 30,000 cycles at minus 5 degrees C without crack formation" }
+    ],
+    "procurement_notes": "GeM Category: Safety Footwear (CAT ID: Q1/211). Specify category (S1/S2/S3) explicitly in purchase order based on hazard assessment. Minimum size range for government bulk orders: Size 5 (UK) to Size 12 (UK). TPI mandatory for orders above Rs. 3 lakh. All footwear must bear ISI mark, manufacturer name, size, and protective category marking on the insole or lining."
+  }
+]

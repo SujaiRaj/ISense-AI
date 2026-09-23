@@ -29,6 +29,12 @@ export const DEMO_QUERIES = [
     label: "electrical cable",
     query: "electrical cable",
     category: "Electrical"
+  },
+  {
+    id: "safety-shoes",
+    label: "safety shoes",
+    query: "safety shoes",
+    category: "Safety"
   }
 ];
 
@@ -123,6 +129,41 @@ const CABLE_DATA = {
   ]
 };
 
+const SHOES_STD = MOCK_STANDARDS.find(s => s.id === 'is-15298-p2') || MOCK_STANDARDS[21];
+const HELMET_STD = MOCK_STANDARDS.find(s => s.id === 'is-2925') || MOCK_STANDARDS[20];
+
+const SHOES_DATA = {
+  query: "safety shoes",
+  categoryIdentified: "Personal Protective Equipment / Foot Protection",
+  extractedRequirements: [
+    { key: "Product Type", value: "Industrial Safety Footwear", status: "MATCHED" },
+    { key: "Toe Protection", value: "Steel / Composite Toecap (200 J Impact)", status: "MATCHED" },
+    { key: "Slip Resistance", value: "SRC Rated Outsole", status: "MATCHED" },
+    { key: "QCO Applicability", value: "PPE & Body Protection QCO, 2022", status: "MATCHED" }
+  ],
+  recommendations: [
+    {
+      ...SHOES_STD,
+      relevanceScore: 96,
+      explanation: "IS 15298 (Part 2) mandates toecap impact resistance of 200 J and 15 kN compression (Cl. 7.3), plus slip resistance CoF \u22650.32 on wet ceramic tile (Cl. 7.6) — the governing PPE QCO standard for government procurement of industrial safety footwear.",
+      matchedFactors: [
+        "Toecap impact & compression protection",
+        "Mandatory ISI Mark under PPE QCO 2022",
+        "Slip-resistance outsole compliance"
+      ]
+    },
+    {
+      ...HELMET_STD,
+      relevanceScore: 74,
+      explanation: "IS 2925 (Safety Helmets) is a complementary PPE standard under the same QCO notification — commonly procured alongside safety footwear in bundled site-PPE tenders.",
+      matchedFactors: [
+        "Complementary PPE — same QCO order",
+        "Frequently co-specified in site PPE tenders"
+      ]
+    }
+  ]
+};
+
 export const MOCK_RECOMMENDATION_DATA = {
   "street light": STREET_LIGHT_DATA,
   "90W outdoor LED street light for municipal roads": STREET_LIGHT_DATA,
@@ -133,7 +174,10 @@ export const MOCK_RECOMMENDATION_DATA = {
   "Portland cement for building construction": CEMENT_DATA,
   "electrical cable": CABLE_DATA,
   "PVC insulated electrical cable": CABLE_DATA,
-  "PVC insulated electrical cable for building wiring": CABLE_DATA
+  "PVC insulated electrical cable for building wiring": CABLE_DATA,
+  "safety shoes": SHOES_DATA,
+  "IS 15298 safety footwear for site workers": SHOES_DATA,
+  "steel toe safety shoes construction": SHOES_DATA
 };
 
 export const MOCK_HISTORY = [
@@ -168,6 +212,14 @@ export const MOCK_HISTORY = [
     highestMatch: 94,
     date: "10 Sep 2026",
     resultData: MOCK_RECOMMENDATION_DATA["PVC insulated electrical cable"]
+  },
+  {
+    id: "hist-5",
+    query: "IS 15298 safety footwear for site workers",
+    standardsCount: 3,
+    highestMatch: 96,
+    date: "08 Sep 2026",
+    resultData: MOCK_RECOMMENDATION_DATA["IS 15298 safety footwear for site workers"]
   }
 ];
 

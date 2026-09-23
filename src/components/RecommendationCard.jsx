@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChevronRight, ChevronDown, ChevronUp, FileText, ExternalLink } from 'lucide-react';
 import ConfidenceScore from './ConfidenceScore';
+import StatusBadge from './StatusBadge';
 
 export default function RecommendationCard({ recommendation }) {
   const navigate = useNavigate();
@@ -11,7 +11,7 @@ export default function RecommendationCard({ recommendation }) {
     id,
     isNumber,
     title,
-    relevanceScore = 90,
+    relevanceScore = 94,
     status = "CURRENT",
     explanation,
     matchedFactors = [],
@@ -24,140 +24,139 @@ export default function RecommendationCard({ recommendation }) {
   } = recommendation;
 
   const bisUrl = source_url || sourceUrl;
+  const standardId = id || (isNumber ? isNumber.replace(/[^a-zA-Z0-9]/g, '-') : 'IS-10322');
 
-  const handleViewDetails = () => {
-    navigate(`/standards/${id}`);
-  };
+  const certText = typeof certification === 'string'
+    ? certification
+    : certification?.statusText || "Mandatory Certification";
 
   return (
-    <div className="bg-white rounded-lg border border-[#E2E8F0] p-6 space-y-4 font-sans hover:border-[#0B1F33] transition-colors">
-      {/* Top Header Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 pb-3 border-b border-[#E2E8F0]">
-        <div className="space-y-1.5">
+    <div className="rounded-xl bg-white p-5 border border-slate-200/90 shadow-2xs hover:border-primary/40 transition-all space-y-4">
+      {/* Card Header */}
+      <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 pb-3 border-b border-slate-100">
+        <div className="space-y-1.5 min-w-0">
           <div className="flex items-center gap-2 flex-wrap text-xs">
-            <span className="font-mono font-bold text-sm text-[#0B1F33] bg-[#F1F5F9] px-2.5 py-0.5 rounded border border-[#E2E8F0]">
-              {isNumber}
+            <span className="font-code-sm font-bold text-slate-800 bg-slate-100 px-2 py-0.5 rounded border border-slate-200">
+              {isNumber || "IS 10322"}
             </span>
-            <span className="px-2 py-0.5 rounded text-[11px] font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200">
-              {status}
-            </span>
-            {certification?.statusText && (
-              <span className="px-2 py-0.5 rounded text-[11px] font-semibold bg-slate-100 text-slate-700">
-                {certification.statusText}
+            <StatusBadge status={status} />
+            {certText && (
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-medium">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 shrink-0" />
+                <span>{certText}</span>
+              </span>
+            )}
+            {category && (
+              <span className="font-code-sm text-slate-400 hidden md:inline-block">
+                • {category}
               </span>
             )}
           </div>
-          
-          <h3 
-            onClick={handleViewDetails}
-            className="text-base sm:text-lg font-bold text-[#0B1F33] hover:text-[#1E3A8A] transition-colors cursor-pointer leading-snug"
+
+          <h3
+            onClick={() => navigate(`/standards/${standardId}`)}
+            className="font-headline-sm font-semibold text-slate-900 hover:text-primary transition-colors cursor-pointer leading-snug"
           >
             {title}
           </h3>
         </div>
 
-        {/* Subtle Relevance Score */}
-        <div className="shrink-0 self-start sm:self-auto">
+        {/* Circular Confidence Score Ring */}
+        <div className="shrink-0 self-start sm:self-center">
           <ConfidenceScore score={relevanceScore} />
         </div>
       </div>
 
-      {/* Matching Reasoning & Explanation */}
-      <div className="bg-[#F8FAFC] p-4 rounded border border-[#E2E8F0] space-y-2 text-xs">
-        <span className="font-bold text-[#0B1F33] uppercase tracking-wider block text-[11px]">
-          Matching Rationale:
+      {/* Matching Rationale Box */}
+      <div className="p-3.5 rounded-lg bg-slate-50/70 border border-slate-100 space-y-2 text-xs">
+        <span className="font-label-sm text-slate-500 uppercase tracking-wider font-semibold block text-[11px]">
+          Scope &amp; Compliance Mandate:
         </span>
-        <p className="text-[#334155] leading-relaxed">
-          {explanation || scope || "Applies directly to the specified product category and technical scope governed by BIS specifications."}
+        <p className="font-body-sm text-slate-700 leading-relaxed">
+          {explanation || scope || "Applies directly to specified technical parameters, material standards, and statutory testing requirements under gazetted procurement orders."}
         </p>
 
         {matchedFactors.length > 0 && (
-          <div className="pt-2 border-t border-[#E2E8F0] flex flex-wrap gap-2 text-[11px] text-[#475569]">
+          <div className="pt-2 border-t border-slate-200/60 flex flex-wrap gap-1.5">
             {matchedFactors.map((factor, idx) => (
-              <span key={idx} className="bg-white px-2 py-0.5 rounded border border-[#E2E8F0]">
-                • {factor}
+              <span 
+                key={idx} 
+                className="font-code-sm text-slate-600 bg-white px-2 py-0.5 rounded border border-slate-200 text-[11px] inline-flex items-center gap-1"
+              >
+                <span className="material-symbols-outlined text-[12px] text-emerald-600">check</span>
+                <span>{factor}</span>
               </span>
             ))}
           </div>
         )}
       </div>
 
-      {/* Expandable Technical Details Button */}
-      <div className="pt-1">
-        <button
-          onClick={() => setShowDetails(!showDetails)}
-          className="text-xs font-semibold text-[#0B1F33] hover:underline inline-flex items-center gap-1 focus:outline-none"
-        >
-          {showDetails ? (
-            <>
-              <ChevronUp className="w-3.5 h-3.5" />
-              <span>Hide Scope Details</span>
-            </>
-          ) : (
-            <>
-              <ChevronDown className="w-3.5 h-3.5" />
-              <span>View Technical Scope & Allied Standards</span>
-            </>
-          )}
-        </button>
-      </div>
-
-      {/* Expandable Technical Scope */}
+      {/* Expandable Technical Details */}
       {showDetails && (
-        <div className="p-4 bg-[#F8FAFC] rounded border border-[#E2E8F0] space-y-3 text-xs">
-          <div className="space-y-1">
-            <span className="font-bold text-[#0B1F33] block">Scope & Benchmark Standards:</span>
-            <p className="text-[#475569] leading-relaxed">{scope || "Technical requirements governed under BIS Compulsory Registration Framework."}</p>
-          </div>
+        <div className="pt-2 space-y-3 border-t border-slate-100 text-xs">
+          {scope && (
+            <div>
+              <span className="font-label-sm text-slate-500 uppercase tracking-wider font-semibold block mb-1">
+                Standard Scope:
+              </span>
+              <p className="font-body-sm text-slate-600 bg-white p-3 rounded-lg border border-slate-200 leading-relaxed">
+                {scope}
+              </p>
+            </div>
+          )}
 
           {relatedStandards.length > 0 && (
-            <div className="pt-2 border-t border-[#E2E8F0] space-y-1">
-              <span className="font-bold text-[#0B1F33] block">Referred Indian Standards:</span>
-              <ul className="space-y-1 text-[#475569]">
-                {relatedStandards.map((rel, idx) => (
-                  <li key={idx}>
-                    • <strong>{rel.is_number || rel.isNumber}</strong>: {rel.title || rel.relationship}
-                  </li>
+            <div>
+              <span className="font-label-sm text-slate-500 uppercase tracking-wider font-semibold block mb-1.5">
+                Allied Standards:
+              </span>
+              <div className="flex flex-wrap gap-1.5">
+                {relatedStandards.map((std, idx) => (
+                  <span
+                    key={idx}
+                    className="font-code-sm bg-slate-100 text-slate-700 px-2 py-0.5 rounded border border-slate-200"
+                  >
+                    {typeof std === 'string' ? std : std.code || std.isNumber}
+                  </span>
                 ))}
-              </ul>
+              </div>
             </div>
           )}
         </div>
       )}
 
       {/* Footer Actions */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-3 border-t border-[#E2E8F0] text-xs">
-        <div className="flex items-center gap-3">
-          <span className="text-[#64748B]">
-            Category: <strong className="text-[#0B1F33]">{category || 'Lighting / Engineering'}</strong>
+      <div className="pt-2 flex flex-wrap items-center justify-between gap-3 border-t border-slate-100 text-xs">
+        <button
+          type="button"
+          onClick={() => setShowDetails(!showDetails)}
+          className="text-slate-600 hover:text-primary font-medium inline-flex items-center gap-1 cursor-pointer"
+        >
+          <span>{showDetails ? 'Hide scope details' : 'View scope & allied standards'}</span>
+          <span className="material-symbols-outlined text-[15px] text-slate-400">
+            {showDetails ? 'expand_less' : 'expand_more'}
           </span>
+        </button>
+
+        <div className="flex items-center gap-2">
           {bisUrl && (
             <a
               href={bisUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-semibold text-blue-700 hover:text-blue-900 underline inline-flex items-center gap-1"
+              className="px-2.5 py-1.5 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 transition-colors inline-flex items-center gap-1 font-medium"
             >
-              <span>Official BIS Source</span>
-              <ExternalLink className="w-3 h-3" />
+              <span className="material-symbols-outlined text-[14px] text-slate-400">open_in_new</span>
+              <span>BIS Gazette</span>
             </a>
           )}
-        </div>
-
-        <div className="flex items-center gap-2 self-end sm:self-auto">
           <button
-            onClick={() => navigate(`/compliance?id=${id || ''}&is=${encodeURIComponent(isNumber || '')}`)}
-            className="px-3 py-1.5 bg-[#F1F5F9] hover:bg-[#E2E8F0] text-[#0B1F33] rounded text-xs font-semibold border border-[#E2E8F0] transition-colors"
+            type="button"
+            onClick={() => navigate(`/standards/${standardId}`)}
+            className="px-3.5 py-1.5 rounded-lg bg-primary text-white hover:bg-[#C2410C] transition-colors inline-flex items-center gap-1 font-semibold cursor-pointer shadow-xs"
           >
-            Check Compliance
-          </button>
-
-          <button
-            onClick={handleViewDetails}
-            className="px-3 py-1.5 bg-[#0B1F33] hover:bg-[#1E3A8A] text-white rounded text-xs font-semibold transition-colors inline-flex items-center gap-1"
-          >
-            <span>View Details</span>
-            <ChevronRight className="w-3.5 h-3.5" />
+            <span>Specification</span>
+            <span className="material-symbols-outlined text-[14px]">arrow_forward</span>
           </button>
         </div>
       </div>

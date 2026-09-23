@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import Footer from './components/Footer';
+import Sidebar from './components/Sidebar';
 import Toast from './components/Toast';
 
 import DashboardPage from './pages/DashboardPage';
@@ -17,15 +17,23 @@ import ProfilePage from './pages/ProfilePage';
 import AboutPage from './pages/AboutPage';
 
 const INITIAL_PROFILE = {
-  name: "Keshav Sharma",
-  designation: "Senior Procurement Officer",
+  name: "Rajesh Verma",
+  designation: "Directorate of Supplies & Disposal",
   department: "Public Infrastructure & Engineering Procurement",
-  organization: "Municipal Infrastructure Development Authority",
+  organization: "Central Public Procurement Portal",
   email: "officer.procurement@gov.in",
   phone: "+91 98765 43210"
 };
 
-function MainLayout({ children, toast, setToast, userProfile, setUserProfile }) {
+function ProtectedRoute({ isAuthenticated, children }) {
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace />;
+  }
+  return children;
+}
+
+function MainLayout({ children, toast, setToast, userProfile, onLogout }) {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
 
   if (location.pathname === '/login') {
@@ -33,17 +41,19 @@ function MainLayout({ children, toast, setToast, userProfile, setUserProfile }) 
   }
 
   return (
-    <div className="min-h-screen bg-[#F7F5EF] flex flex-col font-sans text-[#102A43]">
-      {/* Brand Header */}
-      <Navbar userProfile={userProfile} />
+    <div className="min-h-screen bg-surface font-sans text-on-surface antialiased">
+      {/* Institutional Fixed Sidebar */}
+      <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} onLogout={onLogout} />
 
-      {/* Main Workspace - 94% Desktop Width */}
-      <main className="flex-1 w-[94%] max-w-[1440px] mx-auto px-4 sm:px-6 py-8 sm:py-10">
-        {children}
-      </main>
+      {/* Institutional Fixed Top Bar */}
+      <Navbar userProfile={userProfile} onOpenSidebar={() => setSidebarOpen(true)} />
 
-      {/* Brand Footer */}
-      <Footer />
+      {/* Main Workspace Frame */}
+      <div className="lg:pl-[260px] pt-16 min-h-screen flex flex-col">
+        <main className="flex-1 w-full">
+          {children}
+        </main>
+      </div>
 
       {/* Global Toast Notification */}
       {toast && (
@@ -60,6 +70,9 @@ function MainLayout({ children, toast, setToast, userProfile, setUserProfile }) 
 export default function App() {
   const [globalResults, setGlobalResults] = useState(null);
   const [toast, setToast] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    return localStorage.getItem('isense_logged_in') === 'true';
+  });
   
   // Shared source of truth for Officer Profile
   const [userProfile, setUserProfile] = useState(() => {
@@ -80,62 +93,136 @@ export default function App() {
     }
   };
 
+  const handleLogin = (userCreds) => {
+    setIsAuthenticated(true);
+    localStorage.setItem('isense_logged_in', 'true');
+    if (userCreds?.username) {
+      setUserProfile(prev => ({
+        ...prev,
+        email: userCreds.username.includes('@') ? userCreds.username : prev.email
+      }));
+    }
+    setToast({ message: "Successfully logged in to ISense AI Portal.", type: "success" });
+  };
+
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    localStorage.removeItem('isense_logged_in');
+    setToast({ message: "Signed out of session.", type: "info" });
+  };
+
   return (
     <BrowserRouter>
       <MainLayout 
         toast={toast}
         setToast={setToast}
         userProfile={userProfile}
-        setUserProfile={handleUpdateProfile}
+        onLogout={handleLogout}
       >
         <Routes>
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/" element={<Navigate to="/dashboard" replace />} />
+          <Route 
+            path="/login" 
+            element={
+              isAuthenticated 
+                ? <Navigate to="/dashboard" replace /> 
+                : <LoginPage onLogin={handleLogin} />
+            } 
+          />
+          <Route 
+            path="/" 
+            element={<Navigate to={isAuthenticated ? "/dashboard" : "/login"} replace />} 
+          />
           <Route 
             path="/dashboard" 
             element={
-              <DashboardPage 
-                setGlobalResults={setGlobalResults} 
-                setToast={setToast} 
-              />
+              <ProtectedRoute isAuthenticated={isAuthenticated}>
+                <DashboardPage 
+                  setGlobalResults={setGlobalResults} 
+                  setToast={setToast} 
+                />
+              </ProtectedRoute>
             } 
           />
           <Route 
             path="/search" 
             element={
-              <SearchPage 
-                setGlobalResults={setGlobalResults} 
-                setToast={setToast} 
-              />
+              <ProtectedRoute isAuthenticated={isAuthenticated}>
+                <SearchPage 
+                  setGlobalResults={setGlobalResults} 
+                  setToast={setToast} 
+                />
+              </ProtectedRoute>
             } 
           />
           <Route 
             path="/recommendations" 
-            element={<RecommendationResultsPage globalResults={globalResults} />} 
+            element={
+              <ProtectedRoute isAuthenticated={isAuthenticated}>
+                <RecommendationResultsPage globalResults={globalResults} />
+              </ProtectedRoute>
+            } 
           />
-          <Route path="/standards" element={<StandardsLibraryPage />} />
-          <Route path="/standards/:id" element={<StandardDetailsPage />} />
+          <Route 
+            path="/standards" 
+            element={
+              <ProtectedRoute isAuthenticated={isAuthenticated}>
+                <StandardsLibraryPage />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/standards/:id" 
+            element={
+              <ProtectedRoute isAuthenticated={isAuthenticated}>
+                <StandardDetailsPage />
+              </ProtectedRoute>
+            } 
+          />
           <Route 
             path="/tender-analysis" 
-            element={<TenderAnalysisPage setToast={setToast} />} 
+            element={
+              <ProtectedRoute isAuthenticated={isAuthenticated}>
+                <TenderAnalysisPage setToast={setToast} />
+              </ProtectedRoute>
+            } 
           />
-          <Route path="/compliance" element={<CompliancePage />} />
+          <Route 
+            path="/compliance" 
+            element={
+              <ProtectedRoute isAuthenticated={isAuthenticated}>
+                <CompliancePage />
+              </ProtectedRoute>
+            } 
+          />
           <Route 
             path="/history" 
-            element={<AnalysisHistoryPage setGlobalResults={setGlobalResults} />} 
+            element={
+              <ProtectedRoute isAuthenticated={isAuthenticated}>
+                <AnalysisHistoryPage setGlobalResults={setGlobalResults} />
+              </ProtectedRoute>
+            } 
           />
-          <Route path="/about" element={<AboutPage />} />
+          <Route 
+            path="/about" 
+            element={
+              <ProtectedRoute isAuthenticated={isAuthenticated}>
+                <AboutPage />
+              </ProtectedRoute>
+            } 
+          />
           <Route 
             path="/profile" 
             element={
-              <ProfilePage 
-                userProfile={userProfile}
-                onSaveProfile={handleUpdateProfile}
-                setToast={setToast} 
-              />
+              <ProtectedRoute isAuthenticated={isAuthenticated}>
+                <ProfilePage 
+                  userProfile={userProfile}
+                  onSaveProfile={handleUpdateProfile}
+                  setToast={setToast} 
+                />
+              </ProtectedRoute>
             } 
           />
-          <Route path="*" element={<Navigate to="/dashboard" replace />} />
+          <Route path="*" element={<Navigate to={isAuthenticated ? "/dashboard" : "/login"} replace />} />
         </Routes>
       </MainLayout>
     </BrowserRouter>

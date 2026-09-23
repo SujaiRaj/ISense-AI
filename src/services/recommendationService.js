@@ -1,71 +1,102 @@
 import apiClient from './api';
-import { mockGetRecommendations } from './mockRecommendationService';
+import { MOCK_RECOMMENDATION_DATA, DEMO_QUERIES } from '../data/mockRecommendations';
 
 /**
- * Recommendation Service calling FastAPI /api/analyze endpoint
+ * Recommendation Service
+ *
+ * Code path:
+ *   1. Always tries the live Express server (POST /api/recommendations).
+ *   2. If the server response includes { noMatch: true }, pass it straight
+ *      through — the UI renders a graceful empty state.
+ *   3. If the server call fails entirely (network error / server down),
+ *      fall back to the local keyword-matched mock data — NO Gemini call.
  */
+
+/** Local keyword-based fallback matcher (mirrors Express server logic). */
+function localMatchQuery(query) {
+  const lower = query.toLowerCase();
+
+  // Score each demo product by keyword hits
+  const scores = DEMO_QUERIES.map((dq) => {
+    const hits = dq.query.split(' ').filter(w => lower.includes(w)).length;
+    return { id: dq.id, hits, data: MOCK_RECOMMENDATION_DATA[dq.query] };
+  });
+
+  scores.sort((a, b) => b.hits - a.hits);
+  const best = scores[0];
+
+  if (best && best.hits > 0 && best.data) return best.data;
+
+  // Try direct key lookup as final fallback
+  const directKey = Object.keys(MOCK_RECOMMENDATION_DATA).find(k =>
+    lower.includes(k.toLowerCase()) || k.toLowerCase().includes(lower)
+  );
+  return directKey ? MOCK_RECOMMENDATION_DATA[directKey] : null;
+}
+
 export const getRecommendations = async (userQuery) => {
+  // ── Live Express server path ────────────────────────────────────────────────
   try {
-    const response = await apiClient.post('/analyze', { query: userQuery });
+    const response = await apiClient.post('/recommendations', { query: userQuery });
     const data = response.data;
 
     if (data) {
-      const understanding = data.understanding || {};
-      const extractedRequirements = [
-        { key: "Identified Product", value: understanding.product || "Specified Procurement Item" },
-        { key: "Application Context", value: understanding.application || "General Application" },
-        { key: "Technical Specs", value: Array.isArray(understanding.technical_requirements) ? understanding.technical_requirements.join(" • ") : "Standard parameters" },
-        { key: "Operating Environment", value: understanding.environment || "Standard" }
-      ];
-
-      const rawRecs = data.recommendations || [];
-      const usedScores = new Set();
-      const defaultBase = [96, 89, 83, 76, 70, 64];
-
-      const recommendations = rawRecs.map((rec, index) => {
-        let score = rec.relevance_score;
-        if (!score || typeof score !== 'number' || score <= 0) {
-          score = defaultBase[index] || Math.max(50, 96 - index * 6);
-        }
-
-        // Guarantee uniqueness and strictly descending score hierarchy
-        while (usedScores.has(score) || (index > 0 && score >= recommendations[index - 1].relevanceScore)) {
-          score = Math.max(50, (recommendations[index - 1] ? recommendations[index - 1].relevanceScore - 5 : score - 1));
-        }
-        usedScores.add(score);
-
-        return {
-          id: rec.id || rec.is_number,
-          isNumber: rec.is_number,
-          title: rec.title,
-          relevanceScore: score,
-          status: rec.status || "CURRENT",
-          explanation: rec.reason,
-          matchedFactors: [
-            `BIS Standard: ${rec.is_number}`,
-            `Category: ${rec.category || 'BIS Knowledge Base'}`,
-            `Status: ${rec.status || 'Current Edition'}`
-          ],
-          category: rec.category || "Bureau of Indian Standards",
-          certification: typeof rec.certification === 'object' ? rec.certification : { isMandatory: true, statusText: rec.certification || "BIS Mandatory Standard" },
-          relatedStandards: rec.related_standards || [],
-          source_url: rec.source_url,
-          scope: rec.scope
-        };
-      });
+      // Pass-through: the Express server already returns the correct shape.
+      // Just normalise field names so the UI components are happy.
+      const recommendations = (data.recommendations || []).map((rec) => ({
+        ...rec,
+        // Ensure both camelCase and snake_case fields exist
+        isNumber:      rec.isNumber || rec.is_number,
+        relevanceScore: rec.relevanceScore || rec.relevance_score || 90,
+        status:        rec.status || 'CURRENT',
+        explanation:   rec.explanation || rec.reason || '',
+        certification: typeof rec.certification === 'object'
+          ? rec.certification
+          : { isMandatory: true, statusText: rec.certification || 'BIS Mandatory Standard' }
+      }));
 
       return {
         data: {
-          query: data.query || userQuery,
-          categoryIdentified: understanding.product || "Indian Standards Procurement",
-          extractedRequirements,
+          query:                 data.query || userQuery,
+          categoryIdentified:    data.categoryIdentified || 'Indian Standards Procurement',
+          extractedRequirements: data.extractedRequirements || [],
           recommendations,
-          message: data.message
+          message:               data.message,
+          noMatch:               data.noMatch || false
         }
       };
     }
   } catch (err) {
-    console.warn('[ISense AI] FastAPI live backend call failed. Falling back to local engine.', err.message);
-    return await mockGetRecommendations(userQuery);
+    // ── Local mock fallback (no Gemini, no external call) ─────────────────────
+    console.warn(
+      '[ISense AI] Express server unreachable — using local mock data.',
+      err.message
+    );
+
+    const matched = localMatchQuery(userQuery);
+
+    if (matched) {
+      return {
+        data: {
+          query:                 userQuery,
+          categoryIdentified:    matched.categoryIdentified || 'Indian Standards Procurement',
+          extractedRequirements: matched.extractedRequirements || [],
+          recommendations:       matched.recommendations || [],
+          noMatch:               false
+        }
+      };
+    }
+
+    // Genuine no-match fallback
+    return {
+      data: {
+        query:                 userQuery,
+        categoryIdentified:    'Unrecognised',
+        extractedRequirements: [],
+        recommendations:       [],
+        noMatch:               true,
+        message: 'No matching Indian Standard found. Try: "LED street light", "safety helmet", "portland cement", "PVC cable", or "safety shoes".'
+      }
+    };
   }
 };

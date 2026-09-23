@@ -10,16 +10,11 @@ const USE_LIVE_API = import.meta.env.VITE_USE_LIVE_API === 'true';
 export const analyzeTenderDocument = async (fileOrDemoName = 'demo_tender_led.pdf') => {
   if (USE_LIVE_API) {
     try {
-      const formData = new FormData();
-      if (typeof fileOrDemoName !== 'string') {
-        formData.append('file', fileOrDemoName);
-      } else {
-        formData.append('demo_file', fileOrDemoName);
-      }
-      const response = await apiClient.post('/tender/analyze', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' }
-      });
-      return response.data;
+      const body = typeof fileOrDemoName !== 'string'
+        ? { fileName: fileOrDemoName.name || 'uploaded_tender.pdf' }
+        : { fileName: fileOrDemoName };
+      const response = await apiClient.post('/tender-analysis', body);
+      if (response.data && response.data.success) return response.data;
     } catch (err) {
       console.warn('[ISense AI] Live Tender API call failed. Using mock response.', err.message);
     }

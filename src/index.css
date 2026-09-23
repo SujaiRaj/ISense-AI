@@ -1,119 +1,232 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --color-brand-navy: #102A43;
-  --color-brand-teal: #0F766E;
-  --color-brand-teal-light: #F0FDFA;
-  --color-brand-amber: #F59E0B;
-  --color-brand-amber-light: #FEF3C7;
-  --color-brand-cream: #F7F5EF;
-  --color-brand-slate: #334155;
-  --color-brand-border: #E2E8F0;
+  --color-background: #F8F8F4;
+  --color-surface: #F8F8F4;
+  --color-surface-dim: #E2DFD6;
+  --color-surface-bright: #FFFFFF;
+  --color-surface-container-lowest: #FFFFFF;
+  --color-surface-container-low: #F4F1EA;
+  --color-surface-container: #EFECE4;
+  --color-surface-container-high: #E8E5DC;
+  --color-surface-container-highest: #E5E3DB;
+  --color-surface-variant: #EFECE4;
+  --color-surface-tint: #E05A1B;
+
+  --color-outline: #64748B;
+  --color-outline-variant: #DDD9CF;
+
+  --color-on-background: #0F172A;
+  --color-on-surface: #0F172A;
+  --color-on-surface-variant: #334155;
+  --color-inverse-surface: #0F172A;
+  --color-inverse-on-surface: #F8FAFC;
+
+  --color-primary: #E05A1B;
+  --color-on-primary: #FFFFFF;
+  --color-primary-container: #F97316;
+  --color-on-primary-container: #7C2D12;
+  --color-inverse-primary: #FDBA74;
+  --color-primary-fixed: #FFEDD5;
+  --color-primary-fixed-dim: #FED7AA;
+  --color-on-primary-fixed: #431407;
+  --color-on-primary-fixed-variant: #C2410C;
+
+  --color-secondary: #0F172A;
+  --color-on-secondary: #FFFFFF;
+  --color-secondary-container: #1E293B;
+  --color-on-secondary-container: #FFFFFF;
+  --color-secondary-fixed: #E2E8F0;
+  --color-secondary-fixed-dim: #CBD5E1;
+  --color-on-secondary-fixed: #0F172A;
+  --color-on-secondary-fixed-variant: #1E293B;
+
+  --color-tertiary: #B45309;
+  --color-on-tertiary: #FFFFFF;
+  --color-tertiary-container: #F97316;
+  --color-on-tertiary-container: #78350F;
+  --color-tertiary-fixed: #FED7AA;
+  --color-tertiary-fixed-dim: #FDBA74;
+  --color-on-tertiary-fixed: #451A03;
+  --color-on-tertiary-fixed-variant: #9A3412;
+
+  --color-error: #DC2626;
+  --color-on-error: #FFFFFF;
+  --color-error-container: #FEF2F2;
+  --color-on-error-container: #991B1B;
+
+  --spacing-margin: 2rem;
+  --spacing-margin-mobile: 1rem;
+  --spacing-gutter: 1.5rem;
+  --spacing-gutter-mobile: 0.75rem;
+  --spacing-space-xs: 0.25rem;
+  --spacing-space-sm: 0.5rem;
+  --spacing-space-md: 0.75rem;
+  --spacing-space-lg: 1.25rem;
+  --spacing-space-xl: 2rem;
+
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
 }
 
 :root {
-  --brand-navy: #102A43;
-  --brand-teal: #0F766E;
-  --brand-amber: #F59E0B;
-  --brand-cream: #F7F5EF;
-  --brand-border: #E2E8F0;
-  --text-primary: #102A43;
-  --text-secondary: #475569;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
 }
 
 @layer base {
-  body {
-    font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    font-weight: 400;
-    background-color: var(--brand-cream);
-    color: var(--text-primary);
-    line-height: 1.6;
-    @apply antialiased selection:bg-[#102A43] selection:text-white;
-  }
-
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
-    font-weight: 700;
-    color: var(--brand-navy);
-    letter-spacing: -0.015em;
+  html, body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-body);
+    background-color: #F8F8F4;
+    color: #0F172A;
+    -webkit-font-smoothing: antialiased;
   }
 }
 
-/* Brand Button Styles */
-.brand-btn-primary {
-  background-color: var(--brand-navy);
-  color: #ffffff;
+/* Material Symbols sizing helper */
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 20px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+  vertical-align: middle;
+}
+
+/* Typography Scale Utility Classes */
+.font-display {
+  font-family: var(--font-body);
+  font-size: 2.25rem;
+  line-height: 2.75rem;
+  letter-spacing: -0.025em;
   font-weight: 600;
-  font-size: 0.85rem;
-  padding: 0.625rem 1.25rem;
-  border-radius: 6px;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.font-headline-lg {
+  font-family: var(--font-body);
+  font-size: 1.75rem;
+  line-height: 2.25rem;
+  letter-spacing: -0.02em;
+  font-weight: 600;
+}
+
+.font-headline-md {
+  font-family: var(--font-body);
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  letter-spacing: -0.015em;
+  font-weight: 600;
+}
+
+.font-headline-sm {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.5rem;
+  letter-spacing: -0.01em;
+  font-weight: 600;
+}
+
+.font-body-lg {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.625rem;
+  letter-spacing: -0.005em;
+  font-weight: 400;
+}
+
+.font-body-md {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  line-height: 1.375rem;
+  letter-spacing: 0em;
+  font-weight: 400;
+}
+
+.font-body-sm {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  line-height: 1.125rem;
+  letter-spacing: 0.005em;
+  font-weight: 400;
+}
+
+.font-label-lg {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  letter-spacing: -0.005em;
+  font-weight: 500;
+}
+
+.font-label-md {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  line-height: 1rem;
+  letter-spacing: 0.01em;
+  font-weight: 500;
+}
+
+.font-label-sm {
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  line-height: 0.875rem;
+  letter-spacing: 0.03em;
+  font-weight: 600;
+}
+
+.font-code-sm {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1rem;
+  letter-spacing: -0.01em;
+  font-weight: 500;
+}
+
+/* Institutional Button Utilities */
+.btn-primary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  cursor: pointer;
-}
-
-.brand-btn-primary:hover {
-  background-color: #1E3A8A;
-  box-shadow: 0 4px 12px rgba(16, 42, 67, 0.15);
-}
-
-.brand-btn-teal {
-  background-color: var(--brand-teal);
-  color: #ffffff;
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+  padding: 0.5rem 1rem;
+  border-radius: 0.75rem;
+  font-size: 0.75rem;
   font-weight: 600;
-  font-size: 0.85rem;
-  padding: 0.625rem 1.25rem;
-  border-radius: 6px;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 150ms ease-out;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+.btn-primary:hover {
+  background-color: var(--color-on-primary-fixed-variant);
+}
+
+.btn-secondary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  cursor: pointer;
-}
-
-.brand-btn-teal:hover {
-  background-color: #0D9488;
-  box-shadow: 0 4px 12px rgba(15, 118, 110, 0.2);
-}
-
-.brand-btn-secondary {
   background-color: #ffffff;
-  color: var(--brand-navy);
-  border: 1px solid var(--brand-border);
-  font-weight: 600;
-  font-size: 0.85rem;
-  padding: 0.625rem 1.25rem;
-  border-radius: 6px;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  cursor: pointer;
+  color: var(--color-on-surface);
+  border: 1px solid var(--color-outline-variant);
+  padding: 0.5rem 1rem;
+  border-radius: 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  transition: all 150ms ease-out;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.02);
 }
-
-.brand-btn-secondary:hover {
-  background-color: #F8FAFC;
-  border-color: var(--brand-navy);
-}
-
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-::-webkit-scrollbar-track {
-  background: #F7F5EF;
-}
-::-webkit-scrollbar-thumb {
-  background: #CBD5E1;
-  border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #94A3B8;
+.btn-secondary:hover {
+  background-color: var(--color-surface-container-low);
+  border-color: var(--color-primary);
 }

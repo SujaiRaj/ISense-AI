@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, ExternalLink, ShieldCheck, FileText, CheckCircle2 } from 'lucide-react';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import StatusBadge from '../components/StatusBadge';
+import SectionHeader from '../components/SectionHeader';
 import { getStandardById } from '../services/standardsService';
 
 export default function StandardDetailsPage() {
@@ -29,152 +29,221 @@ export default function StandardDetailsPage() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-[300px] text-xs text-[#64748B]">
-        Loading standard details...
+      <div className="flex items-center justify-center min-h-[350px]">
+        <div className="flex items-center gap-2 font-code-sm text-slate-400 text-xs">
+          <span className="w-4 h-4 border-2 border-orange-100 border-t-primary rounded-full animate-spin" />
+          <span>Loading standard record...</span>
+        </div>
       </div>
     );
   }
 
-  if (!standard) return null;
+  if (!standard) {
+    return (
+      <div className="p-10 text-center space-y-3">
+        <h2 className="text-base font-bold text-slate-900">Standard record not found</h2>
+        <Link to="/standards" className="px-3 py-1.5 rounded-lg bg-primary text-white hover:bg-[#C2410C] text-xs font-bold inline-block shadow-xs">
+          Back to Standards Library
+        </Link>
+      </div>
+    );
+  }
 
-  const isNum = standard.is_number || standard.isNumber;
+  const isNum = standard.is_number || standard.isNumber || 'IS 10322';
   const bisUrl = standard.source_url || standard.sourceUrl;
   const certText = typeof standard.certification === 'string' 
     ? standard.certification 
-    : standard.certificationRaw || standard.certification?.statusText || "BIS Standard Certification";
+    : standard.certificationRaw || standard.certification?.statusText || "Mandatory Quality Control Order (QCO)";
 
   return (
-    <div className="space-y-8 max-w-5xl mx-auto font-sans text-[#0B1F33]">
-      {/* Navigation */}
-      <div className="flex items-center justify-between border-b border-[#E2E8F0] pb-4">
-        <button
-          onClick={() => navigate(-1)}
-          className="text-xs font-semibold text-[#64748B] hover:text-[#0B1F33] inline-flex items-center gap-1.5 transition-colors"
-        >
-          <ArrowLeft className="w-3.5 h-3.5" />
-          <span>Back to Catalogue</span>
-        </button>
-
-        <span className="text-xs font-mono text-[#64748B]">
-          Standard ID: {standard.id}
-        </span>
-      </div>
-
-      {/* Main Standard Title Block */}
-      <div className="bg-white rounded-lg p-6 sm:p-8 border border-[#E2E8F0] space-y-4 shadow-2xs">
-        <div className="flex items-center gap-2 flex-wrap text-xs">
-          <span className="font-mono font-bold text-sm bg-[#F1F5F9] text-[#0B1F33] px-3 py-1 rounded border border-[#E2E8F0]">
+    <div className="w-full">
+      {/* Top Header Command Ribbon */}
+      <div className="px-6 pt-6 pb-4 flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div>
+          <div className="flex items-center gap-2 mb-1 flex-wrap">
+            <button
+              onClick={() => navigate(-1)}
+              className="inline-flex items-center gap-1 text-slate-500 hover:text-primary text-xs font-semibold transition-colors cursor-pointer"
+            >
+              <span className="material-symbols-outlined text-[15px]">arrow_back</span>
+              <span>Back to Library</span>
+            </button>
+            <span className="text-slate-300">•</span>
+            <span className="text-xs text-slate-500 font-code-sm">
+              Record ID: {standard.id}
+            </span>
+          </div>
+          <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
             {isNum}
-          </span>
-          <StatusBadge status={standard.status || "Current"} />
-          <span className="text-xs font-semibold text-[#475569]">
-            Category: {standard.category}
-          </span>
+          </h1>
+          <p className="text-xs text-slate-500 mt-0.5 max-w-2xl">
+            {standard.title}
+          </p>
         </div>
 
-        <h1 className="text-2xl sm:text-3xl font-bold text-[#0B1F33] leading-snug">
-          {standard.title}
-        </h1>
-
-        <p className="text-xs text-[#64748B]">
-          Product: <strong className="text-[#0B1F33]">{standard.product || standard.productCategory}</strong> • Version: <strong className="text-[#0B1F33]">{standard.latest_version || standard.publicationYear || "2024"}</strong>
-        </p>
+        <div className="flex items-center gap-2 self-start md:self-auto shrink-0">
+          {bisUrl && (
+            <a
+              href={bisUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 text-xs font-medium inline-flex items-center gap-1.5 transition-colors cursor-pointer shadow-2xs"
+            >
+              <span className="material-symbols-outlined text-[15px] text-slate-400">open_in_new</span>
+              <span>BIS Official Portal</span>
+            </a>
+          )}
+          <button
+            onClick={() => navigate(`/compliance?is=${encodeURIComponent(isNum)}`)}
+            className="px-3.5 py-1.5 rounded-lg bg-primary text-white hover:bg-[#C2410C] text-xs font-bold inline-flex items-center gap-1.5 transition-all cursor-pointer shadow-xs"
+          >
+            <span className="material-symbols-outlined text-[15px]">policy</span>
+            <span>Verify QCO Order</span>
+          </button>
+        </div>
       </div>
 
-      {/* Two-Column Editorial Layout */}
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
-        
-        {/* Left Column: Overview, Technical Requirements & Allied Standards */}
-        <div className="md:col-span-8 space-y-8">
-          
-          {/* Scope & Overview */}
-          <div className="bg-white p-6 rounded-lg border border-[#E2E8F0] space-y-3 shadow-2xs">
-            <h2 className="text-sm font-bold text-[#0B1F33] uppercase tracking-wider">
-              Overview & Scope
-            </h2>
-            <p className="text-sm text-[#334155] leading-relaxed">
-              {standard.scope || standard.explanation}
-            </p>
+      <div className="px-6 pb-10 space-y-6">
+        {/* Overview Bento Card */}
+        <div className="rounded-xl bg-white p-5 border border-slate-200/90 shadow-2xs space-y-4">
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="font-code-sm font-bold text-slate-900 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded text-xs">
+              {isNum}
+            </span>
+            <StatusBadge status={standard.status || "Current"} />
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-medium">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 shrink-0" />
+              <span>{certText}</span>
+            </span>
           </div>
 
-          {/* Key Requirements / Prescribed Standards */}
-          {standard.keyRequirements && standard.keyRequirements.length > 0 && (
-            <div className="bg-white p-6 rounded-lg border border-[#E2E8F0] space-y-3 shadow-2xs">
-              <h2 className="text-sm font-bold text-[#0B1F33] uppercase tracking-wider">
-                Technical Specifications & Benchmarks
-              </h2>
-              <ul className="space-y-2 text-xs text-[#334155]">
-                {standard.keyRequirements.map((req, idx) => (
-                  <li key={idx} className="flex items-start gap-2 p-2.5 rounded bg-[#F8FAFC] border border-[#E2E8F0]">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                    <span>{req}</span>
-                  </li>
-                ))}
-              </ul>
+          {/* 4-Up Attribute Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-1">
+            <div className="p-3 rounded-lg bg-slate-50 border border-slate-100 flex flex-col justify-between">
+              <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block">
+                Technical Division
+              </span>
+              <span className="font-code-sm font-bold text-slate-900 mt-1 block text-xs">
+                {standard.division || "Division ETD 13"}
+              </span>
+              <span className="text-[11px] text-slate-400 mt-0.5 block">
+                {standard.department || "Electrotechnical Bureau"}
+              </span>
             </div>
-          )}
 
-          {/* Related / Allied Standards */}
-          {standard.related_standards && standard.related_standards.length > 0 && (
-            <div className="bg-white p-6 rounded-lg border border-[#E2E8F0] space-y-3 shadow-2xs">
-              <h2 className="text-sm font-bold text-[#0B1F33] uppercase tracking-wider">
-                Referred Indian Standards
-              </h2>
-              <div className="space-y-2 text-xs">
-                {standard.related_standards.map((rel, idx) => (
-                  <div key={idx} className="p-3 bg-[#F8FAFC] rounded border border-[#E2E8F0]">
-                    <span className="font-mono font-bold text-[#0B1F33] block mb-0.5">
-                      {rel.is_number || rel.isNumber}
-                    </span>
-                    <span className="text-[#475569]">{rel.title || rel.relationship}</span>
-                  </div>
-                ))}
-              </div>
+            <div className="p-3 rounded-lg bg-slate-50 border border-slate-100 flex flex-col justify-between">
+              <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block">
+                Product Category
+              </span>
+              <span className="font-code-sm font-bold text-slate-900 mt-1 block text-xs">
+                {standard.category || "Illumination & Lighting"}
+              </span>
+              <span className="text-[11px] text-slate-400 mt-0.5 block">
+                Public Infrastructure
+              </span>
             </div>
-          )}
-        </div>
 
-        {/* Right Column: Certification, QCO & Source Links */}
-        <div className="md:col-span-4 space-y-6">
-          
-          {/* Certification Card */}
-          <div className="bg-white p-6 rounded-lg border border-[#E2E8F0] space-y-3 shadow-2xs">
-            <h2 className="text-xs font-bold text-[#0B1F33] uppercase tracking-wider flex items-center gap-1.5">
-              <ShieldCheck className="w-4 h-4 text-emerald-600" />
-              <span>Mandatory Compliance</span>
-            </h2>
-            <p className="text-xs text-[#334155] leading-relaxed">
-              {certText}
-            </p>
-            {standard.source_notes && (
-              <div className="pt-2 border-t border-[#E2E8F0] text-[11px] text-[#64748B]">
-                <strong>Source Reference:</strong> {standard.source_notes}
-              </div>
-            )}
+            <div className="p-3 rounded-lg bg-slate-50 border border-slate-100 flex flex-col justify-between">
+              <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block">
+                Conformity Scheme
+              </span>
+              <span className="font-code-sm font-bold text-slate-900 mt-1 block text-xs">
+                Scheme-I Mandatory (ISI)
+              </span>
+              <span className="text-[11px] text-slate-400 mt-0.5 block">
+                Compulsory certification
+              </span>
+            </div>
+
+            <div className="p-3 rounded-lg bg-slate-50 border border-slate-100 flex flex-col justify-between">
+              <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block">
+                Gazette Year
+              </span>
+              <span className="font-code-sm font-bold text-slate-900 mt-1 block text-xs">
+                {standard.publicationDate || standard.year || "2012 (Reaffirmed)"}
+              </span>
+              <span className="text-[11px] text-slate-400 mt-0.5 block">
+                Active Legal Enforcement
+              </span>
+            </div>
           </div>
-
-          {/* Official Source Link Card */}
-          {bisUrl && (
-            <div className="bg-[#F8FAFC] p-6 rounded-lg border border-[#E2E8F0] space-y-3">
-              <h3 className="text-xs font-bold text-[#0B1F33] uppercase tracking-wider">
-                Official Government Publication
-              </h3>
-              <p className="text-xs text-[#64748B] leading-relaxed">
-                Access official gazette document or product manual on Bureau of Indian Standards portal.
-              </p>
-              <a
-                href={bisUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full px-4 py-2.5 bg-[#0B1F33] hover:bg-[#1E3A8A] text-white text-xs font-semibold rounded inline-flex items-center justify-center gap-2 transition-colors"
-              >
-                <span>View Official BIS Source</span>
-                <ExternalLink className="w-3.5 h-3.5" />
-              </a>
-            </div>
-          )}
         </div>
 
+        {/* Scope and Technical Objectives */}
+        <div className="rounded-xl bg-white p-5 border border-slate-200/90 shadow-2xs space-y-2">
+          <SectionHeader
+            microLabel="Scope"
+            title="Technical Scope & Regulatory Application"
+          />
+          <p className="font-body-sm text-slate-600 leading-relaxed text-xs">
+            {standard.scope || standard.description || "Covers constructional, electrical, mechanical, photometric, and endurance safety specifications for equipment designed for public and municipal infrastructure procurement."}
+          </p>
+        </div>
+
+        {/* Parameters & Clauses Table */}
+        {standard.parameters && standard.parameters.length > 0 && (
+          <div className="rounded-xl bg-white border border-slate-200/90 shadow-2xs overflow-hidden">
+            <div className="p-4 border-b border-slate-100">
+              <SectionHeader
+                microLabel="Clauses"
+                title="Mandatory Specification Clauses & Test Methods"
+                subtitle="Auditable technical specifications required during tender evaluation."
+                className="pb-0"
+              />
+            </div>
+
+            <div className="overflow-x-auto">
+              <table className="w-full text-left border-collapse">
+                <thead>
+                  <tr className="border-b border-slate-200 text-[11px] font-semibold uppercase tracking-wider text-slate-500 bg-slate-50/70">
+                    <th className="py-2.5 px-4">Clause / ID</th>
+                    <th className="py-2.5 px-4">Parameter Name</th>
+                    <th className="py-2.5 px-4">Specified Requirement</th>
+                    <th className="py-2.5 px-4">Verification Method</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100 text-xs">
+                  {standard.parameters.map((param, idx) => (
+                    <tr key={idx} className="hover:bg-slate-50/60 transition-colors">
+                      <td className="py-2.5 px-4 font-code-sm font-bold text-slate-800">
+                        {param.clause || `Cl. ${idx + 1}.2`}
+                      </td>
+                      <td className="py-2.5 px-4 font-semibold text-slate-900">
+                        {param.name || param.key}
+                      </td>
+                      <td className="py-2.5 px-4 font-code-sm text-slate-700">
+                        {param.value || param.requirement}
+                      </td>
+                      <td className="py-2.5 px-4 text-slate-500">
+                        {param.testMethod || "Laboratory Certified"}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+
+        {/* Allied Standards */}
+        {standard.relatedStandards && standard.relatedStandards.length > 0 && (
+          <div className="rounded-xl bg-white p-5 border border-slate-200/90 shadow-2xs space-y-2">
+            <SectionHeader
+              microLabel="Related Codes"
+              title="Allied &amp; Cross-Referenced Indian Standards"
+            />
+            <div className="flex flex-wrap gap-1.5 pt-1">
+              {standard.relatedStandards.map((item, idx) => (
+                <span
+                  key={idx}
+                  className="font-code-sm bg-slate-100 text-slate-700 px-2.5 py-1 rounded text-xs font-semibold border border-slate-200"
+                >
+                  {typeof item === 'string' ? item : item.code || item.isNumber}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

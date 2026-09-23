@@ -2,9 +2,10 @@ import axios from 'axios';
 
 /**
  * Base Axios API Client for ISense AI
- * Pointing to FastAPI Backend Endpoint (http://localhost:8000/api by default)
+ * Default: Express demo server on http://localhost:3001/api
+ * Override via VITE_API_BASE_URL env variable for a live AI backend.
  */
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001/api';
 
 const apiClient = axios.create({
   baseURL: API_BASE_URL,

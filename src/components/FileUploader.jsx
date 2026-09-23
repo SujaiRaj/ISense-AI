@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { UploadCloud, FileText, CheckCircle2 } from 'lucide-react';
 
-export default function FileUploader({ onFileSelected, onUseDemoTender, isAnalyzing }) {
+export default function FileUploader({ onFileSelected, onUseDemoTender }) {
   const [dragActive, setDragActive] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
 
@@ -36,38 +35,43 @@ export default function FileUploader({ onFileSelected, onUseDemoTender, isAnalyz
   };
 
   const handleDemoClick = () => {
-    const demoObj = { name: "Municipal_LED_Streetlight_Tender_2026.pdf", size: 2450000 };
+    const demoObj = { name: "TN-PWD-2026-0184_Municipal_Streetlight_BOQ.pdf", size: 2450000 };
     setSelectedFile(demoObj);
     onUseDemoTender();
   };
 
   return (
-    <div className="bg-white rounded-lg border border-[#E3E8ED] p-6 sm:p-8 space-y-6 shadow-2xs">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#E3E8ED] pb-4">
-        <h2 className="text-sm font-bold text-[#0B1F33] uppercase tracking-wider flex items-center gap-2">
-          <UploadCloud className="w-4 h-4 text-[#28536F]" />
-          <span>Upload Tender Document</span>
-        </h2>
+    <div className="rounded-xl bg-white p-5 border border-slate-200/90 shadow-2xs space-y-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-100">
+        <div>
+          <h2 className="font-headline-sm font-semibold text-slate-900 text-sm">
+            Upload Tender Specification Document
+          </h2>
+          <p className="font-body-sm text-slate-500 text-xs mt-0.5">
+            Ingest RFP, BOQ, or scope of work document to cross-reference Indian Standards.
+          </p>
+        </div>
+
         <button
           type="button"
           onClick={handleDemoClick}
-          className="text-xs font-semibold px-3 py-1.5 rounded bg-[#F4F6F8] hover:bg-[#E3E8ED] text-[#12304A] border border-[#E3E8ED] transition-colors self-start sm:self-auto flex items-center gap-1.5"
+          className="px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 text-xs font-medium inline-flex items-center gap-1.5 transition-colors self-start sm:self-auto cursor-pointer"
         >
-          <FileText className="w-4 h-4 text-[#28536F]" />
-          <span>Load Sample Tender Document</span>
+          <span className="material-symbols-outlined text-[15px] text-slate-400">description</span>
+          <span>Load Sample BOQ</span>
         </button>
       </div>
 
-      {/* Drag & Drop Box */}
+      {/* Drag & Drop Area */}
       <div
         onDragEnter={handleDrag}
         onDragLeave={handleDrag}
         onDragOver={handleDrag}
         onDrop={handleDrop}
-        className={`border border-dashed rounded-lg p-8 text-center transition-colors ${
-          dragActive 
-            ? 'border-[#12304A] bg-[#12304A]/5' 
-            : 'border-[#E3E8ED] hover:border-[#28536F] bg-[#F4F6F8]'
+        className={`border border-dashed rounded-lg p-7 text-center transition-all ${
+          dragActive
+            ? 'border-primary bg-orange-50/40'
+            : 'border-slate-300 hover:border-primary/40 bg-slate-50/50'
         }`}
       >
         <input
@@ -78,31 +82,32 @@ export default function FileUploader({ onFileSelected, onUseDemoTender, isAnalyz
           className="hidden"
         />
 
-        <div className="flex flex-col items-center justify-center space-y-3">
-          <div className="w-12 h-12 bg-[#12304A]/10 text-[#12304A] rounded-lg flex items-center justify-center border border-[#12304A]/20">
-            <FileText className="w-6 h-6 text-[#12304A]" />
-          </div>
+        <div className="flex flex-col items-center justify-center space-y-2">
+          <span className="material-symbols-outlined text-[28px] text-slate-400">
+            upload_file
+          </span>
 
           {selectedFile ? (
             <div className="text-center space-y-1">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-emerald-50 text-emerald-950 rounded text-xs font-semibold border border-emerald-300">
-                <CheckCircle2 className="w-4 h-4 text-emerald-700" />
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-emerald-50 text-emerald-800 border border-emerald-200 font-code-sm text-xs font-semibold">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-600" />
                 <span>Selected: {selectedFile.name}</span>
               </div>
             </div>
           ) : (
             <>
-              <p className="text-sm font-semibold text-[#0B1F33]">
+              <p className="text-xs font-semibold text-slate-800">
                 Drag and drop your tender PDF or DOCX file
               </p>
-              <p className="text-xs text-[#61707D]">
-                Supported formats: PDF, DOCX (Up to 25 MB)
+              <p className="text-[11px] text-slate-400">
+                Up to 25MB • Section-by-section parameter extraction
               </p>
+
               <label
                 htmlFor="tender-pdf-upload"
-                className="cursor-pointer inline-flex items-center gap-2 px-5 py-2.5 bg-[#0B1F33] hover:bg-[#12304A] text-white rounded-md font-semibold text-xs transition-colors"
+                className="px-4 py-2 rounded-xl bg-primary text-white hover:bg-[#C2410C] text-xs font-bold cursor-pointer inline-flex items-center gap-1.5 mt-2 transition-all shadow-xs"
               >
-                Choose File
+                <span>Browse Local Files</span>
               </label>
             </>
           )}
@@ -111,4 +116,3 @@ export default function FileUploader({ onFileSelected, onUseDemoTender, isAnalyz
     </div>
   );
 }
-
