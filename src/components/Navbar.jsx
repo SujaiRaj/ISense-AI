@@ -6,7 +6,7 @@ export default function Navbar({ userProfile, onOpenSidebar }) {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const userName = userProfile?.name || "Rajesh Verma";
+  const userName = userProfile?.name || "Procurement Officer";
   const userDesignation = userProfile?.designation || "Directorate of Supplies & Disposal";
 
   const getBreadcrumb = () => {
@@ -100,10 +100,10 @@ export default function Navbar({ userProfile, onOpenSidebar }) {
           to="/profile" 
           className="flex items-center gap-2 pl-1 hover:opacity-90 transition-opacity"
         >
-          <div className="w-7 h-7 rounded-full bg-secondary text-white flex items-center justify-center shrink-0 font-medium text-xs ring-2 ring-orange-200">
-            <span>{userName.charAt(0)}</span>
+          <div className="w-7 h-7 rounded-full bg-secondary text-white flex items-center justify-center shrink-0 font-bold text-xs ring-2 ring-orange-200">
+            <span>{userName ? userName.charAt(0).toUpperCase() : 'O'}</span>
           </div>
-          <div className="hidden 2xl:flex flex-col text-left">
+          <div className="hidden sm:flex flex-col text-left">
             <span className="font-semibold text-slate-900 leading-tight text-xs">
               {userName}
             </span>

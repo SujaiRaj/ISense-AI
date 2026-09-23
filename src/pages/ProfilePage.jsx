@@ -2,13 +2,23 @@ import React, { useState } from 'react';
 
 export default function ProfilePage({ userProfile, onSaveProfile, setToast }) {
   const [formData, setFormData] = useState(() => ({
-    name: userProfile?.name || "Rajesh Verma",
+    name: userProfile?.name || "Procurement Officer",
     designation: userProfile?.designation || "Directorate of Supplies & Disposal",
     department: userProfile?.department || "Public Infrastructure & Engineering Procurement",
     organization: userProfile?.organization || "Central Public Procurement Portal",
     email: userProfile?.email || "officer.procurement@gov.in",
     phone: userProfile?.phone || "+91 98765 43210"
   }));
+
+  React.useEffect(() => {
+    if (userProfile?.name) {
+      setFormData(prev => ({
+        ...prev,
+        name: userProfile.name,
+        email: userProfile.email || prev.email
+      }));
+    }
+  }, [userProfile]);
 
   const handleChange = (field, value) => {
     setFormData(prev => ({ ...prev, [field]: value }));

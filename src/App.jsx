@@ -17,13 +17,34 @@ import ProfilePage from './pages/ProfilePage';
 import AboutPage from './pages/AboutPage';
 
 const INITIAL_PROFILE = {
-  name: "Rajesh Verma",
+  name: "Procurement Officer",
   designation: "Directorate of Supplies & Disposal",
   department: "Public Infrastructure & Engineering Procurement",
   organization: "Central Public Procurement Portal",
   email: "officer.procurement@gov.in",
   phone: "+91 98765 43210"
 };
+
+function formatDisplayName(raw) {
+  if (!raw || typeof raw !== 'string') return "Procurement Officer";
+  const trimmed = raw.trim();
+  if (!trimmed) return "Procurement Officer";
+
+  // If email format, extract part before @
+  let base = trimmed.includes('@') ? trimmed.split('@')[0] : trimmed;
+
+  // Replace dots, underscores, hyphens with spaces
+  base = base.replace(/[._-]+/g, ' ').trim();
+
+  // Capitalize each word properly
+  const formatted = base
+    .split(/\s+/)
+    .filter(Boolean)
+    .map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
+    .join(' ');
+
+  return formatted || "Procurement Officer";
+}
 
 function ProtectedRoute({ isAuthenticated, children }) {
   if (!isAuthenticated) {
@@ -78,7 +99,14 @@ export default function App() {
   const [userProfile, setUserProfile] = useState(() => {
     try {
       const saved = localStorage.getItem('isense_user_profile');
-      return saved ? JSON.parse(saved) : INITIAL_PROFILE;
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed.name === "Rajesh Verma") {
+          parsed.name = "Procurement Officer";
+        }
+        return parsed;
+      }
+      return INITIAL_PROFILE;
     } catch {
       return INITIAL_PROFILE;
     }
@@ -96,18 +124,31 @@ export default function App() {
   const handleLogin = (userCreds) => {
     setIsAuthenticated(true);
     localStorage.setItem('isense_logged_in', 'true');
-    if (userCreds?.username) {
-      setUserProfile(prev => ({
+    const rawUsername = userCreds?.username || '';
+    const displayName = formatDisplayName(rawUsername);
+
+    setUserProfile(prev => {
+      const updated = {
         ...prev,
-        email: userCreds.username.includes('@') ? userCreds.username : prev.email
-      }));
-    }
-    setToast({ message: "Successfully logged in to ISense AI Portal.", type: "success" });
+        name: displayName,
+        email: rawUsername.includes('@') ? rawUsername : `${rawUsername.replace(/\s+/g, '.').toLowerCase()}@gov.in`
+      };
+      try {
+        localStorage.setItem('isense_user_profile', JSON.stringify(updated));
+      } catch (e) {
+        console.warn("Failed to persist profile to localStorage", e);
+      }
+      return updated;
+    });
+
+    setToast({ message: `Welcome, ${displayName}!`, type: "success" });
   };
 
   const handleLogout = () => {
     setIsAuthenticated(false);
     localStorage.removeItem('isense_logged_in');
+    localStorage.removeItem('isense_user_profile');
+    setUserProfile(INITIAL_PROFILE);
     setToast({ message: "Signed out of session.", type: "info" });
   };
 

@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 
 export default function LoginPage({ onLogin }) {
   const navigate = useNavigate();
-  const [username, setUsername] = useState('officer.procurement@gov.in');
-  const [password, setPassword] = useState('isense2026');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -14,7 +14,7 @@ export default function LoginPage({ onLogin }) {
     setError('');
 
     if (!username.trim()) {
-      setError('Please enter your official username or email.');
+      setError('Please enter your name or official username.');
       return;
     }
 
@@ -36,7 +36,7 @@ export default function LoginPage({ onLogin }) {
   };
 
   const handleQuickDemo = () => {
-    setUsername('officer.procurement@gov.in');
+    setUsername('Sujai Raj');
     setPassword('isense2026');
     setError('');
   };
@@ -107,7 +107,7 @@ export default function LoginPage({ onLogin }) {
                   type="text"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  placeholder="e.g. officer.procurement@gov.in"
+                  placeholder="e.g. Sujai Raj or officer@gov.in"
                   className="w-full pl-9 pr-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 focus:bg-white transition-all font-medium"
                 />
               </div>
@@ -151,7 +151,7 @@ export default function LoginPage({ onLogin }) {
 
             {/* Quick Demo Pre-fill Hint */}
             <div className="pt-1 flex items-center justify-between text-[11px] text-slate-500">
-              <span className="font-code-sm">Demo: officer / isense2026</span>
+              <span className="font-code-sm">Demo: Sujai Raj / isense2026</span>
               <button
                 type="button"
                 onClick={handleQuickDemo}
