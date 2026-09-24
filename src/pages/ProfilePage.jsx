@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function ProfilePage({ userProfile, onSaveProfile, setToast }) {
+  const { t } = useLanguage();
   const [formData, setFormData] = useState(() => ({
     name: userProfile?.name || "Procurement Officer",
     designation: userProfile?.designation || "Directorate of Supplies & Disposal",
@@ -42,18 +44,18 @@ export default function ProfilePage({ userProfile, onSaveProfile, setToast }) {
           <div className="flex items-center gap-2 mb-1.5 flex-wrap">
             <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-surface-container-high text-primary font-label-sm font-semibold tracking-wide">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-              Officer Credential Verified
+              {t('profile.cred_verified', 'Officer Credential Verified')}
             </span>
             <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-code-sm">
               <span className="material-symbols-outlined text-[13px]">badge</span>
-              NIC Single Sign-On Active
+              {t('profile.sso_active', 'NIC Single Sign-On Active')}
             </span>
           </div>
           <h1 className="font-headline-lg text-on-background tracking-tight">
-            Officer Profile &amp; Audit Credentials
+            {t('profile.title', 'Officer Profile & Audit Credentials')}
           </h1>
           <p className="font-body-md text-outline mt-0.5 max-w-3xl">
-            Procurement authority credentials used on gazette audit signatures and tender review reports.
+            {t('profile.subtitle', 'Procurement authority credentials used on gazette audit signatures and tender review reports.')}
           </p>
         </div>
       </div>
@@ -77,7 +79,7 @@ export default function ProfilePage({ userProfile, onSaveProfile, setToast }) {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-1.5">
                 <label className="font-label-sm uppercase tracking-wider text-outline font-semibold block">
-                  Full Name
+                  {t('profile.full_name', 'Full Name')}
                 </label>
                 <input
                   type="text"
@@ -89,7 +91,7 @@ export default function ProfilePage({ userProfile, onSaveProfile, setToast }) {
 
               <div className="space-y-1.5">
                 <label className="font-label-sm uppercase tracking-wider text-outline font-semibold block">
-                  Designation
+                  {t('profile.designation', 'Designation')}
                 </label>
                 <input
                   type="text"
@@ -101,7 +103,7 @@ export default function ProfilePage({ userProfile, onSaveProfile, setToast }) {
 
               <div className="space-y-1.5">
                 <label className="font-label-sm uppercase tracking-wider text-outline font-semibold block">
-                  Department
+                  {t('profile.department', 'Department')}
                 </label>
                 <input
                   type="text"
@@ -113,7 +115,7 @@ export default function ProfilePage({ userProfile, onSaveProfile, setToast }) {
 
               <div className="space-y-1.5">
                 <label className="font-label-sm uppercase tracking-wider text-outline font-semibold block">
-                  Organization
+                  {t('profile.organization', 'Organization')}
                 </label>
                 <input
                   type="text"
@@ -125,7 +127,7 @@ export default function ProfilePage({ userProfile, onSaveProfile, setToast }) {
 
               <div className="space-y-1.5">
                 <label className="font-label-sm uppercase tracking-wider text-outline font-semibold block">
-                  Official Email
+                  {t('profile.official_email', 'Official Email')}
                 </label>
                 <input
                   type="email"
@@ -137,7 +139,7 @@ export default function ProfilePage({ userProfile, onSaveProfile, setToast }) {
 
               <div className="space-y-1.5">
                 <label className="font-label-sm uppercase tracking-wider text-outline font-semibold block">
-                  Official Contact Phone
+                  {t('profile.contact_phone', 'Official Contact Phone')}
                 </label>
                 <input
                   type="text"
@@ -154,7 +156,7 @@ export default function ProfilePage({ userProfile, onSaveProfile, setToast }) {
                 className="btn-primary text-xs cursor-pointer px-5 py-2.5"
               >
                 <span className="material-symbols-outlined text-[16px]">save</span>
-                <span>Save Credentials</span>
+                <span>{t('profile.save_btn', 'Save Credentials')}</span>
               </button>
             </div>
           </div>

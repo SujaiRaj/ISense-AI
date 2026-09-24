@@ -3,9 +3,11 @@ import { useNavigate, Link } from 'react-router-dom';
 import RecommendationCard from '../components/RecommendationCard';
 import SectionHeader from '../components/SectionHeader';
 import { MOCK_RECOMMENDATION_DATA } from '../data/mockRecommendations';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function RecommendationResultsPage({ globalResults }) {
   const navigate = useNavigate();
+  const { t } = useLanguage();
 
   // Fallback to default demo dataset if none selected yet
   const activeData = globalResults || MOCK_RECOMMENDATION_DATA["90W outdoor LED street light for municipal roads"] || {
@@ -39,18 +41,18 @@ export default function RecommendationResultsPage({ globalResults }) {
               className="inline-flex items-center gap-1 text-slate-500 hover:text-slate-800 text-xs font-medium transition-colors cursor-pointer"
             >
               <span className="material-symbols-outlined text-[15px]">arrow_back</span>
-              <span>New Search</span>
+              <span>{t('rec.back_search', 'New Search')}</span>
             </button>
             <span className="text-slate-300">•</span>
             <span className="text-xs text-slate-500 font-code-sm">
-              BIS Standard Conformity Report
+              {t('rec.conformity_report', 'BIS Standard Conformity Report')}
             </span>
           </div>
           <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
-            Specification Match Report
+            {t('rec.title', 'Specification Match Report')}
           </h1>
           <p className="text-xs text-slate-500 mt-0.5 max-w-2xl">
-            Candidate Indian Standards matched to procurement parameters and verified against active QCO mandates.
+            {t('rec.subtitle', 'Candidate Indian Standards matched to procurement parameters and verified against active QCO mandates.')}
           </p>
         </div>
 
@@ -60,7 +62,7 @@ export default function RecommendationResultsPage({ globalResults }) {
             className="px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 text-xs font-medium inline-flex items-center gap-1.5 transition-colors cursor-pointer shadow-2xs"
           >
             <span className="material-symbols-outlined text-[16px] text-slate-400">print</span>
-            <span>Print Report</span>
+            <span>{t('rec.print_btn', 'Print Report')}</span>
           </button>
         </div>
       </div>
@@ -73,7 +75,7 @@ export default function RecommendationResultsPage({ globalResults }) {
             <div className="rounded-xl bg-white p-5 border border-slate-200/90 shadow-2xs space-y-4">
               <div>
                 <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block mb-1.5">
-                  Evaluated Requirement
+                  {t('rec.eval_req', 'Evaluated Requirement')}
                 </span>
                 <blockquote className="p-3 rounded-lg bg-slate-50 border border-slate-200 text-slate-900 font-medium text-xs leading-relaxed">
                   "{query}"
@@ -83,7 +85,7 @@ export default function RecommendationResultsPage({ globalResults }) {
               {categoryIdentified && (
                 <div>
                   <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block mb-1">
-                    Product Category
+                    {t('rec.prod_cat', 'Product Category')}
                   </span>
                   <span className="inline-block px-2.5 py-1 rounded bg-slate-100 text-slate-800 text-xs font-semibold border border-slate-200">
                     {categoryIdentified}
@@ -94,7 +96,7 @@ export default function RecommendationResultsPage({ globalResults }) {
               {extractedRequirements.length > 0 && (
                 <div className="pt-3 border-t border-slate-100">
                   <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block mb-2">
-                    Extracted Parameters ({extractedRequirements.length})
+                    {t('rec.extracted_params', 'Extracted Parameters')} ({extractedRequirements.length})
                   </span>
                   <div className="space-y-1.5">
                     {extractedRequirements.map((req, idx) => (
@@ -118,10 +120,10 @@ export default function RecommendationResultsPage({ globalResults }) {
             {/* Regulatory Notice Snippet */}
             <div className="rounded-xl bg-orange-50/80 p-4 border border-orange-200/80 text-xs space-y-1">
               <span className="font-bold text-primary block">
-                Statutory Procurement Rule
+                {t('rec.rule_title', 'Statutory Procurement Rule')}
               </span>
               <p className="text-slate-700 leading-relaxed text-[11px]">
-                Under Section 16 of the BIS Act, items listed with mandatory QCOs cannot be manufactured, imported, or procured on GeM without a valid BIS standard mark.
+                {t('rec.rule_desc', 'Under Section 16 of the BIS Act, items listed with mandatory QCOs cannot be manufactured, imported, or procured on GeM without a valid BIS standard mark.')}
               </p>
             </div>
           </div>
@@ -129,9 +131,9 @@ export default function RecommendationResultsPage({ globalResults }) {
           {/* Right Stream: Ranked Recommendations (8 cols) */}
           <div className="lg:col-span-8 space-y-4">
             <SectionHeader
-              microLabel="Ranked Specifications"
-              title={`Candidate Indian Standards (${recommendations.length})`}
-              subtitle="Ordered by technical parameter correspondence."
+              microLabel={t('rec.ranked_specs', 'Ranked Specifications')}
+              title={`${t('rec.candidate_stds', 'Candidate Indian Standards')} (${recommendations.length})`}
+              subtitle={t('rec.ordered_by', 'Ordered by technical parameter correspondence.')}
               actions={
                 <span className="text-xs text-slate-400 font-code-sm">
                   Active BIS Gazette

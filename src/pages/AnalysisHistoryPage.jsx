@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MOCK_HISTORY } from '../data/mockRecommendations';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function AnalysisHistoryPage({ setGlobalResults }) {
+  const { t } = useLanguage();
   const [searchTerm, setSearchTerm] = useState('');
   const [historyItems, setHistoryItems] = useState(MOCK_HISTORY);
   const navigate = useNavigate();
@@ -36,18 +38,18 @@ export default function AnalysisHistoryPage({ setGlobalResults }) {
           <div className="flex items-center gap-2 mb-1 flex-wrap">
             <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-orange-50 text-primary border border-orange-200/70 text-xs font-semibold">
               <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-              Session Log
+              {t('hist.tag', 'Session Log')}
             </span>
             <span className="text-slate-300">•</span>
             <span className="text-xs text-slate-500 font-code-sm">
-              {historyItems.length} Records
+              {historyItems.length} {t('hist.records', 'Records')}
             </span>
           </div>
           <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
-            Specification Review History
+            {t('hist.title', 'Specification Review History')}
           </h1>
           <p className="text-xs text-slate-500 mt-0.5 max-w-2xl">
-            Previous procurement requirement searches and tender document audits.
+            {t('hist.subtitle', 'Previous procurement requirement searches and tender document audits.')}
           </p>
         </div>
 
@@ -57,7 +59,7 @@ export default function AnalysisHistoryPage({ setGlobalResults }) {
               onClick={handleClearHistory}
               className="px-2.5 py-1.5 rounded-lg border border-slate-200 text-slate-500 hover:text-rose-600 hover:bg-rose-50 text-xs font-medium transition-colors cursor-pointer"
             >
-              Clear Log
+              {t('hist.clear_log', 'Clear Log')}
             </button>
           )}
           <button
@@ -65,7 +67,7 @@ export default function AnalysisHistoryPage({ setGlobalResults }) {
             className="px-3.5 py-1.5 rounded-lg bg-primary text-white hover:bg-[#C2410C] text-xs font-bold inline-flex items-center gap-1.5 transition-all cursor-pointer shadow-xs"
           >
             <span className="material-symbols-outlined text-[16px]">add</span>
-            <span>New Search</span>
+            <span>{t('hist.new_search', 'New Search')}</span>
           </button>
         </div>
       </div>
@@ -79,14 +81,14 @@ export default function AnalysisHistoryPage({ setGlobalResults }) {
             </span>
             <input
               type="text"
-              placeholder="Search previous reviews by keyword..."
+              placeholder={t('hist.search_placeholder', 'Search previous reviews by keyword...')}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full pl-9 pr-3 py-1.5 rounded-lg bg-slate-50 border border-slate-200 text-xs text-slate-900 outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 focus:bg-white"
             />
           </div>
           <span className="text-xs text-slate-400 font-code-sm hidden sm:inline-block">
-            Showing {filteredItems.length} of {historyItems.length} reviews
+            {t('hist.showing', 'Showing')} {filteredItems.length} {t('hist.of', 'of')} {historyItems.length} {t('hist.reviews', 'reviews')}
           </span>
         </div>
 
@@ -97,12 +99,12 @@ export default function AnalysisHistoryPage({ setGlobalResults }) {
               <table className="w-full text-left border-collapse">
                 <thead>
                   <tr className="border-b border-slate-200 text-[11px] font-semibold uppercase tracking-wider text-slate-500 bg-slate-50/70">
-                    <th className="py-2.5 px-4">Audit Type</th>
-                    <th className="py-2.5 px-4">Requirement / Document Name</th>
-                    <th className="py-2.5 px-4">Standards Mapped</th>
-                    <th className="py-2.5 px-4">Match Score</th>
-                    <th className="py-2.5 px-4">Date</th>
-                    <th className="py-2.5 px-4 text-right">Action</th>
+                    <th className="py-2.5 px-4">{t('hist.th_type', 'Audit Type')}</th>
+                    <th className="py-2.5 px-4">{t('hist.th_req', 'Requirement / Document Name')}</th>
+                    <th className="py-2.5 px-4">{t('hist.th_mapped', 'Standards Mapped')}</th>
+                    <th className="py-2.5 px-4">{t('hist.th_score', 'Match Score')}</th>
+                    <th className="py-2.5 px-4">{t('hist.th_date', 'Date')}</th>
+                    <th className="py-2.5 px-4 text-right">{t('hist.th_action', 'Action')}</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100 text-xs">
@@ -132,7 +134,7 @@ export default function AnalysisHistoryPage({ setGlobalResults }) {
                           onClick={() => handleOpenHistoryItem(item)}
                           className="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 hover:bg-orange-50 hover:text-primary hover:border-orange-200 transition-colors text-xs font-semibold inline-flex items-center gap-1 cursor-pointer"
                         >
-                          <span>Re-open</span>
+                          <span>{t('hist.reopen', 'Re-open')}</span>
                           <span className="material-symbols-outlined text-[13px] text-slate-400">arrow_forward</span>
                         </button>
                       </td>

@@ -3,6 +3,8 @@ import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-route
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
 import Toast from './components/Toast';
+import { ThemeProvider } from './context/ThemeContext';
+import { LanguageProvider } from './context/LanguageContext';
 
 import DashboardPage from './pages/DashboardPage';
 import SearchPage from './pages/SearchPage';
@@ -153,119 +155,123 @@ export default function App() {
   };
 
   return (
-    <BrowserRouter>
-      <MainLayout 
-        toast={toast}
-        setToast={setToast}
-        userProfile={userProfile}
-        onLogout={handleLogout}
-      >
-        <Routes>
-          <Route 
-            path="/login" 
-            element={
-              isAuthenticated 
-                ? <Navigate to="/dashboard" replace /> 
-                : <LoginPage onLogin={handleLogin} />
-            } 
-          />
-          <Route 
-            path="/" 
-            element={<Navigate to={isAuthenticated ? "/dashboard" : "/login"} replace />} 
-          />
-          <Route 
-            path="/dashboard" 
-            element={
-              <ProtectedRoute isAuthenticated={isAuthenticated}>
-                <DashboardPage 
-                  setGlobalResults={setGlobalResults} 
-                  setToast={setToast} 
-                />
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/search" 
-            element={
-              <ProtectedRoute isAuthenticated={isAuthenticated}>
-                <SearchPage 
-                  setGlobalResults={setGlobalResults} 
-                  setToast={setToast} 
-                />
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/recommendations" 
-            element={
-              <ProtectedRoute isAuthenticated={isAuthenticated}>
-                <RecommendationResultsPage globalResults={globalResults} />
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/standards" 
-            element={
-              <ProtectedRoute isAuthenticated={isAuthenticated}>
-                <StandardsLibraryPage />
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/standards/:id" 
-            element={
-              <ProtectedRoute isAuthenticated={isAuthenticated}>
-                <StandardDetailsPage />
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/tender-analysis" 
-            element={
-              <ProtectedRoute isAuthenticated={isAuthenticated}>
-                <TenderAnalysisPage setToast={setToast} />
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/compliance" 
-            element={
-              <ProtectedRoute isAuthenticated={isAuthenticated}>
-                <CompliancePage />
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/history" 
-            element={
-              <ProtectedRoute isAuthenticated={isAuthenticated}>
-                <AnalysisHistoryPage setGlobalResults={setGlobalResults} />
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/about" 
-            element={
-              <ProtectedRoute isAuthenticated={isAuthenticated}>
-                <AboutPage />
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/profile" 
-            element={
-              <ProtectedRoute isAuthenticated={isAuthenticated}>
-                <ProfilePage 
-                  userProfile={userProfile}
-                  onSaveProfile={handleUpdateProfile}
-                  setToast={setToast} 
-                />
-              </ProtectedRoute>
-            } 
-          />
-          <Route path="*" element={<Navigate to={isAuthenticated ? "/dashboard" : "/login"} replace />} />
-        </Routes>
-      </MainLayout>
-    </BrowserRouter>
+    <ThemeProvider>
+      <LanguageProvider>
+        <BrowserRouter>
+          <MainLayout 
+            toast={toast}
+            setToast={setToast}
+            userProfile={userProfile}
+            onLogout={handleLogout}
+          >
+            <Routes>
+              <Route 
+                path="/login" 
+                element={
+                  isAuthenticated 
+                    ? <Navigate to="/dashboard" replace /> 
+                    : <LoginPage onLogin={handleLogin} />
+                } 
+              />
+              <Route 
+                path="/" 
+                element={<Navigate to={isAuthenticated ? "/dashboard" : "/login"} replace />} 
+              />
+              <Route 
+                path="/dashboard" 
+                element={
+                  <ProtectedRoute isAuthenticated={isAuthenticated}>
+                    <DashboardPage 
+                      setGlobalResults={setGlobalResults} 
+                      setToast={setToast} 
+                    />
+                  </ProtectedRoute>
+                } 
+              />
+              <Route 
+                path="/search" 
+                element={
+                  <ProtectedRoute isAuthenticated={isAuthenticated}>
+                    <SearchPage 
+                      setGlobalResults={setGlobalResults} 
+                      setToast={setToast} 
+                    />
+                  </ProtectedRoute>
+                } 
+              />
+              <Route 
+                path="/recommendations" 
+                element={
+                  <ProtectedRoute isAuthenticated={isAuthenticated}>
+                    <RecommendationResultsPage globalResults={globalResults} />
+                  </ProtectedRoute>
+                } 
+              />
+              <Route 
+                path="/standards" 
+                element={
+                  <ProtectedRoute isAuthenticated={isAuthenticated}>
+                    <StandardsLibraryPage />
+                  </ProtectedRoute>
+                } 
+              />
+              <Route 
+                path="/standards/:id" 
+                element={
+                  <ProtectedRoute isAuthenticated={isAuthenticated}>
+                    <StandardDetailsPage />
+                  </ProtectedRoute>
+                } 
+              />
+              <Route 
+                path="/tender-analysis" 
+                element={
+                  <ProtectedRoute isAuthenticated={isAuthenticated}>
+                    <TenderAnalysisPage setToast={setToast} />
+                  </ProtectedRoute>
+                } 
+              />
+              <Route 
+                path="/compliance" 
+                element={
+                  <ProtectedRoute isAuthenticated={isAuthenticated}>
+                    <CompliancePage />
+                  </ProtectedRoute>
+                } 
+              />
+              <Route 
+                path="/history" 
+                element={
+                  <ProtectedRoute isAuthenticated={isAuthenticated}>
+                    <AnalysisHistoryPage setGlobalResults={setGlobalResults} />
+                  </ProtectedRoute>
+                } 
+              />
+              <Route 
+                path="/about" 
+                element={
+                  <ProtectedRoute isAuthenticated={isAuthenticated}>
+                    <AboutPage />
+                  </ProtectedRoute>
+                } 
+              />
+              <Route 
+                path="/profile" 
+                element={
+                  <ProtectedRoute isAuthenticated={isAuthenticated}>
+                    <ProfilePage 
+                      userProfile={userProfile}
+                      onSaveProfile={handleUpdateProfile}
+                      setToast={setToast} 
+                    />
+                  </ProtectedRoute>
+                } 
+              />
+              <Route path="*" element={<Navigate to={isAuthenticated ? "/dashboard" : "/login"} replace />} />
+            </Routes>
+          </MainLayout>
+        </BrowserRouter>
+      </LanguageProvider>
+    </ThemeProvider>
   );
 }

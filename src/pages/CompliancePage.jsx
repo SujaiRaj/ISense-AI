@@ -3,8 +3,10 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 import SectionHeader from '../components/SectionHeader';
 import AnnouncementBanner from '../components/AnnouncementBanner';
 import { getStandardsList } from '../services/standardsService';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function CompliancePage() {
+  const { t } = useLanguage();
   const [searchParams] = useSearchParams();
   const queryStdId = searchParams.get('id');
   const queryIsNum = searchParams.get('is') || searchParams.get('search');
@@ -86,18 +88,18 @@ export default function CompliancePage() {
           <div className="flex items-center gap-2 mb-1 flex-wrap">
             <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-orange-50 text-primary border border-orange-200/80 text-xs font-semibold">
               <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-              QCO Verification
+              {t('comp.tag', 'QCO Verification')}
             </span>
             <span className="text-slate-300">•</span>
             <span className="text-xs text-slate-500 font-code-sm">
-              Gazette Orders Active
+              {t('comp.orders_active', 'Gazette Orders Active')}
             </span>
           </div>
           <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
-            Quality Control Order (QCO) Verification
+            {t('comp.title', 'Quality Control Order (QCO) Verification')}
           </h1>
           <p className="text-xs text-slate-500 mt-0.5 max-w-2xl">
-            Verify whether products require compulsory BIS certification marks under central Ministry Quality Control Orders.
+            {t('comp.subtitle', 'Verify whether products require compulsory BIS certification marks under central Ministry Quality Control Orders.')}
           </p>
         </div>
 
@@ -107,7 +109,7 @@ export default function CompliancePage() {
             className="px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 text-xs font-semibold inline-flex items-center gap-1.5 transition-colors cursor-pointer shadow-xs"
           >
             <span className="material-symbols-outlined text-[16px] text-slate-400">print</span>
-            <span>Print Compliance Note</span>
+            <span>{t('comp.print_note', 'Print Compliance Note')}</span>
           </button>
         </div>
       </div>
@@ -116,7 +118,7 @@ export default function CompliancePage() {
         {/* Standard Selector Bar */}
         <div className="rounded-xl bg-white p-5 border border-slate-200/90 shadow-2xs space-y-3">
           <label className="text-xs font-semibold text-slate-700 block">
-            Select Indian Standard for Regulatory Mandate Check:
+            {t('comp.select_label', 'Select Indian Standard for Regulatory Mandate Check:')}
           </label>
           <div className="grid grid-cols-1 md:grid-cols-12 gap-3 items-center">
             <div className="md:col-span-8 relative">

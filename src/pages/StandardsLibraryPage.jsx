@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams, Link } from 'react-router-dom';
 import StatusBadge from '../components/StatusBadge';
 import { getStandardsList } from '../services/standardsService';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function StandardsLibraryPage() {
+  const { t } = useLanguage();
   const [searchParams] = useSearchParams();
   const initialSearch = searchParams.get('search') || '';
 
@@ -53,14 +55,14 @@ export default function StandardsLibraryPage() {
             </span>
             <span className="text-slate-300">•</span>
             <span className="text-xs text-slate-500 font-code-sm">
-              Bureau of Indian Standards Repository
+              {t('lib.tag', 'Bureau of Indian Standards Repository')}
             </span>
           </div>
           <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
-            Indian Standards Library
+            {t('lib.title', 'Indian Standards Library')}
           </h1>
           <p className="text-xs text-slate-500 mt-0.5 max-w-2xl">
-            Browse and query official BIS specifications, quality control orders, and gazette amendments.
+            {t('lib.subtitle', 'Browse and query official BIS specifications, quality control orders, and gazette amendments.')}
           </p>
         </div>
 
@@ -69,7 +71,7 @@ export default function StandardsLibraryPage() {
           className="px-4 py-2 rounded-xl bg-primary text-white hover:bg-[#C2410C] text-xs font-semibold inline-flex items-center gap-1.5 transition-all cursor-pointer shadow-sm self-start md:self-auto shrink-0"
         >
           <span className="material-symbols-outlined text-[16px]">search</span>
-          <span>Requirement Search</span>
+          <span>{t('lib.req_search_btn', 'Requirement Search')}</span>
         </button>
       </div>
 
@@ -82,7 +84,7 @@ export default function StandardsLibraryPage() {
             </span>
             <input
               type="text"
-              placeholder="Filter by IS code, title or product keyword (e.g. IS 10322, helmet, cement, cable)..."
+              placeholder={t('lib.filter_placeholder', 'Filter by IS code, title or product keyword (e.g. IS 10322, helmet, cement, cable)...')}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="w-full pl-9 pr-3 py-2 bg-surface border border-slate-200 focus:border-primary focus:ring-1 focus:ring-primary/20 focus:bg-white rounded-lg outline-none text-xs text-slate-900"
@@ -92,7 +94,7 @@ export default function StandardsLibraryPage() {
           {/* Division Filter Pills */}
           <div className="flex flex-wrap items-center gap-1.5 pt-0.5 text-xs">
             <span className="text-slate-400 font-medium mr-1">
-              Divisions:
+              {t('lib.divisions', 'Divisions:')}
             </span>
             {categories.map((cat) => (
               <button
@@ -123,11 +125,11 @@ export default function StandardsLibraryPage() {
               <table className="w-full text-left border-collapse">
                 <thead>
                   <tr className="border-b border-slate-200 text-[11px] font-semibold uppercase tracking-wider text-slate-500 bg-slate-50/70">
-                    <th className="py-2.5 px-4">Standard Code</th>
-                    <th className="py-2.5 px-4">Specification Title &amp; Scope</th>
-                    <th className="py-2.5 px-4">Category</th>
-                    <th className="py-2.5 px-4">Status</th>
-                    <th className="py-2.5 px-4 text-right">Action</th>
+                    <th className="py-2.5 px-4">{t('lib.th_code', 'Standard Code')}</th>
+                    <th className="py-2.5 px-4">{t('lib.th_title', 'Specification Title & Scope')}</th>
+                    <th className="py-2.5 px-4">{t('lib.th_category', 'Category')}</th>
+                    <th className="py-2.5 px-4">{t('lib.th_status', 'Status')}</th>
+                    <th className="py-2.5 px-4 text-right">{t('lib.th_action', 'Action')}</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100 text-xs">

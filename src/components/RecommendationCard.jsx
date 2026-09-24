@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ConfidenceScore from './ConfidenceScore';
 import StatusBadge from './StatusBadge';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function RecommendationCard({ recommendation }) {
   const navigate = useNavigate();
+  const { t } = useLanguage();
   const [showDetails, setShowDetails] = useState(false);
 
   const {
@@ -70,7 +72,7 @@ export default function RecommendationCard({ recommendation }) {
       {/* Matching Rationale Box */}
       <div className="p-3.5 rounded-lg bg-slate-50/70 border border-slate-100 space-y-2 text-xs">
         <span className="font-label-sm text-slate-500 uppercase tracking-wider font-semibold block text-[11px]">
-          Scope &amp; Compliance Mandate:
+          {t('rec.scope_mandate', 'Scope & Compliance Mandate:')}
         </span>
         <p className="font-body-sm text-slate-700 leading-relaxed">
           {explanation || scope || "Applies directly to specified technical parameters, material standards, and statutory testing requirements under gazetted procurement orders."}
@@ -132,7 +134,7 @@ export default function RecommendationCard({ recommendation }) {
           onClick={() => setShowDetails(!showDetails)}
           className="text-slate-600 hover:text-primary font-medium inline-flex items-center gap-1 cursor-pointer"
         >
-          <span>{showDetails ? 'Hide scope details' : 'View scope & allied standards'}</span>
+          <span>{showDetails ? t('rec.hide_scope', 'Hide scope details') : t('rec.view_scope', 'View scope & allied standards')}</span>
           <span className="material-symbols-outlined text-[15px] text-slate-400">
             {showDetails ? 'expand_less' : 'expand_more'}
           </span>
@@ -155,7 +157,7 @@ export default function RecommendationCard({ recommendation }) {
             onClick={() => navigate(`/standards/${standardId}`)}
             className="px-3.5 py-1.5 rounded-lg bg-primary text-white hover:bg-[#C2410C] transition-colors inline-flex items-center gap-1 font-semibold cursor-pointer shadow-xs"
           >
-            <span>Specification</span>
+            <span>{t('rec.specification_btn', 'Specification')}</span>
             <span className="material-symbols-outlined text-[14px]">arrow_forward</span>
           </button>
         </div>

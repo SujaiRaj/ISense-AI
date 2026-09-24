@@ -4,9 +4,11 @@ import StatCard from '../components/StatCard';
 import WorkflowCard from '../components/WorkflowCard';
 import ActivityFeedItem from '../components/ActivityFeedItem';
 import AnnouncementBanner from '../components/AnnouncementBanner';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function DashboardPage() {
   const navigate = useNavigate();
+  const { t } = useLanguage();
 
   return (
     <div className="w-full">
@@ -16,18 +18,18 @@ export default function DashboardPage() {
           <div className="flex items-center gap-2 mb-1 flex-wrap">
             <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-medium">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-600" />
-              BIS Catalog v2025.2
+              {t('dash.catalog_badge', 'BIS Catalog v2025.2')}
             </span>
             <span className="text-slate-300">•</span>
             <span className="text-xs text-slate-500 font-code-sm">
-              Updated Today 08:30 IST
+              {t('dash.catalog_updated', 'Updated Today 08:30 IST')}
             </span>
           </div>
           <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
-            Procurement Standards &amp; QCO Dashboard
+            {t('dash.title', 'Procurement Standards & QCO Dashboard')}
           </h1>
           <p className="text-xs text-slate-500 mt-0.5 max-w-2xl">
-            BIS specification mapping, active QCO enforcement status, and tender compliance checks.
+            {t('dash.subtitle', 'BIS specification mapping, active QCO enforcement status, and tender compliance checks.')}
           </p>
         </div>
 
@@ -38,7 +40,7 @@ export default function DashboardPage() {
             className="px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 text-xs font-medium inline-flex items-center gap-1.5 transition-colors cursor-pointer shadow-2xs"
           >
             <span className="material-symbols-outlined text-[16px] text-slate-400">download</span>
-            <span>Export Audit</span>
+            <span>{t('dash.export_audit', 'Export Audit')}</span>
           </button>
           <button
             type="button"
@@ -46,7 +48,7 @@ export default function DashboardPage() {
             className="px-4 py-2 rounded-xl bg-primary text-white hover:bg-[#C2410C] text-xs font-bold inline-flex items-center gap-1.5 transition-all shadow-sm cursor-pointer"
           >
             <span className="material-symbols-outlined text-[18px]">add_circle</span>
-            <span>New Tender Review</span>
+            <span>{t('dash.new_tender_review', 'New Tender Review')}</span>
           </button>
         </div>
       </div>
@@ -57,14 +59,14 @@ export default function DashboardPage() {
           <div className="md:col-span-5">
             <StatCard
               icon="library_books"
-              title="Active Standards Catalog"
+              title={t('dash.stat1_title', 'Active Standards Catalog')}
               value="12,486"
-              unit="codes"
+              unit={t('dash.stat_codes', 'codes')}
               badge="+12.4% YoY"
               trendIcon="trending_up"
               badgeColor="bg-orange-100/80 text-primary border border-orange-200/60 font-bold"
-              description="Specifications indexed across 14 BIS technical divisions, covering all active Gazette notifications through Q1 2025."
-              footerText="Divisions CED, ETD, MTD, TXD"
+              description={t('dash.stat1_desc', 'Specifications indexed across 14 BIS technical divisions, covering all active Gazette notifications through Q1 2025.')}
+              footerText={t('dash.stat1_div', 'Divisions CED, ETD, MTD, TXD')}
               onClick={() => navigate('/standards')}
               className="h-full flex flex-col justify-between"
             />
@@ -73,25 +75,25 @@ export default function DashboardPage() {
           <div className="md:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
             <StatCard
               icon="auto_awesome"
-              title="Specifications Matched"
+              title={t('dash.stat2_title', 'Specifications Matched')}
               value="3,842"
-              unit="queries"
+              unit={t('dash.stat_queries', 'queries')}
               badge="+18.2%"
               trendIcon="trending_up"
               badgeColor="bg-amber-100 text-amber-800 border border-amber-200/80 font-bold"
-              description="Automated specification crosswalks generated for municipal and central procurement requisitions."
-              footerText="Avg latency: 1.4s"
+              description={t('dash.stat2_desc', 'Automated specification crosswalks generated for municipal and central procurement requisitions.')}
+              footerText={t('dash.stat2_latency', 'Avg latency: 1.4s')}
               onClick={() => navigate('/search')}
             />
             <StatCard
               icon="fact_check"
-              title="Tenders Audited"
+              title={t('dash.stat3_title', 'Tenders Audited')}
               value="1,264"
-              unit="BOQs"
-              badge="98.6% match"
+              unit={t('dash.stat_boqs', 'BOQs')}
+              badge={t('dash.stat_match_pct', '98.6% match')}
               badgeColor="bg-emerald-50 text-emerald-800 border border-emerald-200 font-bold"
-              description="Public RFPs vetted with clause mapping against mandatory Quality Control Orders."
-              footerText="Zero critical discrepancies"
+              description={t('dash.stat3_desc', 'Public RFPs vetted with clause mapping against mandatory Quality Control Orders.')}
+              footerText={t('dash.stat3_disc', 'Zero critical discrepancies')}
               onClick={() => navigate('/tender-analysis')}
             />
           </div>
@@ -103,44 +105,44 @@ export default function DashboardPage() {
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-primary" />
               <span className="text-[11px] font-bold text-slate-800 uppercase tracking-wider">
-                Direct Auditor Workflows
+                {t('dash.workflows_title', 'Direct Auditor Workflows')}
               </span>
             </div>
             <span className="text-xs text-slate-400 font-code-sm">
-              Press ⌘1 to ⌘4 for rapid launch
+              {t('dash.workflows_shortcut', 'Press ⌘1 to ⌘4 for rapid launch')}
             </span>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
             <WorkflowCard
               to="/search"
               icon="manage_search"
-              title="Find a Standard"
-              description="Search Indian Standards using AI natural language requirement matching & code crosswalks."
-              actionText="Query Corpus"
+              title={t('dash.wf1_title', 'Find a Standard')}
+              description={t('dash.wf1_desc', 'Search Indian Standards using AI natural language requirement matching & code crosswalks.')}
+              actionText={t('dash.wf1_action', 'Query Corpus')}
               iconBg="bg-orange-100 text-primary border-orange-200"
             />
             <WorkflowCard
               to="/tender-analysis"
               icon="fact_check"
-              title="Analyze Tender"
-              description="Upload procurement RFP or BOQ to identify missing mandatory specifications."
-              actionText="Ingest Document"
+              title={t('dash.wf2_title', 'Analyze Tender')}
+              description={t('dash.wf2_desc', 'Upload procurement RFP or BOQ to identify missing mandatory specifications.')}
+              actionText={t('dash.wf2_action', 'Ingest Document')}
               iconBg="bg-slate-100 text-secondary border-slate-200"
             />
             <WorkflowCard
               to="/compliance"
               icon="policy"
-              title="Check Compliance"
-              description="Verify mandatory BIS certification rules & active gazette Quality Control Orders (QCOs)."
-              actionText="Verify Order"
+              title={t('dash.wf3_title', 'Check Compliance')}
+              description={t('dash.wf3_desc', 'Verify mandatory BIS certification rules & active gazette Quality Control Orders (QCOs).')}
+              actionText={t('dash.wf3_action', 'Verify Order')}
               iconBg="bg-amber-100 text-amber-800 border-amber-200"
             />
             <WorkflowCard
               to="/standards"
               icon="library_books"
-              title="Browse Library"
-              description="Explore 12,000+ indexed standards with revision logs, withdrawn notices & draft revisions."
-              actionText="Access Repository"
+              title={t('dash.wf4_title', 'Browse Library')}
+              description={t('dash.wf4_desc', 'Explore 12,000+ indexed standards with revision logs, withdrawn notices & draft revisions.')}
+              actionText={t('dash.wf4_action', 'Access Repository')}
               iconBg="bg-emerald-100 text-emerald-800 border-emerald-200"
             />
           </div>
@@ -153,10 +155,10 @@ export default function DashboardPage() {
             <div className="flex items-center justify-between pb-3 border-b border-slate-100">
               <div>
                 <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block">
-                  National Distribution
+                  {t('dash.dist_tag', 'National Distribution')}
                 </span>
                 <h2 className="text-base font-bold text-slate-900 mt-0.5">
-                  Standards by Product Category
+                  {t('dash.dist_title', 'Standards by Product Category')}
                 </h2>
               </div>
               <div className="flex items-center gap-1 text-xs">
@@ -189,12 +191,12 @@ export default function DashboardPage() {
                     <span className="text-base font-bold text-slate-900 leading-none">
                       12,486
                     </span>
-                    <span className="text-[10px] text-slate-400 mt-0.5">Total Codes</span>
+                    <span className="text-[10px] text-slate-400 mt-0.5">{t('dash.dist_total_codes', 'Total Codes')}</span>
                   </div>
                 </div>
                 <span className="text-[11px] text-slate-500 mt-2 font-code-sm flex items-center gap-1 font-medium">
                   <span className="material-symbols-outlined text-[14px] text-primary">donut_large</span>
-                  <span>Calibrated to Gazette 2025</span>
+                  <span>{t('dash.dist_calibrated', 'Calibrated to Gazette 2025')}</span>
                 </span>
               </div>
 
@@ -204,7 +206,7 @@ export default function DashboardPage() {
                   <div className="flex justify-between items-center text-slate-700 mb-1">
                     <span className="font-medium flex items-center gap-1.5">
                       <span className="w-2 h-2 rounded-full bg-[#0F172A]" />
-                      Electrical Equipment &amp; Cables
+                      {t('dash.dist_cat1', 'Electrical Equipment & Cables')}
                     </span>
                     <span className="font-code-sm text-slate-900 font-semibold tabular-nums">
                       3,420 <span className="text-slate-400 font-normal">(27.4%)</span>
@@ -219,7 +221,7 @@ export default function DashboardPage() {
                   <div className="flex justify-between items-center text-slate-700 mb-1">
                     <span className="font-medium flex items-center gap-1.5">
                       <span className="w-2 h-2 rounded-full bg-primary" />
-                      Civil Engineering &amp; Construction
+                      {t('dash.dist_cat2', 'Civil Engineering & Construction')}
                     </span>
                     <span className="font-code-sm text-slate-900 font-semibold tabular-nums">
                       2,890 <span className="text-slate-400 font-normal">(23.1%)</span>
@@ -234,7 +236,7 @@ export default function DashboardPage() {
                   <div className="flex justify-between items-center text-slate-700 mb-1">
                     <span className="font-medium flex items-center gap-1.5">
                       <span className="w-2 h-2 rounded-full bg-amber-500" />
-                      Mechanical &amp; Metallurgy
+                      {t('dash.dist_cat3', 'Mechanical & Metallurgy')}
                     </span>
                     <span className="font-code-sm text-slate-900 font-semibold tabular-nums">
                       1,850 <span className="text-slate-400 font-normal">(14.8%)</span>
@@ -249,7 +251,7 @@ export default function DashboardPage() {
                   <div className="flex justify-between items-center text-slate-700 mb-1">
                     <span className="font-medium flex items-center gap-1.5">
                       <span className="w-2 h-2 rounded-full bg-slate-700" />
-                      Personal Protective Equipment (PPE)
+                      {t('dash.dist_cat4', 'Personal Protective Equipment (PPE)')}
                     </span>
                     <span className="font-code-sm text-slate-900 font-semibold tabular-nums">
                       1,640 <span className="text-slate-400 font-normal">(13.1%)</span>
@@ -265,10 +267,10 @@ export default function DashboardPage() {
             <div className="mt-2 pt-3 flex items-center justify-between border-t border-slate-100 text-xs text-slate-500">
               <span className="flex items-center gap-1.5">
                 <span className="material-symbols-outlined text-[15px] text-primary">verified</span>
-                <span>Compulsory Registration Scheme (CRS) tracks 88 of these categories</span>
+                <span>{t('dash.dist_crs_note', 'Compulsory Registration Scheme (CRS) tracks 88 of these categories')}</span>
               </span>
               <Link to="/standards" className="text-primary font-bold hover:underline">
-                View Taxonomy
+                {t('dash.dist_view_taxonomy', 'View Taxonomy')}
               </Link>
             </div>
           </div>
@@ -279,10 +281,10 @@ export default function DashboardPage() {
               <div className="flex items-center justify-between pb-3 border-b border-slate-100">
                 <div>
                   <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block">
-                    Continuous Audit Trail
+                    {t('dash.audit_trail_tag', 'Continuous Audit Trail')}
                   </span>
                   <h2 className="text-base font-bold text-slate-900 mt-0.5">
-                    Recent AI Activity
+                    {t('dash.audit_trail_title', 'Recent AI Activity')}
                   </h2>
                 </div>
                 <span className="w-2 h-2 rounded-full bg-emerald-500" title="Online" />
@@ -339,13 +341,13 @@ export default function DashboardPage() {
 
             <div className="mt-3 pt-2.5 flex items-center justify-between border-t border-slate-100 text-xs">
               <span className="text-slate-400 text-[11px]">
-                Showing latest 4 events
+                {t('dash.audit_showing', 'Showing latest 4 events')}
               </span>
               <Link
                 to="/history"
                 className="text-primary font-bold hover:underline inline-flex items-center gap-1"
               >
-                <span>View Full Audit Log</span>
+                <span>{t('dash.audit_view_all', 'View Full Audit Log')}</span>
                 <span className="material-symbols-outlined text-[14px]">arrow_forward</span>
               </Link>
             </div>
@@ -355,10 +357,10 @@ export default function DashboardPage() {
         {/* Gazette Notice */}
         <AnnouncementBanner
           icon="gavel"
-          title="BIS Gazette QCO Notification 2025/Q1 In Force"
-          badgeText="Immediate Effect"
-          description="17 mechanical fasteners, polymer conduits, and medical diagnostic items are now legally governed under mandatory Indian Standards conformity for public procurement."
-          actionText="Review Impacted Items"
+          title={t('banner.title', 'BIS Gazette QCO Notification 2025/Q1 In Force')}
+          badgeText={t('banner.badge', 'Immediate Effect')}
+          description={t('banner.desc', '17 mechanical fasteners, polymer conduits, and medical diagnostic items are now legally governed under mandatory Indian Standards conformity for public procurement.')}
+          actionText={t('banner.cta', 'Review Impacted Items')}
           actionTo="/compliance"
         />
       </div>

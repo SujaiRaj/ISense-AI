@@ -1,36 +1,39 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Sidebar({ isOpen, onClose, onLogout }) {
+  const { t } = useLanguage();
+
   const navSections = [
     {
-      group: 'Overview',
+      group: t('nav.overview', 'Overview'),
       items: [
-        { path: '/dashboard', label: 'Dashboard', icon: 'dashboard' }
+        { path: '/dashboard', label: t('nav.dashboard', 'Dashboard'), icon: 'dashboard' }
       ]
     },
     {
-      group: 'Intelligence',
+      group: t('nav.intelligence', 'Intelligence'),
       items: [
-        { path: '/search', label: 'Standards Search', icon: 'manage_search' },
-        { path: '/recommendations', label: 'Recommendations', icon: 'auto_awesome' },
-        { path: '/tender-analysis', label: 'Tender Review', icon: 'fact_check' }
+        { path: '/search', label: t('nav.standards_search', 'Standards Search'), icon: 'manage_search' },
+        { path: '/recommendations', label: t('nav.recommendations', 'Recommendations'), icon: 'auto_awesome' },
+        { path: '/tender-analysis', label: t('nav.tender_review', 'Tender Review'), icon: 'fact_check' }
       ]
     },
     {
-      group: 'Compliance',
+      group: t('nav.compliance', 'Compliance'),
       items: [
-        { path: '/compliance', label: 'QCO Orders', icon: 'policy' },
-        { path: '/standards', label: 'Standards Library', icon: 'library_books' }
+        { path: '/compliance', label: t('nav.qco_orders', 'QCO Orders'), icon: 'policy' },
+        { path: '/standards', label: t('nav.standards_library', 'Standards Library'), icon: 'library_books' }
       ]
     },
     {
-      group: 'Details & Access',
+      group: t('nav.details_access', 'Details & Access'),
       items: [
-        { path: '/standards/is-10322-p5-s3', label: 'Standard Detail View', icon: 'description' },
-        { path: '/history', label: 'Audit History', icon: 'history' },
-        { path: '/profile', label: 'Officer Profile', icon: 'person' },
-        { isAction: true, label: 'Sign Out / Gateway', icon: 'logout' }
+        { path: '/standards/is-10322-p5-s3', label: t('nav.standard_detail', 'Standard Detail View'), icon: 'description' },
+        { path: '/history', label: t('nav.audit_history', 'Audit History'), icon: 'history' },
+        { path: '/profile', label: t('nav.officer_profile', 'Officer Profile'), icon: 'person' },
+        { isAction: true, label: t('nav.sign_out', 'Sign Out / Gateway'), icon: 'logout' }
       ]
     }
   ];
@@ -88,7 +91,7 @@ export default function Sidebar({ isOpen, onClose, onLogout }) {
                 <span className="w-1.5 h-3 rounded-xs bg-[#15803D]" />
               </div>
               <span className="text-[11px] text-slate-900 font-bold tracking-wider">
-                AI ONLINE
+                {t('status.online', 'AI ONLINE')}
               </span>
             </div>
             <span className="font-code-sm text-primary font-semibold bg-orange-100/70 border border-orange-200/60 px-2 py-0.5 rounded text-[10px]">
@@ -152,10 +155,10 @@ export default function Sidebar({ isOpen, onClose, onLogout }) {
           <div className="p-2.5 rounded-lg bg-slate-50 border border-slate-200/60 flex items-center justify-between text-xs">
             <div className="flex flex-col">
               <span className="font-semibold text-slate-800">
-                BIS Gazette Sync
+                {t('status.sync', 'BIS Gazette Sync')}
               </span>
               <span className="font-code-sm text-slate-400 text-[11px]">
-                Synced 12m ago
+                {t('status.synced', 'Synced 12m ago')}
               </span>
             </div>
             <span className="material-symbols-outlined text-primary text-[18px]">

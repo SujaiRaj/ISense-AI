@@ -5,8 +5,10 @@ import RecommendationCard from '../components/RecommendationCard';
 import SectionHeader from '../components/SectionHeader';
 import ActivityFeedItem from '../components/ActivityFeedItem';
 import { analyzeTenderDocument } from '../services/tenderService';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function TenderAnalysisPage({ setToast }) {
+  const { t } = useLanguage();
   const [selectedFile, setSelectedFile] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [processingStep, setProcessingStep] = useState(0);
@@ -98,18 +100,18 @@ export default function TenderAnalysisPage({ setToast }) {
           <div className="flex items-center gap-2 mb-1 flex-wrap">
             <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-orange-50 text-primary border border-orange-200/80 text-xs font-semibold">
               <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-              Tender Document Auditor
+              {t('tender.tag', 'Tender Document Auditor')}
             </span>
             <span className="text-slate-300">•</span>
             <span className="text-xs text-slate-500 font-code-sm">
-              Public Procurement Conformance
+              {t('tender.conformance', 'Public Procurement Conformance')}
             </span>
           </div>
           <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
-            Tender Specification Audit
+            {t('tender.title', 'Tender Specification Audit')}
           </h1>
           <p className="text-xs text-slate-500 mt-0.5 max-w-2xl">
-            Audit public procurement tenders against Indian Standards and mandatory Quality Control Orders.
+            {t('tender.subtitle', 'Audit public procurement tenders against Indian Standards and mandatory Quality Control Orders.')}
           </p>
         </div>
 

@@ -3,8 +3,10 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import StatCard from '../components/StatCard';
 import SectionHeader from '../components/SectionHeader';
 import { getRecommendations } from '../services/recommendationService';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function SearchPage({ setGlobalResults, setToast }) {
+  const { t } = useLanguage();
   const [searchParams] = useSearchParams();
   const initialQuery = searchParams.get('q') || "";
   const [query, setQuery] = useState(initialQuery);
@@ -118,18 +120,18 @@ export default function SearchPage({ setGlobalResults, setToast }) {
           <div className="flex items-center gap-2 mb-1 flex-wrap">
             <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-orange-50 text-primary border border-orange-200/80 text-xs font-semibold">
               <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-              BIS Requirement Search
+              {t('search.header_badge', 'BIS Requirement Search')}
             </span>
             <span className="text-slate-300">•</span>
             <span className="text-xs text-slate-500 font-code-sm">
-              12,486 Indexed Specifications
+              {t('search.indexed_count', '12,486 Indexed Specifications')}
             </span>
           </div>
           <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
-            Indian Standards Requirement Search
+            {t('search.title', 'Indian Standards Requirement Search')}
           </h1>
           <p className="text-xs text-slate-500 mt-0.5 max-w-2xl">
-            Input product specifications or tender parameters to identify matching Indian Standards and mandatory QCO orders.
+            {t('search.subtitle', 'Input product specifications or tender parameters to identify matching Indian Standards and mandatory QCO orders.')}
           </p>
         </div>
 
@@ -162,7 +164,7 @@ export default function SearchPage({ setGlobalResults, setToast }) {
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Enter item description or parameters (e.g. 90W outdoor LED street light, protective helmets, cement)..."
+                placeholder={t('search.input_placeholder', 'Enter item description or parameters (e.g. 90W outdoor LED street light, protective helmets, cement)...')}
                 className="w-full bg-transparent border-none outline-none font-body-sm text-slate-900 placeholder:text-slate-400 text-sm"
               />
               {query && (
@@ -186,12 +188,12 @@ export default function SearchPage({ setGlobalResults, setToast }) {
                 {loading ? (
                   <>
                     <span className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin shrink-0" />
-                    <span>Searching...</span>
+                    <span>{t('search.analyzing', 'Searching...')}</span>
                   </>
                 ) : (
                   <>
                     <span className="material-symbols-outlined text-[16px]">search</span>
-                    <span>Search Standards</span>
+                    <span>{t('search.btn', 'Search Standards')}</span>
                   </>
                 )}
               </button>
@@ -201,7 +203,7 @@ export default function SearchPage({ setGlobalResults, setToast }) {
           {/* Preset Chips */}
           <div className="flex flex-wrap items-center gap-1.5 pt-1 text-xs">
             <span className="text-slate-400 font-medium mr-1">
-              Sample queries:
+              {t('search.sample_queries', 'Sample queries:')}
             </span>
             {presets.map((preset, idx) => (
               <button
@@ -222,7 +224,7 @@ export default function SearchPage({ setGlobalResults, setToast }) {
           <div className="rounded-xl bg-white border border-slate-200/90 shadow-2xs p-8 flex flex-col items-center gap-4">
             <div className="w-10 h-10 border-4 border-orange-100 border-t-primary rounded-full animate-spin" />
             <div className="text-center">
-              <p className="text-sm font-semibold text-slate-800">Analysing requirement against BIS catalog…</p>
+              <p className="text-sm font-semibold text-slate-800">{t('search.analyzing', 'Analysing requirement against BIS catalog…')}</p>
               <p className="text-xs text-slate-500 mt-1">Cross-referencing 1,250+ indexed specifications and active QCO mandates</p>
             </div>
           </div>
@@ -231,8 +233,8 @@ export default function SearchPage({ setGlobalResults, setToast }) {
         {!loading && searchResults && searchResults.noMatch && (
           <div className="rounded-xl bg-white border border-slate-200/90 shadow-2xs p-8 flex flex-col items-center gap-3 text-center">
             <span className="material-symbols-outlined text-slate-300 text-[48px]">search_off</span>
-            <p className="text-sm font-semibold text-slate-700">No matching Indian Standard found</p>
-            <p className="text-xs text-slate-500 max-w-sm">{searchResults.message || 'Try a preset query: LED street light, safety helmet, portland cement, PVC cable, or safety shoes.'}</p>
+            <p className="text-sm font-semibold text-slate-700">{t('rec.no_match_title', 'No matching Indian Standard found')}</p>
+            <p className="text-xs text-slate-500 max-w-sm">{searchResults.message || t('rec.no_match_desc', 'Try a preset query: LED street light, safety helmet, portland cement, PVC cable, or safety shoes.')}</p>
           </div>
         )}
 
@@ -273,9 +275,9 @@ export default function SearchPage({ setGlobalResults, setToast }) {
           /* Default Featured Standards Grid */
           <div className="space-y-4">
             <SectionHeader
-              microLabel="Active Catalog"
-              title="Frequently Audited Standards"
-              subtitle="Common specifications queried across civil, electrical, and infrastructure tenders."
+              microLabel={t('search.featured_tag', 'Active Catalog')}
+              title={t('search.featured_title', 'Frequently Audited Standards')}
+              subtitle={t('search.featured_desc', 'Common specifications queried across civil, electrical, and infrastructure tenders.')}
             />
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">

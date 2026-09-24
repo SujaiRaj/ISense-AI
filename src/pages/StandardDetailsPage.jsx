@@ -3,10 +3,12 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import StatusBadge from '../components/StatusBadge';
 import SectionHeader from '../components/SectionHeader';
 import { getStandardById } from '../services/standardsService';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function StandardDetailsPage() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { t } = useLanguage();
   const [standard, setStandard] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -66,11 +68,11 @@ export default function StandardDetailsPage() {
               className="inline-flex items-center gap-1 text-slate-500 hover:text-primary text-xs font-semibold transition-colors cursor-pointer"
             >
               <span className="material-symbols-outlined text-[15px]">arrow_back</span>
-              <span>Back to Library</span>
+              <span>{t('detail.back', 'Back to Library')}</span>
             </button>
             <span className="text-slate-300">•</span>
             <span className="text-xs text-slate-500 font-code-sm">
-              Record ID: {standard.id}
+              {t('detail.record_id', 'Record ID:')} {standard.id}
             </span>
           </div>
           <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
@@ -90,7 +92,7 @@ export default function StandardDetailsPage() {
               className="px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 text-xs font-medium inline-flex items-center gap-1.5 transition-colors cursor-pointer shadow-2xs"
             >
               <span className="material-symbols-outlined text-[15px] text-slate-400">open_in_new</span>
-              <span>BIS Official Portal</span>
+              <span>{t('detail.official_portal', 'BIS Official Portal')}</span>
             </a>
           )}
           <button
@@ -98,7 +100,7 @@ export default function StandardDetailsPage() {
             className="px-3.5 py-1.5 rounded-lg bg-primary text-white hover:bg-[#C2410C] text-xs font-bold inline-flex items-center gap-1.5 transition-all cursor-pointer shadow-xs"
           >
             <span className="material-symbols-outlined text-[15px]">policy</span>
-            <span>Verify QCO Order</span>
+            <span>{t('detail.verify_qco', 'Verify QCO Order')}</span>
           </button>
         </div>
       </div>
@@ -121,7 +123,7 @@ export default function StandardDetailsPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-1">
             <div className="p-3 rounded-lg bg-slate-50 border border-slate-100 flex flex-col justify-between">
               <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block">
-                Technical Division
+                {t('detail.tech_division', 'Technical Division')}
               </span>
               <span className="font-code-sm font-bold text-slate-900 mt-1 block text-xs">
                 {standard.division || "Division ETD 13"}
@@ -133,7 +135,7 @@ export default function StandardDetailsPage() {
 
             <div className="p-3 rounded-lg bg-slate-50 border border-slate-100 flex flex-col justify-between">
               <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block">
-                Product Category
+                {t('detail.prod_category', 'Product Category')}
               </span>
               <span className="font-code-sm font-bold text-slate-900 mt-1 block text-xs">
                 {standard.category || "Illumination & Lighting"}
@@ -145,7 +147,7 @@ export default function StandardDetailsPage() {
 
             <div className="p-3 rounded-lg bg-slate-50 border border-slate-100 flex flex-col justify-between">
               <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block">
-                Conformity Scheme
+                {t('detail.conformity_scheme', 'Conformity Scheme')}
               </span>
               <span className="font-code-sm font-bold text-slate-900 mt-1 block text-xs">
                 Scheme-I Mandatory (ISI)
@@ -157,7 +159,7 @@ export default function StandardDetailsPage() {
 
             <div className="p-3 rounded-lg bg-slate-50 border border-slate-100 flex flex-col justify-between">
               <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block">
-                Gazette Year
+                {t('detail.gazette_year', 'Gazette Year')}
               </span>
               <span className="font-code-sm font-bold text-slate-900 mt-1 block text-xs">
                 {standard.publicationDate || standard.year || "2012 (Reaffirmed)"}
@@ -173,7 +175,7 @@ export default function StandardDetailsPage() {
         <div className="rounded-xl bg-white p-5 border border-slate-200/90 shadow-2xs space-y-2">
           <SectionHeader
             microLabel="Scope"
-            title="Technical Scope & Regulatory Application"
+            title={t('detail.scope_title', 'Technical Scope & Regulatory Application')}
           />
           <p className="font-body-sm text-slate-600 leading-relaxed text-xs">
             {standard.scope || standard.description || "Covers constructional, electrical, mechanical, photometric, and endurance safety specifications for equipment designed for public and municipal infrastructure procurement."}
@@ -186,8 +188,8 @@ export default function StandardDetailsPage() {
             <div className="p-4 border-b border-slate-100">
               <SectionHeader
                 microLabel="Clauses"
-                title="Mandatory Specification Clauses & Test Methods"
-                subtitle="Auditable technical specifications required during tender evaluation."
+                title={t('detail.clauses_title', 'Mandatory Specification Clauses & Test Methods')}
+                subtitle={t('detail.clauses_sub', 'Auditable technical specifications required during tender evaluation.')}
                 className="pb-0"
               />
             </div>
@@ -196,10 +198,10 @@ export default function StandardDetailsPage() {
               <table className="w-full text-left border-collapse">
                 <thead>
                   <tr className="border-b border-slate-200 text-[11px] font-semibold uppercase tracking-wider text-slate-500 bg-slate-50/70">
-                    <th className="py-2.5 px-4">Clause / ID</th>
-                    <th className="py-2.5 px-4">Parameter Name</th>
-                    <th className="py-2.5 px-4">Specified Requirement</th>
-                    <th className="py-2.5 px-4">Verification Method</th>
+                    <th className="py-2.5 px-4">{t('detail.th_clause', 'Clause / ID')}</th>
+                    <th className="py-2.5 px-4">{t('detail.th_param', 'Parameter Name')}</th>
+                    <th className="py-2.5 px-4">{t('detail.th_req', 'Specified Requirement')}</th>
+                    <th className="py-2.5 px-4">{t('detail.th_method', 'Verification Method')}</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100 text-xs">
@@ -230,7 +232,7 @@ export default function StandardDetailsPage() {
           <div className="rounded-xl bg-white p-5 border border-slate-200/90 shadow-2xs space-y-2">
             <SectionHeader
               microLabel="Related Codes"
-              title="Allied &amp; Cross-Referenced Indian Standards"
+              title={t('detail.allied_title', 'Allied & Cross-Referenced Indian Standards')}
             />
             <div className="flex flex-wrap gap-1.5 pt-1">
               {standard.relatedStandards.map((item, idx) => (

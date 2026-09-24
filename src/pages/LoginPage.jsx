@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useLanguage } from '../context/LanguageContext';
+import { useTheme } from '../context/ThemeContext';
 
 export default function LoginPage({ onLogin }) {
   const navigate = useNavigate();
+  const { language, toggleLanguage, t } = useLanguage();
+  const { isDark, toggleTheme } = useTheme();
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -14,12 +19,12 @@ export default function LoginPage({ onLogin }) {
     setError('');
 
     if (!username.trim()) {
-      setError('Please enter your name or official username.');
+      setError(language === 'hi' ? 'कृपया अपना आधिकारिक नाम या ईमेल दर्ज करें।' : 'Please enter your name or official username.');
       return;
     }
 
     if (!password.trim()) {
-      setError('Please enter your password.');
+      setError(language === 'hi' ? 'कृपया अपना पासवर्ड दर्ज करें।' : 'Please enter your password.');
       return;
     }
 
@@ -43,16 +48,46 @@ export default function LoginPage({ onLogin }) {
 
   return (
     <div className="min-h-screen bg-[#F8F8F4] flex flex-col justify-between p-4 sm:p-6 font-sans">
-      {/* Top Govt Bar */}
+      {/* Top Govt Bar with Language & Theme Toggles */}
       <header className="w-full max-w-5xl mx-auto flex items-center justify-between text-xs text-slate-500 py-2">
         <div className="flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-primary inline-block" />
-          <span className="font-semibold text-slate-700">Government of India • National Standards Intelligence</span>
+          <span className="font-semibold text-slate-700">
+            {t('gov.banner', 'Government of India • National Standards Intelligence')}
+          </span>
         </div>
-        <div className="hidden sm:flex items-center gap-3 text-[11px] font-code-sm">
-          <span>BIS Act 2016 Compliant</span>
-          <span>•</span>
-          <span className="text-emerald-700 font-semibold">Portal Active</span>
+        <div className="flex items-center gap-3">
+          <div className="hidden sm:flex items-center gap-2 text-[11px] font-code-sm">
+            <span>{t('status.bis_compliant', 'BIS Act 2016 Compliant')}</span>
+            <span>•</span>
+            <span className="text-emerald-700 font-semibold">{t('status.portal_active', 'Portal Active')}</span>
+          </div>
+
+          <div className="h-4 w-px bg-slate-200 hidden sm:block" />
+
+          {/* Language Toggle */}
+          <button
+            type="button"
+            onClick={toggleLanguage}
+            className="flex items-center gap-1 px-2 py-0.5 rounded-md text-xs font-semibold border transition-all cursor-pointer bg-white border-slate-200 hover:border-primary text-slate-700 hover:text-primary shadow-2xs"
+            title={language === 'en' ? 'हिन्दी में बदलें' : 'Switch to English'}
+          >
+            <span className="material-symbols-outlined text-[14px] text-primary">translate</span>
+            <span>{language === 'en' ? 'हिन्दी' : 'EN'}</span>
+          </button>
+
+          {/* Theme Toggle */}
+          <button
+            type="button"
+            onClick={toggleTheme}
+            className="p-1 rounded-md text-slate-500 hover:text-primary bg-white border border-slate-200 transition-colors cursor-pointer shadow-2xs"
+            title={isDark ? t('theme.toggle_light', 'Switch to Light Mode') : t('theme.toggle_dark', 'Switch to Dark Mode')}
+            aria-label="Toggle Theme"
+          >
+            <span className="material-symbols-outlined text-[17px] text-amber-500">
+              {isDark ? 'light_mode' : 'dark_mode'}
+            </span>
+          </button>
         </div>
       </header>
 
@@ -74,7 +109,7 @@ export default function LoginPage({ onLogin }) {
                 <span className="w-1.5 h-1.5 rounded-full bg-primary" />
               </div>
               <p className="text-xs text-slate-500 font-medium mt-0.5">
-                Indian Standards &amp; QCO Procurement Portal
+                {t('login.sub', 'Indian Standards & QCO Procurement Portal')}
               </p>
             </div>
 
@@ -97,7 +132,7 @@ export default function LoginPage({ onLogin }) {
 
             <div className="space-y-1.5">
               <label className="block text-xs font-semibold text-slate-800 uppercase tracking-wider">
-                Username / Official Email
+                {t('login.username_label', 'Username / Official Name')}
               </label>
               <div className="relative">
                 <span className="material-symbols-outlined text-slate-400 text-[18px] absolute left-3 top-1/2 -translate-y-1/2">
@@ -107,7 +142,7 @@ export default function LoginPage({ onLogin }) {
                   type="text"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  placeholder="e.g. Sujai Raj or officer@gov.in"
+                  placeholder={t('login.username_placeholder', 'e.g. Sujai Raj or officer@gov.in')}
                   className="w-full pl-9 pr-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 focus:bg-white transition-all font-medium"
                 />
               </div>
@@ -116,14 +151,14 @@ export default function LoginPage({ onLogin }) {
             <div className="space-y-1.5">
               <div className="flex items-center justify-between">
                 <label className="block text-xs font-semibold text-slate-800 uppercase tracking-wider">
-                  Password / Passcode
+                  {t('login.password_label', 'Password / Passcode')}
                 </label>
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
                   className="text-[11px] text-slate-400 hover:text-primary transition-colors cursor-pointer"
                 >
-                  {showPassword ? "Hide" : "Show"}
+                  {showPassword ? (language === 'hi' ? 'छिपाएँ' : 'Hide') : (language === 'hi' ? 'दिखाएँ' : 'Show')}
                 </button>
               </div>
               <div className="relative">
@@ -134,7 +169,7 @@ export default function LoginPage({ onLogin }) {
                   type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Enter your passcode"
+                  placeholder={t('login.password_placeholder', 'Enter your passcode')}
                   className="w-full pl-9 pr-10 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 focus:bg-white transition-all font-medium font-mono"
                 />
                 <button
@@ -151,13 +186,13 @@ export default function LoginPage({ onLogin }) {
 
             {/* Quick Demo Pre-fill Hint */}
             <div className="pt-1 flex items-center justify-between text-[11px] text-slate-500">
-              <span className="font-code-sm">Demo: Sujai Raj / isense2026</span>
+              <span className="font-code-sm">{t('login.demo_hint', 'Demo: Sujai Raj / isense2026')}</span>
               <button
                 type="button"
                 onClick={handleQuickDemo}
                 className="text-primary hover:underline font-semibold cursor-pointer"
               >
-                Auto Fill
+                {t('login.auto_fill', 'Auto Fill')}
               </button>
             </div>
 
@@ -169,12 +204,12 @@ export default function LoginPage({ onLogin }) {
               {isSubmitting ? (
                 <>
                   <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                  <span>Signing In...</span>
+                  <span>{t('login.signing_in', 'Signing In...')}</span>
                 </>
               ) : (
                 <>
                   <span className="material-symbols-outlined text-[18px]">login</span>
-                  <span>Sign In to Portal</span>
+                  <span>{t('login.submit_btn', 'Sign In to Portal')}</span>
                 </>
               )}
             </button>
@@ -183,7 +218,7 @@ export default function LoginPage({ onLogin }) {
           {/* Institutional SSO Badge */}
           <div className="pt-2 border-t border-slate-100 text-center">
             <p className="text-[11px] text-slate-400">
-              Single Sign-On enabled for NIC, GeM &amp; Central Procurement Officers
+              {t('login.sso_note', 'Single Sign-On enabled for NIC, GeM & Central Procurement Officers')}
             </p>
           </div>
         </div>
@@ -191,7 +226,7 @@ export default function LoginPage({ onLogin }) {
 
       {/* Footer */}
       <footer className="w-full max-w-5xl mx-auto text-center text-[11px] text-slate-400 py-2">
-        © {new Date().getFullYear()} ISense AI • Bureau of Indian Standards Intelligence
+        © {new Date().getFullYear()} ISense AI • {t('login.copyright', 'Bureau of Indian Standards Intelligence')}
       </footer>
     </div>
   );
