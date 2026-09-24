@@ -514,14 +514,281 @@ export const TRANSLATIONS = {
     'theme.toggle_dark': 'डार्क मोड चालू करें',
     'theme.toggle_light': 'लाइट मोड चालू करें',
     'lang.toggle_hi': 'हिन्दी',
-    'lang.toggle_en': 'English'
+    'lang.toggle_en': 'English',
+    'lang.toggle_ta': 'தமிழ்'
+  },
+
+  ta: {
+    // Top Bar & Global
+    'gov.banner': 'இந்திய அரசு • தேசிய தரநிலைகள் நுண்ணறிவு அமைப்பு',
+    'gov.portal': 'போர்டல்',
+    'gov.standardized': 'இந்திய அரசு தரப்படுத்தப்பட்டது',
+    'search.placeholder': 'இந்திய தரநிலை (IS) எண் அல்லது பொருளைத் தேடவும்...',
+    'officer.title': 'கொள்முதல் அதிகாரி',
+    'officer.dept': 'வழங்கல் மற்றும் அகற்றல் இயக்குநரகம்',
+    'status.online': 'AI ஆன்லைன்',
+    'status.version': 'பதிப்பு 2025.2',
+    'status.sync': 'BIS அரசிதழ் ஒத்திசைவு',
+    'status.synced': '12 நிமிடம் முன் ஒத்திசைக்கப்பட்டது',
+    'status.portal_active': 'போர்டல் இயங்குகிறது',
+    'status.bis_compliant': 'BIS சட்டம் 2016 இணக்கமானது',
+
+    // Sidebar Nav
+    'nav.overview': 'மேலோட்டம்',
+    'nav.intelligence': 'நுண்ணறிவு',
+    'nav.compliance': 'கட்டாய இணக்கம்',
+    'nav.details_access': 'விவரங்கள் மற்றும் அணுகல்',
+    'nav.dashboard': 'முகப்புப்பலகை',
+    'nav.standards_search': 'தரநிலைகள் தேடல்',
+    'nav.recommendations': 'AI பரிந்துரைகள்',
+    'nav.tender_review': 'டெண்டர் மதிப்பாய்வு',
+    'nav.qco_orders': 'QCO உத்தரவுகள்',
+    'nav.standards_library': 'தரநிலைகள் நூலகம்',
+    'nav.standard_detail': 'தரநிலை விவரக் காட்சி',
+    'nav.audit_history': 'தணிக்கை வரலாறு',
+    'nav.officer_profile': 'அதிகாரி சுயவிவரம்',
+    'nav.sign_out': 'வெளியேறு / நுழைவாயில்',
+
+    // Dashboard
+    'dash.title': 'கொள்முதல் தரநிலைகள் & QCO இணக்க முகப்புப்பலகை',
+    'dash.subtitle': 'BIS விவரக்குறிப்பு வரைபடம், செயலில் உள்ள QCO அமலாக்க நிலை மற்றும் டெண்டர் இணக்க சோதனைகள்.',
+    'dash.catalog_badge': 'BIS அட்டவணை v2025.2',
+    'dash.catalog_updated': 'இன்று புதுப்பிக்கப்பட்டது 08:30 IST',
+    'dash.export_audit': 'தணிக்கையை ஏற்றுமதி செய்',
+    'dash.new_tender_review': 'புதிய டெண்டர் மதிப்பாய்வு',
+    'dash.stat1_title': 'செயலில் உள்ள தரநிலைகள் அட்டவணை',
+    'dash.stat1_desc': '14 BIS தொழில்நுட்பப் பிரிவுகளில் அட்டவணைப்படுத்தப்பட்ட விவரக்குறிப்புகள், 2025 வரை உள்ள அனைத்து அரசிதழ் அறிவிப்புகளையும் உள்ளடக்கியது.',
+    'dash.stat1_div': 'பிரிவுகள் CED, ETD, MTD, TXD',
+    'dash.stat2_title': 'பொருந்தும் விவரக்குறிப்புகள்',
+    'dash.stat2_desc': 'நகராட்சி மற்றும் மத்திய கொள்முதல் தேவைகளுக்காக உருவாக்கப்பட்ட தானியங்கி விவரக்குறிப்பு குறுக்குவழிகள்.',
+    'dash.stat2_latency': 'சராசரி தாமதம்: 1.4 வினாடி',
+    'dash.stat3_title': 'தணிக்கை செய்யப்பட்ட டெண்டர்கள்',
+    'dash.stat3_desc': 'கட்டாய தரக் கட்டுப்பாட்டு உத்தரவுகளுக்கு (QCO) எதிராக விதி வரைபடத்துடன் சரிபார்க்கப்பட்ட பொது RFPகள்.',
+    'dash.stat3_disc': 'பூஜ்ஜிய முக்கியமான முரண்பாடுகள்',
+    'dash.stat_codes': 'குறியீடுகள்',
+    'dash.stat_queries': 'வினவல்கள்',
+    'dash.stat_boqs': 'டெண்டர்கள்',
+    'dash.stat_match_pct': '98.6% பொருத்தம்',
+
+    'dash.workflows_title': 'நேரடி தணிக்கையாளர் பணிப்பாய்வு',
+    'dash.workflows_shortcut': 'விரைவாகத் தொடங்க ⌘1 முதல் ⌘4 வரை அழுத்தவும்',
+    'dash.wf1_title': 'ஒரு தரநிலையைக் கண்டறியவும்',
+    'dash.wf1_desc': 'இயற்கை மொழி தேவை பொருத்தம் மற்றும் குறியீட்டு குறுக்குவழிகளைப் பயன்படுத்தி இந்திய தரநிலைகளைத் தேடுங்கள்.',
+    'dash.wf1_action': 'தரவுத்தளத்தில் தேடுங்கள்',
+    'dash.wf2_title': 'டெண்டரை ஆய்வு செய்',
+    'dash.wf2_desc': 'விடுபட்ட கட்டாய விவரக்குறிப்புகளைக் கண்டறிய கொள்முதல் RFP அல்லது BOQ ஆவணத்தைப் பதிவேற்றவும்.',
+    'dash.wf2_action': 'ஆவணத்தைச் சமர்ப்பிக்கவும்',
+    'dash.wf3_title': 'இணக்கத்தைச் சரிபார்',
+    'dash.wf3_desc': 'கட்டாய BIS சான்றிதழ் விதிகள் மற்றும் செயலில் உள்ள அரசிதழ் தரக் கட்டுப்பாட்டு உத்தரவுகளை (QCO) சரிபார்க்கவும்.',
+    'dash.wf3_action': 'உத்தரவைச் சரிபார்க்கவும்',
+    'dash.wf4_title': 'நூலகத்தை உலாவவும்',
+    'dash.wf4_desc': 'திருத்தப் பதிவுகள், திரும்பப் பெறப்பட்ட அறிவிப்புகள் மற்றும் வரைவுத் திருத்தங்களுடன் 12,000+ தரநிலைகளை ஆராயுங்கள்.',
+    'dash.wf4_action': 'நூலகத்தை அணுகவும்',
+
+    'dash.dist_title': 'பொருட்கள் வகை வாரியாக தேசிய தரநிலைகள் பகிர்வு',
+    'dash.dist_tag': 'தேசிய பகிர்வு',
+    'dash.dist_calibrated': 'அரசிதழ் 2025-க்கு அளவீடு செய்யப்பட்டது',
+    'dash.dist_crs_note': 'கட்டாயப் பதிவுத் திட்டம் (CRS) இவற்றில் 88 வகைகளைக் கண்காணிக்கிறது',
+    'dash.dist_view_taxonomy': 'வகைப்பாட்டைக் காண்க',
+    'dash.dist_total_codes': 'மொத்த குறியீடுகள்',
+    'dash.dist_cat1': 'மின் உபகரணங்கள் மற்றும் கேபிள்கள்',
+    'dash.dist_cat2': 'சிவில் இன்ஜினியரிங் மற்றும் கட்டுமானம்',
+    'dash.dist_cat3': 'மெக்கானிக்கல் மற்றும் உலோகம்',
+    'dash.dist_cat4': 'தனிநபர் பாதுகாப்பு உபகரணங்கள் (PPE)',
+    'dash.dist_cat5': 'ஐடி, எலக்ட்ரானிக்ஸ் மற்றும் தொலைத்தொடர்பு',
+    'dash.dist_cat6': 'வேதிப்பொருட்கள் மற்றும் தொழில்நுட்ப ஜவுளி',
+
+    'dash.audit_trail_title': 'சமீபத்திய AI தணிக்கை செயல்பாடு',
+    'dash.audit_trail_tag': 'தொடர்ச்சியான தணிக்கைப் பதிவு',
+    'dash.audit_view_all': 'முழு தணிக்கைப் பதிவைக் காண்க',
+    'dash.audit_showing': 'சமீபத்திய 4 நிகழ்வுகள் காட்டப்படுகின்றன',
+
+    'banner.title': 'BIS அரசிதழ் QCO அறிவிப்பு 2025/Q1 நடைமுறைக்கு வந்துள்ளது',
+    'banner.badge': 'உடனடி அமல்',
+    'banner.desc': '17 புதிய மெக்கானிக்கல் ஃபாஸ்டென்சர்கள், பாலிமர் குழாய்கள் மற்றும் மருத்துவ சாதனங்கள் பொதுக் கொள்முதலில் கட்டாய இந்திய தரநிலைகளின் கீழ் கொண்டுவரப்பட்டுள்ளன.',
+    'banner.cta': 'பாதிக்கப்பட்ட பொருட்களை மதிப்பாய்வு செய்',
+
+    // Search Page
+    'search.header_badge': 'BIS தேவைத் தேடல்',
+    'search.indexed_count': '12,486 அட்டவணைப்படுத்தப்பட்ட விவரக்குறிப்புகள்',
+    'search.title': 'இந்திய தரநிலைகள் தேவைத் தேடல்',
+    'search.subtitle': 'பொருந்தும் இந்திய தரநிலைகள் மற்றும் கட்டாய QCO உத்தரவுகளைக் கண்டறிய தயாரிப்பு விவரக்குறிப்புகள் அல்லது டெண்டர் அளவுருக்களை உள்ளிடவும்.',
+    'search.input_label': 'கொள்முதல் விவரக்குறிப்பு / தேவை விவரங்கள்',
+    'search.input_placeholder': 'பொருள் விளக்கம் அல்லது அளவுருக்களை உள்ளிடவும் (எ.கா. 90W வெளிப்புற LED தெரு விளக்கு, பாதுகாப்பு தலைக்கவசம், சிமெண்ட்)...',
+    'search.btn': 'தரநிலைகளைத் தேடுங்கள்',
+    'search.analyzing': 'தேவையின் ஆய்வு நடைபெறுகிறது...',
+    'search.start_analysis': 'ஆய்வைத் தொடங்கு',
+    'search.sample_queries': 'மாதிரி வினவல்கள்:',
+    'search.featured_tag': 'செயலில் உள்ள அட்டவணை',
+    'search.featured_title': 'அடிக்கடி தணிக்கை செய்யப்படும் தரநிலைகள்',
+    'search.featured_desc': 'சிவில், மின்சாரம் மற்றும் உள்கட்டமைப்பு டெண்டர்களில் பொதுவான விவரக்குறிப்புகள் வினவப்படுகின்றன.',
+
+    // Recommendations Page
+    'rec.back_search': 'புதிய தேடல்',
+    'rec.conformity_report': 'BIS தரநிலை இணக்க அறிக்கை',
+    'rec.title': 'விவரக்குறிப்பு பொருத்தம் அறிக்கை',
+    'rec.subtitle': 'கொள்முதல் அளவுருக்களுடன் பொருந்திய மற்றும் செயலில் உள்ள QCO உத்தரவுகளின் கீழ் சரிபார்க்கப்பட்ட இந்திய தரநிலைகள்.',
+    'rec.print_btn': 'அறிக்கையை அச்சிடுக',
+    'rec.eval_req': 'மதிப்பிடப்பட்ட தேவை',
+    'rec.prod_cat': 'பொருளின் வகை',
+    'rec.extracted_params': 'பிரித்தெடுக்கப்பட்ட அளவுருக்கள்',
+    'rec.rule_title': 'சட்டப்பூர்வ கொள்முதல் விதி',
+    'rec.rule_desc': 'BIS சட்டம் பிரிவு 16-ன் கீழ், கட்டாய QCO உள்ள பொருட்களை சரியான BIS தரக் குறியீடு இல்லாமல் தயாரிக்கவோ, இறக்குமதி செய்யவோ அல்லது GeM-ல் வாங்கவோ முடியாது.',
+    'rec.ranked_specs': 'வரிசைப்படுத்தப்பட்ட விவரக்குறிப்புகள்',
+    'rec.candidate_stds': 'பொருந்தக்கூடிய இந்திய தரநிலைகள்',
+    'rec.ordered_by': 'தொழில்நுட்ப அளவுரு பொருத்தத்தின்படி வரிசைப்படுத்தப்பட்டது.',
+    'rec.confidence': 'நம்பகத்தன்மை',
+    'rec.high_match': 'உயர் பொருத்தம்',
+    'rec.scope_mandate': 'நோக்கம் மற்றும் இணக்க ஆணை:',
+    'rec.view_scope': 'நோக்கம் மற்றும் தொடர்புடைய தரநிலைகளைக் காண்க',
+    'rec.hide_scope': 'நோக்க விவரங்களை மறை',
+    'rec.specification_btn': 'முழு விவரக்குறிப்பு',
+    'rec.no_match_title': 'பொருத்தமான தரநிலை எதுவும் கிடைக்கவில்லை',
+    'rec.no_match_desc': 'உங்கள் தேடலுடன் எந்தத் தரநிலையும் பொருந்தவில்லை. தயவுசெய்து பிற அளவுருக்களை முயற்சிக்கவும் அல்லது நூலகத்தில் உலாவவும்.',
+
+    // Tender Analysis Page
+    'tender.tag': 'டெண்டர் ஆவணத் தணிக்கையாளர்',
+    'tender.conformance': 'பொதுக் கொள்முதல் இணக்கம்',
+    'tender.title': 'டெண்டர் விவரக்குறிப்பு தணிக்கை',
+    'tender.subtitle': 'இந்திய தரநிலைகள் மற்றும் கட்டாய தரக் கட்டுப்பாட்டு உத்தரவுகளுக்கு எதிராக பொதுக் கொள்முதல் டெண்டர்களைத் தணிக்கை செய்தல்.',
+    'tender.upload_title': 'டெண்டர் விவரக்குறிப்பு ஆவணத்தைப் பதிவேற்றவும்',
+    'tender.upload_desc': 'இந்திய தரநிலைகளுடன் ஒப்பிட்டுப் பார்க்க RFP, BOQ அல்லது பணி வரம்பு ஆவணத்தைச் சமர்ப்பிக்கவும்.',
+    'tender.load_sample': 'மாதிரி BOQ-ஐ ஏற்றுக',
+    'tender.drag_drop': 'உங்கள் டெண்டர் PDF அல்லது DOCX கோப்பை இங்கே இழுத்துப் போடவும்',
+    'tender.browse_files': 'கோப்பைத் தேர்ந்தெடுக்கவும்',
+    'tender.limit': 'அதிகபட்சம் 25MB • பிரிவு வாரியாக அளவுரு பிரித்தெடுத்தல்',
+    'tender.evaluating': 'ஆவணப் பிரிவுகள் மதிப்பாய்வு செய்யப்படுகின்றன...',
+    'tender.eval_step1': 'ஆவண உரை பகுப்பாய்வு மற்றும் BOQ பிரித்தெடுத்தல்...',
+    'tender.eval_step2': 'பிரித்தெடுக்கப்பட்ட அளவுருக்களை இந்திய தரநிலைகளுடன் ஒப்பிடுதல்...',
+    'tender.eval_step3': 'கட்டாய QCO உத்தரவுகள் மற்றும் அரசிதழ் திருத்தங்களைச் சரிபார்த்தல்...',
+    'tender.eval_step4': 'இணக்க மதிப்பெண் மற்றும் முரண்பாட்டு அறிக்கையைத் தொகுத்தல்...',
+
+    // Compliance Page
+    'comp.tag': 'QCO சரிபார்ப்பு',
+    'comp.orders_active': 'செயலில் உள்ள அரசிதழ் உத்தரவுகள்',
+    'comp.title': 'தரக் கட்டுப்பாட்டு உத்தரவு (QCO) சரிபார்ப்பு',
+    'comp.subtitle': 'மத்திய அமைச்சகத்தின் தரக் கட்டுப்பாட்டு உத்தரவுகளின் கீழ் தயாரிப்புகளுக்கு கட்டாய BIS சான்றிதழ் முத்திரை தேவையா என்பதைச் சரிபார்க்கவும்.',
+    'comp.print_note': 'இணக்கக் குறிப்பை அச்சிடுக',
+    'comp.select_label': 'ஒழுங்குமுறை ஆணை சோதனைக்கு இந்திய தரநிலையைத் தேர்ந்தெடுக்கவும்:',
+    'comp.filter_placeholder': 'IS எண் அல்லது பொருளின் பெயரால் வடிகட்டவும்...',
+    'comp.banner_title': 'மத்திய தரக் கட்டுப்பாட்டு உத்தரவு அமலாக்கம் (2025/Q1)',
+    'comp.statutory_badge': 'சட்டப்பூர்வ விதி',
+    'comp.banner_desc': 'கட்டாய QCO அமலில் உள்ள இடங்களில் BIS சான்றளிக்கப்படாத பொருட்களைக் கொள்முதல் செய்வது BIS சட்டம் 2016 பிரிவு 16 மற்றும் பொது நிதி விதிகளை (GFR) மீறுவதாகும்.',
+    'comp.browse_gazette': 'QCO அரசிதழ் நூலகத்தை உலாவுக',
+
+    // Standards Library Page
+    'lib.tag': 'இந்திய தரநிலைகள் பணியகக் களஞ்சியம்',
+    'lib.title': 'இந்திய தரநிலைகள் நூலகம்',
+    'lib.subtitle': 'அதிகாரப்பூர்வ BIS விவரக்குறிப்புகள், தரக் கட்டுப்பாட்டு உத்தரவுகள் மற்றும் அரசிதழ் திருத்தங்களை உலாவி வினவவும்.',
+    'lib.req_search_btn': 'தேவைத் தேடல்',
+    'lib.filter_placeholder': 'IS குறியீடு, தலைப்பு அல்லது தயாரிப்பு முக்கியச் சொல்லால் வடிகட்டவும் (எ.கா. IS 10322, ஹெல்மெட், சிமெண்ட், கேபிள்)...',
+    'lib.divisions': 'பிரிவுகள்:',
+    'lib.div_all': 'அனைத்தும்',
+    'lib.div_lighting': 'விளக்குகள்',
+    'lib.div_safety': 'பாதுகாப்பு / PPE',
+    'lib.div_cement': 'சிமெண்ட் / கட்டுமானம்',
+    'lib.div_cables': 'மின்சார கேபிள்கள்',
+    'lib.th_code': 'தரநிலைக் குறியீடு',
+    'lib.th_title': 'விவரக்குறிப்பு தலைப்பு & நோக்கம்',
+    'lib.th_category': 'வகை',
+    'lib.th_status': 'நிலை',
+    'lib.th_action': 'நடவடிக்கை',
+    'lib.inspect': 'ஆய்வு செய்',
+
+    // Standard Detail View Page
+    'detail.back': 'நூலகத்திற்குத் திரும்பு',
+    'detail.record_id': 'பதிவு எண்:',
+    'detail.official_portal': 'BIS அதிகாரப்பூர்வ போர்டல்',
+    'detail.verify_qco': 'QCO உத்தரவைச் சரிபார்',
+    'detail.tech_division': 'தொழில்நுட்பப் பிரிவு',
+    'detail.prod_category': 'பொருளின் வகை',
+    'detail.conformity_scheme': 'இணக்கத் திட்டம்',
+    'detail.gazette_year': 'அரசிதழ் ஆண்டு',
+    'detail.scope_title': 'தொழில்நுட்ப நோக்கம் மற்றும் ஒழுங்குமுறை பயன்பாடு',
+    'detail.clauses_title': 'கட்டாய விவரக்குறிப்பு பிரிவுகள் & சோதனை முறைகள்',
+    'detail.clauses_sub': 'டெண்டர் மதிப்பீட்டின் போது தேவைப்படும் தணிக்கை செய்யக்கூடிய தொழில்நுட்ப விவரக்குறிப்புகள்.',
+    'detail.allied_title': 'தொடர்புடைய & குறுக்கு-குறிப்பு இந்திய தரநிலைகள்',
+    'detail.th_clause': 'பிரிவு / எண்',
+    'detail.th_param': 'அளவுருவின் பெயர்',
+    'detail.th_req': 'குறிப்பிட்ட தேவை',
+    'detail.th_method': 'சரிபார்ப்பு முறை',
+
+    // Audit History Page
+    'hist.tag': 'அமர்வுப் பதிவு',
+    'hist.records': 'பதிவுகள்',
+    'hist.title': 'விவரக்குறிப்பு மதிப்பாய்வு வரலாறு',
+    'hist.subtitle': 'முந்தைய கொள்முதல் தேவைத் தேடல்கள் மற்றும் டெண்டர் ஆவணத் தணிக்கைகள்.',
+    'hist.clear_log': 'பதிவை அழி',
+    'hist.new_search': 'புதிய தேடல்',
+    'hist.search_placeholder': 'முந்தைய மதிப்பாய்வுகளை முக்கியச் சொல் மூலம் தேடவும்...',
+    'hist.showing': 'காட்டப்படுகிறது',
+    'hist.of': 'இல்',
+    'hist.reviews': 'மதிப்பாய்வுகள்',
+    'hist.th_type': 'தணிக்கை வகை',
+    'hist.th_req': 'தேவை / ஆவணத்தின் பெயர்',
+    'hist.th_mapped': 'வரைபடமாக்கப்பட்ட தரநிலைகள்',
+    'hist.th_score': 'பொருத்த மதிப்பெண்',
+    'hist.th_date': 'தேதி',
+    'hist.th_action': 'நடவடிக்கை',
+    'hist.reopen': 'மீண்டும் திறக்க',
+    'hist.empty_title': 'மதிப்பாய்வு வரலாறு எதுவும் இல்லை',
+    'hist.empty_desc': 'உங்கள் தணிக்கைப் பதிவை அழித்துவிட்டீர்கள். வரலாற்றை நிரப்ப புதிய தேடலை இயக்கவும்.',
+    'hist.restore_demo': 'டெமோ பதிவை மீட்டமைக்கவும்',
+    'hist.start_new': 'புதிய மதிப்பாய்வைத் தொடங்கு',
+
+    // Login Page
+    'login.welcome': 'போர்ட்டலில் உள்நுழைக',
+    'login.sub': 'இந்திய தரநிலைகள் & QCO கொள்முதல் நுண்ணறிவு போர்டல்',
+    'login.username_label': 'பயனர்பெயர் / அதிகாரப்பூர்வ பெயர்',
+    'login.username_placeholder': 'எ.கா. சுஜை ராஜ் அல்லது officer@gov.in',
+    'login.password_label': 'கடவுச்சொல் / கடவுக்குறியீடு',
+    'login.password_placeholder': 'உங்கள் கடவுக்குறியீட்டை உள்ளிடவும்',
+    'login.demo_hint': 'டெமோ: Sujai Raj / isense2026',
+    'login.auto_fill': 'தானாக நிரப்பு',
+    'login.submit_btn': 'போர்ட்டலில் நுழையவும்',
+    'login.signing_in': 'உள்நுழைகிறது...',
+    'login.sso_note': 'NIC, GeM & மத்திய கொள்முதல் அதிகாரிகளுக்கு ஒற்றை உள்நுழைவு (SSO) இயக்கப்பட்டுள்ளது',
+    'login.copyright': 'இந்திய தரநிலைகள் பணியக நுண்ணறிவு அமைப்பு',
+
+    // Profile Page
+    'profile.title': 'அதிகாரி சுயவிவரம் & தணிக்கைச் சான்றுகள்',
+    'profile.subtitle': 'அரசிதழ் தணிக்கை கையொப்பங்கள் மற்றும் டெண்டர் மதிப்பாய்வு அறிக்கைகளில் பயன்படுத்தப்படும் கொள்முதல் அதிகாரச் சான்றுகள்.',
+    'profile.cred_verified': 'அதிகாரி சான்றுகள் சரிபார்க்கப்பட்டன',
+    'profile.sso_active': 'NIC ஒற்றை உள்நுழைவு செயலில் உள்ளது',
+    'profile.save_btn': 'சான்றுகளைச் சேமிக்கவும்',
+    'profile.full_name': 'முழுப் பெயர்',
+    'profile.designation': 'பதவி',
+    'profile.department': 'துறை',
+    'profile.organization': 'நிறுவனம் / அமைப்பு',
+    'profile.official_email': 'அதிகாரப்பூர்வ மின்னஞ்சல்',
+    'profile.contact_phone': 'அதிகாரப்பூர்வ தொலைபேசி',
+
+    // Badges & Common
+    'badge.current': 'தற்போதைய',
+    'badge.mandatory_qco': 'கட்டாய QCO',
+    'badge.mandatory_crs': 'கட்டாய CRS',
+    'badge.scheme1': 'திட்டம்-I கட்டாயம் (ISI)',
+    'badge.verified': 'சரிபார்க்கப்பட்டது',
+    'theme.toggle_dark': 'இருண்ட பயன்முறைக்கு மாறவும்',
+    'theme.toggle_light': 'வெளிச்ச பயன்முறைக்கு மாறவும்',
+    'lang.toggle_hi': 'हिन्दी',
+    'lang.toggle_en': 'English',
+    'lang.toggle_ta': 'தமிழ்'
   }
 };
+
+export const AVAILABLE_LANGUAGES = [
+  { code: 'en', label: 'English', short: 'EN' },
+  { code: 'hi', label: 'हिन्दी', short: 'HI' },
+  { code: 'ta', label: 'தமிழ்', short: 'தமிழ்' }
+];
 
 export function LanguageProvider({ children }) {
   const [language, setLanguage] = useState(() => {
     try {
-      return localStorage.getItem('isense_language') || 'en';
+      const saved = localStorage.getItem('isense_language');
+      if (saved === 'hi' || saved === 'ta' || saved === 'en') return saved;
+      return 'en';
     } catch {
       return 'en';
     }
@@ -537,7 +804,11 @@ export function LanguageProvider({ children }) {
   }, [language]);
 
   const toggleLanguage = () => {
-    setLanguage(prev => (prev === 'en' ? 'hi' : 'en'));
+    setLanguage(prev => {
+      if (prev === 'en') return 'hi';
+      if (prev === 'hi') return 'ta';
+      return 'en';
+    });
   };
 
   const t = (key, fallback = '') => {

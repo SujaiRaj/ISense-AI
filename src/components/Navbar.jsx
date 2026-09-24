@@ -7,7 +7,7 @@ export default function Navbar({ userProfile, onOpenSidebar }) {
   const [searchQuery, setSearchQuery] = useState('');
   const location = useLocation();
   const navigate = useNavigate();
-  const { language, toggleLanguage, t } = useLanguage();
+  const { language, setLanguage, toggleLanguage, t } = useLanguage();
   const { isDark, toggleTheme } = useTheme();
 
   const userName = userProfile?.name || t('officer.title', "Procurement Officer");
@@ -65,7 +65,7 @@ export default function Navbar({ userProfile, onOpenSidebar }) {
 
       {/* Right Controls */}
       <div className="flex items-center gap-2 sm:gap-3">
-        <form onSubmit={handleSearchSubmit} className="hidden md:flex items-center w-52 lg:w-72 px-2.5 py-1.5 rounded-lg bg-surface border border-slate-200 focus-within:border-primary focus-within:ring-1 focus-within:ring-primary/20 focus-within:bg-white transition-all shadow-2xs">
+        <form onSubmit={handleSearchSubmit} className="hidden md:flex items-center w-48 lg:w-72 px-2.5 py-1.5 rounded-lg bg-surface border border-slate-200 focus-within:border-primary focus-within:ring-1 focus-within:ring-primary/20 focus-within:bg-white transition-all shadow-2xs">
           <span className="material-symbols-outlined text-slate-400 text-[16px] mr-2">search</span>
           <input
             type="text"
@@ -79,17 +79,45 @@ export default function Navbar({ userProfile, onOpenSidebar }) {
           </kbd>
         </form>
 
-        {/* Language Toggle (Hindi / English) */}
-        <button
-          type="button"
-          onClick={toggleLanguage}
-          className="flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold border transition-all cursor-pointer bg-slate-50 border-slate-200 hover:border-primary text-slate-700 hover:text-primary shadow-2xs"
-          title={language === 'en' ? 'हिन्दी में बदलें (Switch to Hindi)' : 'Switch to English'}
-          id="language-toggle-btn"
-        >
-          <span className="material-symbols-outlined text-[15px] text-primary">translate</span>
-          <span className="font-medium">{language === 'en' ? 'हिन्दी' : 'English'}</span>
-        </button>
+        {/* Language Selector: EN | हिन्दी | தமிழ் */}
+        <div className="flex items-center rounded-lg border border-slate-200 bg-slate-50/80 p-0.5 shadow-2xs text-xs font-semibold" id="language-selector">
+          <button
+            type="button"
+            onClick={() => setLanguage('en')}
+            className={`px-2 py-0.5 rounded-md transition-all cursor-pointer font-medium ${
+              language === 'en'
+                ? 'bg-primary text-white shadow-2xs font-semibold'
+                : 'text-slate-600 hover:text-primary'
+            }`}
+            title="English"
+          >
+            EN
+          </button>
+          <button
+            type="button"
+            onClick={() => setLanguage('hi')}
+            className={`px-2 py-0.5 rounded-md transition-all cursor-pointer font-medium ${
+              language === 'hi'
+                ? 'bg-primary text-white shadow-2xs font-semibold'
+                : 'text-slate-600 hover:text-primary'
+            }`}
+            title="हिन्दी (Hindi)"
+          >
+            हिन्दी
+          </button>
+          <button
+            type="button"
+            onClick={() => setLanguage('ta')}
+            className={`px-2 py-0.5 rounded-md transition-all cursor-pointer font-medium ${
+              language === 'ta'
+                ? 'bg-primary text-white shadow-2xs font-semibold'
+                : 'text-slate-600 hover:text-primary'
+            }`}
+            title="தமிழ் (Tamil)"
+          >
+            தமிழ்
+          </button>
+        </div>
 
         {/* Theme Toggle (Light / Dark Mode) */}
         <button

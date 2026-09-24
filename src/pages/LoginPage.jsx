@@ -5,7 +5,7 @@ import { useTheme } from '../context/ThemeContext';
 
 export default function LoginPage({ onLogin }) {
   const navigate = useNavigate();
-  const { language, toggleLanguage, t } = useLanguage();
+  const { language, setLanguage, toggleLanguage, t } = useLanguage();
   const { isDark, toggleTheme } = useTheme();
 
   const [username, setUsername] = useState('');
@@ -19,12 +19,24 @@ export default function LoginPage({ onLogin }) {
     setError('');
 
     if (!username.trim()) {
-      setError(language === 'hi' ? 'कृपया अपना आधिकारिक नाम या ईमेल दर्ज करें।' : 'Please enter your name or official username.');
+      if (language === 'hi') {
+        setError('कृपया अपना आधिकारिक नाम या ईमेल दर्ज करें।');
+      } else if (language === 'ta') {
+        setError('தயவுசெய்து உங்கள் அதிகாரப்பூர்வ பெயர் அல்லது மின்னஞ்சலை உள்ளிடவும்.');
+      } else {
+        setError('Please enter your name or official username.');
+      }
       return;
     }
 
     if (!password.trim()) {
-      setError(language === 'hi' ? 'कृपया अपना पासवर्ड दर्ज करें।' : 'Please enter your password.');
+      if (language === 'hi') {
+        setError('कृपया अपना पासवर्ड दर्ज करें।');
+      } else if (language === 'ta') {
+        setError('தயவுசெய்து உங்கள் கடவுச்சொல்லை உள்ளிடவும்.');
+      } else {
+        setError('Please enter your password.');
+      }
       return;
     }
 
@@ -65,16 +77,45 @@ export default function LoginPage({ onLogin }) {
 
           <div className="h-4 w-px bg-slate-200 hidden sm:block" />
 
-          {/* Language Toggle */}
-          <button
-            type="button"
-            onClick={toggleLanguage}
-            className="flex items-center gap-1 px-2 py-0.5 rounded-md text-xs font-semibold border transition-all cursor-pointer bg-white border-slate-200 hover:border-primary text-slate-700 hover:text-primary shadow-2xs"
-            title={language === 'en' ? 'हिन्दी में बदलें' : 'Switch to English'}
-          >
-            <span className="material-symbols-outlined text-[14px] text-primary">translate</span>
-            <span>{language === 'en' ? 'हिन्दी' : 'EN'}</span>
-          </button>
+          {/* Language Selector: EN | हिन्दी | தமிழ் */}
+          <div className="flex items-center rounded-lg border border-slate-200 bg-white p-0.5 shadow-2xs text-[11px] font-semibold">
+            <button
+              type="button"
+              onClick={() => setLanguage('en')}
+              className={`px-2 py-0.5 rounded-md transition-all cursor-pointer font-medium ${
+                language === 'en'
+                  ? 'bg-primary text-white shadow-2xs font-semibold'
+                  : 'text-slate-600 hover:text-primary'
+              }`}
+              title="English"
+            >
+              EN
+            </button>
+            <button
+              type="button"
+              onClick={() => setLanguage('hi')}
+              className={`px-2 py-0.5 rounded-md transition-all cursor-pointer font-medium ${
+                language === 'hi'
+                  ? 'bg-primary text-white shadow-2xs font-semibold'
+                  : 'text-slate-600 hover:text-primary'
+              }`}
+              title="हिन्दी (Hindi)"
+            >
+              हिन्दी
+            </button>
+            <button
+              type="button"
+              onClick={() => setLanguage('ta')}
+              className={`px-2 py-0.5 rounded-md transition-all cursor-pointer font-medium ${
+                language === 'ta'
+                  ? 'bg-primary text-white shadow-2xs font-semibold'
+                  : 'text-slate-600 hover:text-primary'
+              }`}
+              title="தமிழ் (Tamil)"
+            >
+              தமிழ்
+            </button>
+          </div>
 
           {/* Theme Toggle */}
           <button
@@ -158,7 +199,9 @@ export default function LoginPage({ onLogin }) {
                   onClick={() => setShowPassword(!showPassword)}
                   className="text-[11px] text-slate-400 hover:text-primary transition-colors cursor-pointer"
                 >
-                  {showPassword ? (language === 'hi' ? 'छिपाएँ' : 'Hide') : (language === 'hi' ? 'दिखाएँ' : 'Show')}
+                  {showPassword 
+                    ? (language === 'hi' ? 'छिपाएँ' : language === 'ta' ? 'மறைக்க' : 'Hide') 
+                    : (language === 'hi' ? 'दिखाएँ' : language === 'ta' ? 'காட்டுக' : 'Show')}
                 </button>
               </div>
               <div className="relative">
